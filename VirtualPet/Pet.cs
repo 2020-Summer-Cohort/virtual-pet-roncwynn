@@ -18,9 +18,16 @@ namespace VirtualPet
         //}
 
         public string Species { get; set; }
+        public int Hunger { get; set; }
+        public int Health { get; set; }
+        public int Boredom { get; set; }
+
+
         public Pet()
         {
-
+            // next 2 lines resolve NotNull test failures, but not sure why they are necessary???
+            Name = "PetName";
+            Species = "PetSpecies";
         }
 
         public Pet(string name)

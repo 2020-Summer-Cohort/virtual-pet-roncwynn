@@ -74,7 +74,7 @@ namespace VirtualPet.Tests
         [Fact]
         public void Pet_Should_Have_Hunger()
         {
-            // Assert.NotNull(testPet.Hunger);
+             Assert.NotNull(testPet.Hunger);
         }
 
         [Fact]
@@ -88,7 +88,7 @@ namespace VirtualPet.Tests
         [Fact]
         public void Pet_Should_Have_Boredom()
         {
-            // Assert.NotNull(testPet.Boredom);
+             Assert.NotNull(testPet.Boredom);
         }
 
         [Fact]
@@ -102,7 +102,7 @@ namespace VirtualPet.Tests
         [Fact]
         public void Pet_Should_Have_Health()
         {
-            // Assert.NotNull(testPet.Health);
+             Assert.NotNull(testPet.Health);
         }
 
         [Fact]
