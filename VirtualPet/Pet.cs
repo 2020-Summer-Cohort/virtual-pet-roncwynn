@@ -37,7 +37,7 @@ namespace VirtualPet
         public Pet()
         {
             //TODO:  next 2 lines resolve NotNull test failures, but not sure why they are necessary???
-            Name = "PetName";
+            //Name = "PetName";
             Species = "PetSpecies";
             Hunger = initialHungerValue;
             Boredom = initialBoredomValue;
@@ -108,6 +108,9 @@ namespace VirtualPet
         public void Feed()
         {
             Hunger = Hunger - 40;
+            Thirsty = Thirsty + 10;
+            Irritated = Irritated + 10;
+            Health = Health - 10;
         }
 
         public void SeeDoctor()
@@ -125,19 +128,35 @@ namespace VirtualPet
             Energy = Energy - 20;
         }
 
+        public void Sleep()
+        {
+            Energy = Energy + 20;
+            Boredom = Boredom + 10;
+            Hunger = Hunger + 20;
+            Thirsty = Thirsty + 10;
+            Health = Health + 5;
+            Irritated = Irritated + 30;
+        }
+        public void Relieve()
+        {
+            Irritated = 0;
+        }
+
+        public void Drink()
+        {
+            Thirsty = Thirsty - 20;
+            Irritated = Irritated + 10;
+            Health = Health - 5;
+        }
         public void Tick()
         {
             Hunger = Hunger + 5;
             Thirsty = Thirsty + 5;
-            Health = Health - 5;
+            Health = Health - 15;
             Boredom = Boredom + 5;
-            Energy = Energy - 5; //???
+            Energy = Energy - 5; 
             Irritated = Irritated + 5;
         }
 
-        public void CreatePet()
-        {
-
-        }
     }
 }

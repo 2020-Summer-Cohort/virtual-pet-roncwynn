@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mail;
 using System.Net.NetworkInformation;
 
 //DEBUG ByPass Hardcoding Start
@@ -66,10 +67,17 @@ namespace VirtualPet
                 Console.WriteLine();
                 Console.WriteLine($"1. Play with {somePet.Name}");
                 Console.WriteLine($"2. Feed {somePet.Name}");
-                Console.WriteLine("3. Quit the Game");
+                Console.WriteLine($"3. Give {somePet.Name} some water.");
+                Console.WriteLine($"4. Take {somePet.Name} to the Vet.");
+                Console.WriteLine($"5. Let {somePet.Name} outside to do thier business.");
+                Console.WriteLine($"6. Do nothing with {somePet.Name}.");
+                Console.WriteLine("9. Quit the Game");
 
                 string playerChoice = Console.ReadLine().ToLower();
 
+                Console.Clear();
+                Console.WriteLine();
+                Console.WriteLine();
                 //TODO:  ???Create Methods for game actions???
                 switch (playerChoice)
                 {
@@ -81,7 +89,23 @@ namespace VirtualPet
                         somePet.Feed();
                         Console.WriteLine($"You fed {somePet.Name}.");
                         break;
-                    case "3": //Quit the Game
+                    case "3": //Give Water
+                        somePet.Drink();
+                        Console.WriteLine($"You gave {somePet.Name} some water to drink.");
+                        break;
+                    case "4": //Take to Vet
+                        somePet.SeeDoctor();
+                        Console.WriteLine($"You took {somePet.Name} to the vet and all is well.");
+                        break;
+                    case "5": //Let outside
+                        somePet.Relieve();
+                        Console.WriteLine($"You let {somePet.Name} relieve themself and {somePet.Name} is happy!");
+                        break;
+                    case "6": //Do Nothing
+                        Console.WriteLine($"{somePet.Name} is doing their own thing.");
+                        //TODO add ignore factor
+                        break;
+                    case "9": //Quit the Game
                         keepPlaying = false;
                         break;
                     default:
