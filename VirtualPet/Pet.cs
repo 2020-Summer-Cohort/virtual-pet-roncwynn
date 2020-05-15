@@ -12,6 +12,9 @@ namespace VirtualPet
         private int initialBoredomValue = 60;
         private int initialHealthValue = 30;
 
+        //TODO:  Create an Enum for Pet Species, and add more types of pets
+        //public enum petSpecies { Cat, Dog, Tiger }
+
         public string Name { get; set; }
 
         //TODO:  This way causes SetSpecies Test to Fail
@@ -106,6 +109,11 @@ namespace VirtualPet
             Hunger = Hunger + 5;
             Health = Health - 5;
             Boredom = Boredom + 5;
+        }
+
+        public void CreatePet()
+        {
+
         }
     }
 }
