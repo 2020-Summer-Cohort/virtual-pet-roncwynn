@@ -6,9 +6,26 @@ namespace VirtualPet
 {
     public class Pet
     {
+        //TODO:  Change these to CONST???
         private int initialHungerValue = 50;
         private int initialBoredomValue = 60;
         private int initialHealthValue = 30;
+        private int initialHydrationValue = 30;
+        private int initialIritableValue = 25;
+        private int initialEnergyValue = 100;
+
+        private int hungerThresholdMIN = 10;
+        private int hungerThresholdMAX = 100;
+        private int boresomeThresholdMIN = 10;
+        private int boresomeThresholdMAX = 100;
+        private int healthThresholdMIN = 10;
+        private int healthThresholdMAX = 100;
+        private int irritabaleThresholdMIN = 10;
+        private int irritabaleThresholdMAX = 100;
+        private int hydrationThresholdMIN = 10;
+        private int hydrationThresholdMAX = 100;
+        private int energyThresholdMIN = 10;
+        private int enerfyThresholdMAX = 100;
 
         //TODO:  Create an Enum for Pet Species, and add more types of pets
         //public enum petSpecies { Cat, Dog, Tiger }
@@ -21,7 +38,7 @@ namespace VirtualPet
         public int Hunger { get; set; }
         public int Health { get; set; }
         public int Boredom { get; set; }
-        public int Thirsty { get; set; }
+        public int Hydration { get; set; }
         public int Energy { get; set; }
         public int Irritated { get; set; }
 
@@ -32,23 +49,33 @@ namespace VirtualPet
             //TODO:  next 2 lines resolve NotNull test failures, but not sure why they are necessary???
             Name = "PetName";
             Species = "PetSpecies";
-            Hunger = initialHungerValue;
-            Boredom = initialBoredomValue;
-            Health = initialHealthValue;
+            SetInitialPetValues();
         }
 
         public Pet(string name)
         {
             Name = name;
             //Name = "My Pet Name";
+            SetInitialPetValues();
         }
 
         public Pet(string name, string species)
         {
             Name = name;
             Species = species;
+            SetInitialPetValues();
         }
 
+        private void SetInitialPetValues()
+        {
+            Hunger = initialHungerValue;
+            Boredom = initialBoredomValue;
+            Health = initialHealthValue;
+            Hydration = initialHydrationValue;
+            Energy = initialEnergyValue;
+            Irritated = initialIritableValue;
+
+        }
         public void SetName(string name)
         {
             Name = name;
@@ -84,9 +111,9 @@ namespace VirtualPet
             return Health;
         }
 
-        public int GetThirst()
+        public int GetHyrdation()
         {
-            return Thirsty;
+            return Hydration;
         }
 
         public int GetEnergy()
@@ -101,7 +128,7 @@ namespace VirtualPet
         public void Feed()
         {
             Hunger = Hunger - 40;
-            Thirsty = Thirsty + 10;
+            Hydration = Hydration + 10;
             Irritated = Irritated + 10;
             Health = Health - 10;
         }
@@ -116,7 +143,7 @@ namespace VirtualPet
             Hunger = Hunger + 10;
             Health = Health + 10;
             Boredom = Boredom - 20;
-            Thirsty = Thirsty + 10;
+            Hydration = Hydration + 10;
             Irritated = Irritated - 10;
             Energy = Energy - 20;
         }
@@ -126,7 +153,7 @@ namespace VirtualPet
             Energy = Energy + 20;
             Boredom = Boredom + 10;
             Hunger = Hunger + 20;
-            Thirsty = Thirsty + 10;
+            Hydration = Hydration + 10;
             Health = Health + 5;
             Irritated = Irritated + 30;
         }
@@ -137,18 +164,59 @@ namespace VirtualPet
 
         public void Drink()
         {
-            Thirsty = Thirsty - 20;
+            Hydration = Hydration - 20;
             Irritated = Irritated + 10;
-            Health = Health - 5;
+        }
+
+        public void Ignore()
+        {
+            Boredom = Boredom + 20;
+            Irritated = Irritated + 10;
+            Energy = Energy - 10;
+            LivingPetProcess();
+        }
+
+        private bool IsPetHungry()
+        {
+            if (Hunger < hungerThresholdMAX) 
+                return true; 
+            else  return false; 
+        }
+
+        private bool IsPetThirsty()
+        {
+            if (Hydration < hydrationThresholdMAX)
+             return true; 
+            else return false;
+        }
+
+        private bool IsPetIrritated()
+        {
+            if (Irritated >= irritabaleThresholdMAX)
+                return true;
+            else return false;
+        }
+
+        private void LivingPetProcess()
+        {
+            if (IsPetHungry()) 
+            { Feed(); }
+
+            if (IsPetThirsty())
+            { Drink(); }
+
+            if (IsPetIrritated())
+            { Relieve(); }
         }
         public void Tick()
         {
             Hunger = Hunger + 5;
-            Thirsty = Thirsty + 5;
+            Hydration = Hydration + 5;
             Health = Health - 5;
             Boredom = Boredom + 5;
             Energy = Energy - 5; 
             Irritated = Irritated + 5;
+            LivingPetProcess();  //this causes some tests to fail becuase it does additional modification
         }
 
     }

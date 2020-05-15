@@ -2,10 +2,14 @@
 using System.Net.Mail;
 using System.Net.NetworkInformation;
 
+//TODO:  De-Coulpe Start and Play game methods
+//TODO:  Create Game Class
+//TODO:  Decide best place for CreatePet and ShowStatus methods
 //TODO:  Add color to ouput
-//TODO:  Add additional calls to Tick where appropriate
-//TODO:  Add auto calls to Relieve and others? where appropriate
+
 //TODO:  Add prioritization in things pets does on its own
+//TODO:  Add changes in values to PetStatus message
+
 //TODO:  Add pet uncooperative actions (Random number???)
 //TODO:  Favorite foods for pet and different reactions
 //TODO:  Visual representation of pet
@@ -43,6 +47,8 @@ namespace VirtualPet
             if (playerGameResponse.ToLower() == "y")
             {
                 StartGame();
+                //PlayGame
+                //EndGame
             }
             else 
             {
@@ -53,7 +59,7 @@ namespace VirtualPet
         static void StartGame()
         {
             Console.Clear();
-            Console.WriteLine("\nGREAT.  Glad to want to play.");
+            Console.WriteLine("\nGREAT.  Glad you want to play.");
 
             Pet playersPet = CreatePet();
             Console.WriteLine("\n CONGRATULATIONS");
@@ -86,32 +92,38 @@ namespace VirtualPet
                 Console.Clear();
                 Console.WriteLine();
                 Console.WriteLine();
-                //TODO:  ???Create Methods for game actions???
+                //TODO:  ???Create Classes/Methods for game actions???
                 switch (playerChoice)
                 {
                     case "1": //Play with Pet
+                        //TODO:  Randomize or check irritability to see if pet wants to play
                         somePet.Play();
                         Console.WriteLine($"You played with {somePet.Name}.");
                         break;
                     case "2": //Feed Pet
+                        //TODO:  see if pet needs to eat
                         somePet.Feed();
                         Console.WriteLine($"You fed {somePet.Name}.");
                         break;
                     case "3": //Give Water
+                        //TODO:  see if pet needs to drink
                         somePet.Drink();
                         Console.WriteLine($"You gave {somePet.Name} some water to drink.");
                         break;
                     case "4": //Take to Vet
+                        //TODO:  check health factor first
                         somePet.SeeDoctor();
                         Console.WriteLine($"You took {somePet.Name} to the vet and all is well.");
                         break;
                     case "5": //Let outside
+                        //TODO:  check irritability to see if pet needs to relieve
                         somePet.Relieve();
                         Console.WriteLine($"You let {somePet.Name} relieve themself and {somePet.Name} is happy!");
                         break;
                     case "6": //Do Nothing
                         Console.WriteLine($"{somePet.Name} is doing their own thing.");
-                        //TODO add ignore factor
+                        somePet.Ignore();
+                        
                         break;
                     case "9": //Quit the Game
                         keepPlaying = false;
@@ -119,12 +131,19 @@ namespace VirtualPet
                     default:
                         break;
                 }
-                somePet.Tick();
-                ShowPetStatus(somePet);
+                if (keepPlaying)
+                {
+                    ProcessTime(somePet);
+                    ShowPetStatus(somePet);
+                }
             }
 
         }
 
+        public static void ProcessTime(Pet somePet)
+        {
+            somePet.Tick();
+        }
         public static Pet CreatePet()
         {
             //DEBUG ByPass Hardcoding Start
@@ -147,7 +166,7 @@ namespace VirtualPet
         {
             Console.WriteLine($"\n{somePet.Name}'s HEALTH factor is {somePet.Health}.");
             Console.WriteLine($"HUNGER factor is {somePet.Hunger}.");
-            Console.WriteLine($"THIRST factor is {somePet.Thirsty}.");
+            Console.WriteLine($"THIRST factor is {somePet.Hydration}.");
             Console.WriteLine($"ENERGY factor is {somePet.Energy}.");
             Console.WriteLine($"BOREDOM factor is {somePet.Boredom}.");
             Console.WriteLine($"IRRITATED factor is {somePet.Irritated}.");
