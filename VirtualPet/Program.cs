@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Net.NetworkInformation;
 
+//DEBUG ByPass Hardcoding Start
+//DEBUG ByPass Hardcoding End
+//DEBUG ByPass Normal Code Start
+//DEBUG ByPass Normal Code End
+
 namespace VirtualPet
 {
     class Program
@@ -13,9 +18,13 @@ namespace VirtualPet
 
             Console.WriteLine("\nWould you like to play the Virtual Pet game now?  Please press Y or N");
             //TODO:  Change this to a single character input
-            string playerGameResponse = Console.ReadLine();
+            //DEBUG ByPass Hardcoding Start
+            string playerGameResponse = "y";
+            //DEBUG ByPass Hardcoding End
+            //DEBUG ByPass Normal Code Start
+            //string playerGameResponse = Console.ReadLine();
+            //DEBUG ByPass Normal Code End
 
-            //Console.WriteLine($"\nuser entered = {playerGameResponse}");
 
             while (playerGameResponse.ToLower() != "y" && playerGameResponse.ToLower() != "n")
             {
@@ -24,7 +33,7 @@ namespace VirtualPet
             }
             if (playerGameResponse.ToLower() == "y")
             {
-                PlayGame();
+                StartGame();
             }
             else 
             {
@@ -32,64 +41,84 @@ namespace VirtualPet
             }
         }
 
-        static void PlayGame()
+        static void StartGame()
         {
             Console.Clear();
             Console.WriteLine("\nGREAT.  Glad to want to play.");
 
-            //Create Pet with Name and Species selection
             Pet playersPet = CreatePet();
-
-            //Show Current Pet Status
-            //TODO:  Create Method to show Pet Status
             Console.WriteLine("\n CONGRATULATIONS");
             Console.WriteLine($"\nYou have created a new pet {playersPet.Species} named {playersPet.Name}.");
             Console.WriteLine($"\nYour pet has the following initial settings.");
-            Console.WriteLine($"\n{playersPet.Name}'s HEALTH factor is {playersPet.Health}.");
-            Console.WriteLine($"Their HUNGER factor is {playersPet.Hunger}.");
-            Console.WriteLine($"And their BOREDOM factor is {playersPet.Boredom}.");
+            ShowPetStatus(playersPet);
 
             Console.WriteLine("\nAs you play the game these settings will change dependant on your actions.\nGood Luck!");
 
-            //Game Loop
-            //TODO:  Create Method for Game Loop
+            PlayGame(playersPet);
+        }
+
+        public static void PlayGame(Pet somePet)
+        {
             bool keepPlaying = true;
             while (keepPlaying)
             {
-                Console.WriteLine($"\nWhat would you like to do with {playersPet.Name}?");
+                Console.WriteLine($"\nWhat would you like to do with {somePet.Name}?");
                 Console.WriteLine();
-                Console.WriteLine("1. Play");
-                Console.WriteLine("2. Feed");
-                Console.WriteLine("3. Quit");
+                Console.WriteLine($"1. Play with {somePet.Name}");
+                Console.WriteLine($"2. Feed {somePet.Name}");
+                Console.WriteLine("3. Quit the Game");
 
                 string playerChoice = Console.ReadLine().ToLower();
 
-                //TODO:  Create Methods for game actions
+                //TODO:  ???Create Methods for game actions???
                 switch (playerChoice)
                 {
-                    case "1":
+                    case "1": //Play with Pet
+                        somePet.Play();
+                        Console.WriteLine($"You played with {somePet.Name}.");
                         break;
-                    case "2":
+                    case "2": //Feed Pet
+                        somePet.Feed();
+                        Console.WriteLine($"You fed {somePet.Name}.");
                         break;
-                    case "3":
+                    case "3": //Quit the Game
                         keepPlaying = false;
                         break;
                     default:
                         break;
                 }
+                somePet.Tick();
+                ShowPetStatus(somePet);
             }
+
         }
 
         public static Pet CreatePet()
         {
-            Console.WriteLine("\nWhat kind of Pet would you like?");
-            string playerPetSpeciesEntry = Console.ReadLine();
-            Console.WriteLine("\nWhat would you like to name your pet?");
-            string playerPetNameEntry = Console.ReadLine();
+            //DEBUG ByPass Hardcoding Start
+            string playerPetSpeciesEntry = "tiger";
+            string playerPetNameEntry = "ron";
+            //DEBUG ByPass Hardcoding End
+            //DEBUG ByPass Normal Code Start
+            //Console.WriteLine("\nWhat kind of Pet would you like?");
+            //string playerPetSpeciesEntry = Console.ReadLine();
+            //Console.WriteLine("\nWhat would you like to name your pet?");
+            //string playerPetNameEntry = Console.ReadLine();
+            //DEBUG ByPass Normal Code End
 
             Pet somePet = new Pet(playerPetNameEntry, playerPetSpeciesEntry);
 
             return somePet;
+        }
+
+        public static void ShowPetStatus(Pet somePet)
+        {
+            Console.WriteLine($"\n{somePet.Name}'s HEALTH factor is {somePet.Health}.");
+            Console.WriteLine($"HUNGER factor is {somePet.Hunger}.");
+            Console.WriteLine($"THIRST factor is {somePet.Thirsty}.");
+            Console.WriteLine($"ENERGY factor is {somePet.Energy}.");
+            Console.WriteLine($"BOREDOM factor is {somePet.Boredom}.");
+            Console.WriteLine($"IRRITATED factor is {somePet.Irritated}.");
         }
     }
 }

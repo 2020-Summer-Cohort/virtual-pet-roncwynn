@@ -28,6 +28,10 @@ namespace VirtualPet
         public int Hunger { get; set; }
         public int Health { get; set; }
         public int Boredom { get; set; }
+        public int Thirsty { get; set; }
+        public int Energy { get; set; }
+        public int Irritated { get; set; }
+
 
 
         public Pet()
@@ -87,6 +91,20 @@ namespace VirtualPet
             return Health;
         }
 
+        public int GetThirst()
+        {
+            return Thirsty;
+        }
+
+        public int GetEnergy()
+        {
+            return Energy;
+        }
+
+        public int GetIrritable()
+        {
+            return Irritated;
+        }
         public void Feed()
         {
             Hunger = Hunger - 40;
@@ -102,13 +120,19 @@ namespace VirtualPet
             Hunger = Hunger + 10;
             Health = Health + 10;
             Boredom = Boredom - 20;
+            Thirsty = Thirsty + 10;
+            Irritated = Irritated - 10;
+            Energy = Energy - 20;
         }
 
         public void Tick()
         {
             Hunger = Hunger + 5;
+            Thirsty = Thirsty + 5;
             Health = Health - 5;
             Boredom = Boredom + 5;
+            Energy = Energy - 5; //???
+            Irritated = Irritated + 5;
         }
 
         public void CreatePet()
