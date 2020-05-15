@@ -6,8 +6,6 @@ namespace VirtualPet
 {
     public class Pet
     {
-        //private string species;
-
         private int initialHungerValue = 50;
         private int initialBoredomValue = 60;
         private int initialHealthValue = 30;
@@ -18,11 +16,6 @@ namespace VirtualPet
         public string Name { get; set; }
 
         //TODO:  This way causes SetSpecies Test to Fail
-        //public string Species
-        //{
-        //    get { return this.species; }
-        //    set { this.species = Species; }
-        //}
 
         public string Species { get; set; }
         public int Hunger { get; set; }
@@ -37,7 +30,7 @@ namespace VirtualPet
         public Pet()
         {
             //TODO:  next 2 lines resolve NotNull test failures, but not sure why they are necessary???
-            //Name = "PetName";
+            Name = "PetName";
             Species = "PetSpecies";
             Hunger = initialHungerValue;
             Boredom = initialBoredomValue;
@@ -152,7 +145,7 @@ namespace VirtualPet
         {
             Hunger = Hunger + 5;
             Thirsty = Thirsty + 5;
-            Health = Health - 15;
+            Health = Health - 5;
             Boredom = Boredom + 5;
             Energy = Energy - 5; 
             Irritated = Irritated + 5;

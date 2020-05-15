@@ -2,6 +2,14 @@
 using System.Net.Mail;
 using System.Net.NetworkInformation;
 
+//TODO:  Add color to ouput
+//TODO:  Add additional calls to Tick where appropriate
+//TODO:  Add auto calls to Relieve and others? where appropriate
+//TODO:  Add prioritization in things pets does on its own
+//TODO:  Add pet uncooperative actions (Random number???)
+//TODO:  Favorite foods for pet and different reactions
+//TODO:  Visual representation of pet
+
 //DEBUG ByPass Hardcoding Start
 //DEBUG ByPass Hardcoding End
 //DEBUG ByPass Normal Code Start
