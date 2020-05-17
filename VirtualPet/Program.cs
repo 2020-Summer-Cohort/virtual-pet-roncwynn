@@ -305,7 +305,11 @@ namespace VirtualPet
                 message = somePet.Name + " is IRRITATED.  You might want to take " + somePet.Name + " outside before they have an accident.";
                 return message;
             }
-            else
+            else if (somePet.IsPetContent())
+            {
+                somePet.MinimizeIrritation();
+                message = null;
+            }
             {
                 message = null;
                 return message;

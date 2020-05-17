@@ -281,6 +281,13 @@ namespace VirtualPet
             else return false;
         }
 
+        public bool IsPetContent()
+        {
+            if (Irritated <= irritabaleThresholdMIN)
+                return true;
+            else return false;
+        }
+
         public bool IsPetSick()
         {
             if (GetHealth() <= healthThresholdMIN)
