@@ -84,7 +84,8 @@ namespace VirtualPet
                 Console.WriteLine($"3. Give {somePet.Name} some water.");
                 Console.WriteLine($"4. Take {somePet.Name} to the Vet.");
                 Console.WriteLine($"5. Let {somePet.Name} outside to do thier business.");
-                Console.WriteLine($"6. Do nothing with {somePet.Name}.");
+                Console.WriteLine($"6. Put {somePet.Name} to bed.");
+                Console.WriteLine($"7. Do nothing with {somePet.Name}.");
                 Console.WriteLine("9. Quit the Game");
 
                 string playerChoice = Console.ReadLine().ToLower();
@@ -154,7 +155,7 @@ namespace VirtualPet
                             if (somePet.GetIrritable() > somePet.irritabaleThresholdMIN)
                             { 
                                 somePet.Relieve(); 
-                                Console.WriteLine($"You let {somePet.Name} relieve themself and {somePet.Name} is happy!");
+                                Console.WriteLine($"You let {somePet.Name} relieve themself.");
                             }
                             else
                             {
@@ -162,10 +163,22 @@ namespace VirtualPet
                             }
                             break;
                         }
-                    case "6": //Do Nothing
+                    case "6": //Sleep
+                        {
+                            Console.WriteLine($"{somePet.Name} is sleeping soundly.");
+                            somePet.Sleep();
+                            break;
+                        }
+                    case "7": //Do Nothing
                         {
                             Console.WriteLine($"{somePet.Name} is doing their own thing.");
                             somePet.Ignore();
+                            
+                            Random rand = new Random();
+                            int petSleepFactor = rand.Next(1, 4);
+                            if (petSleepFactor == 2)
+                            { somePet.Sleep(); }
+                            
                             somePet.LivingPetProcess();
                             break;
                         }
@@ -175,7 +188,7 @@ namespace VirtualPet
                             break;
                         }
                     default:
-                        break;
+                        break; 
                 }
                 if (keepPlaying)
                 {
@@ -214,11 +227,114 @@ namespace VirtualPet
             }
         }
 
+        public static string CheckHungerLevel(Pet somePet)
+        {
+            string message;
+            if (somePet.IsPetHungry())
+            {
+                message = somePet.Name + " is HUNGRY.  You might want to feed " + somePet.Name + " .";
+            }
+            else if (somePet.IsPetFull())
+            {
+                somePet.MinimzeHunger();
+                message = "pet full of food";
+            }
+            else
+            {
+                message = null;
+            }
+            return message;
+        }
+        public static string CheckThirstLevel(Pet somePet)
+        {
+            string message;
+            if (somePet.IsPetThirsty())
+            {
+                message = somePet.Name + " is THIRSTY.  You might want to give " + somePet.Name + " some water.";
+            }
+            else if (somePet.IsPetFull())
+            {
+                somePet.MaximizeHydration();
+                message = "pet full of water.";
+            }
+            else
+            {
+                message = null;
+            }
+            return message;
+        }
+        public static string CheckIrritationLevel(Pet somePet)
+        {
+            string message;
+            if (somePet.IsPetIrritated())
+            {
+                somePet.MaximizeIrritation();
+                message = somePet.Name + " is IRRITATED.  You might want to take " + somePet.Name + " outside before they have an accident.";
+                return message;
+            }
+            else
+            {
+                message = null;
+                return message;
+            }
+        }
+        public static string CheckEnergyLevel(Pet somePet)
+        {
+            string message;
+            if (somePet.IsPetTired())
+            {
+                somePet.MinimizeEnergy();
+                message = somePet.Name + " is low on ENERGY.  You might want to let them rest.";
+                return message;
+            }
+            else
+            {
+                message = null;
+                return message;
+            }
+        }
+        public static string CheckHealthLevel(Pet somePet)
+        {
+            string message;
+            if (somePet.IsPetSick())
+            {
+                somePet.MinimizeHealth();
+                message = somePet.Name + " is not feeling well.  You might want to take them to the vet.";
+                return message;
+            }
+            else
+            {
+                message = null;
+                return message;
+            }
+        }
+
         public static void CheckPetLevels(Pet somePet)
         {
-            string petBoredomeLevel = CheckBoredomeLevel(somePet);
-            if (petBoredomeLevel != null)
-            { Console.WriteLine(petBoredomeLevel); }
+            string petBoredomeLevelMessage = CheckBoredomeLevel(somePet);
+            string petIrritatedLevelMessage = CheckIrritationLevel(somePet);
+            string petHungerLevelMessage = CheckHungerLevel(somePet);
+            string petThirstLevelMessage = CheckThirstLevel(somePet);
+            string petEnergyLevelMessage = CheckEnergyLevel(somePet);
+            string petHealthLevelMessage = CheckHealthLevel(somePet);
+
+            if (petBoredomeLevelMessage != null)
+            { Console.WriteLine(petBoredomeLevelMessage); }
+
+            if (petIrritatedLevelMessage != null)
+            { Console.WriteLine(petIrritatedLevelMessage); }
+
+            if (petHungerLevelMessage != null)
+            { Console.WriteLine(petHungerLevelMessage); }
+
+            if (petThirstLevelMessage != null)
+            { Console.WriteLine(petThirstLevelMessage); }
+
+            if (petEnergyLevelMessage != null)
+            { Console.WriteLine(petEnergyLevelMessage); }
+
+            if (petHealthLevelMessage != null)
+            { Console.WriteLine(petHealthLevelMessage); }
 
         }
 
