@@ -6,13 +6,12 @@ namespace VirtualPet
 {
     public class Pet
     {
-        //TODO:  Change these to CONST???
-        private int initialHungerValue = 50;
-        private int initialBoredomValue = 60;
-        private int initialHealthValue = 30;
-        private int initialHydrationValue = 30;
-        private int initialIritableValue = 25;
-        private int initialEnergyValue = 100;
+        const int initialHungerValue = 50;
+        const int initialBoredomValue = 60;
+        const int initialHealthValue = 30;
+        const int initialHydrationValue = 30;
+        const int initialIritableValue = 25;
+        const int initialEnergyValue = 100;
 
         public int hungerThresholdMIN = 10;
         public int hungerThresholdMAX = 100;
@@ -27,14 +26,11 @@ namespace VirtualPet
         public int energyThresholdMIN = 10;
         public int energyThresholdMAX = 100;
 
+        public string Name { get; set; }
+        public string Species { get; set; }
         //TODO:  Create an Enum for Pet Species, and add more types of pets
         //public enum petSpecies { Cat, Dog, Tiger }
 
-        public string Name { get; set; }
-
-        //TODO:  This way causes SetSpecies Test to Fail
-
-        public string Species { get; set; }
         public int Hunger { get; set; }
         public int Health { get; set; }
         public int Boredom { get; set; }
@@ -125,6 +121,7 @@ namespace VirtualPet
         {
             Hunger = Hunger - 40;
         }
+
         public void Drink()
         {
             Hydration = Hydration + 20;
@@ -134,6 +131,7 @@ namespace VirtualPet
         {
             Irritated = 0;
         }
+
         public void SeeDoctor()
         {
             Health = Health + 30;
@@ -148,6 +146,7 @@ namespace VirtualPet
             Irritated = Irritated - 10;
             Energy = Energy - 50;
         }
+
         public void Sleep()
         {
             Energy = Energy + 20;
@@ -157,12 +156,12 @@ namespace VirtualPet
             Health = Health + 5;
             Irritated = Irritated + 30;
         }
+         
         public void Ignore()
         {
             Boredom = Boredom + 20;
             Irritated = Irritated + 10;
             Energy = Energy - 10;
-            LivingPetProcess();
         }
         
         public void LivingPetProcess()
@@ -173,8 +172,8 @@ namespace VirtualPet
             if (IsPetThirsty())
             { Drink(); }
 
-            //if (IsPetIrritated())
-            //{ Relieve(); }
+            if (IsPetTired())
+            { Sleep(); }
         }
        
         public void Tick()
@@ -285,9 +284,8 @@ namespace VirtualPet
         public bool IsPetSick()
         {
             if (GetHealth() <= healthThresholdMIN)
-            { return true; }
-            else
-            { return false; }
+                return true; 
+            else return false; 
         }
 
         public bool IsPetHealthy()
@@ -300,17 +298,15 @@ namespace VirtualPet
         public bool IsPetBored()
         {
             if (GetBoredom() >= boredomeThresholdMAX)
-            { return true; }
-            else 
-            { return false; }
+                return true; 
+            else return false; 
         }
 
         public bool IsPetHappy()
         {
             if (GetBoredom() <= boredomeThresholdMIN)
-            { return true; }
-            else
-            { return false; }
+                return true; 
+            else return false;
         }
 
         public bool IsPetEnergized()
@@ -323,9 +319,8 @@ namespace VirtualPet
         public bool IsPetTired()
         {
             if (GetEnergy() <= energyThresholdMIN)
-            { return true; }
-            else
-            { return false; }
+                return true;
+            else return false; 
         }
     }
 }

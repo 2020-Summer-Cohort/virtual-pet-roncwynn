@@ -1,7 +1,6 @@
 using System;
 using Xunit;
 
-//TODO:  Add more tests for my additions
 namespace VirtualPet.Tests
 {
     public class PetTests
@@ -263,11 +262,11 @@ namespace VirtualPet.Tests
         }
 
         [Fact]
-        public void Tick_Should_Increase_Hydration_By_5()
+        public void Tick_Should_Decrease_Hydration_By_5()
         {
             int currentHydration = testPet.GetHyrdation();
             testPet.Tick();
-            Assert.Equal(currentHydration+5, testPet.GetHyrdation());
+            Assert.Equal(currentHydration-5, testPet.GetHyrdation());
         }
 
         [Fact]
