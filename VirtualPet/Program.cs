@@ -231,21 +231,18 @@ namespace VirtualPet
             {
                 somePet.MaximizeBoredome();
                 message = somePet.Name + " is EXTREMELY bored.  Best to play with " + somePet.Name + " before they start chewing on your furniture.";
-                return message;
             }
             else if (somePet.IsPetHappy())
             {
                 somePet.ResetPetBoredome();
                 message = somePet.Name + " feels very loved and appreciated.  Great Job!";
-                return message;
             }
             else
             {
                 message = null;
-                return message;
             }
+            return message;
         }
-
         public static string CheckHungerLevel(Pet somePet)
         {
             string message;
@@ -286,21 +283,6 @@ namespace VirtualPet
             }
             return message;
         }
-        public static string CheckIrritationLevel(Pet somePet)
-        {
-            string message;
-            if (somePet.IsPetIrritated())
-            {
-                somePet.MaximizeIrritation();
-                message = somePet.Name + " is IRRITATED.  You might want to take " + somePet.Name + " outside before they have an accident.";
-                return message;
-            }
-            else
-            {
-                message = null;
-                return message;
-            }
-        }
         public static string CheckEnergyLevel(Pet somePet)
         {
             string message;
@@ -308,14 +290,19 @@ namespace VirtualPet
             {
                 somePet.MinimizeEnergy();
                 message = somePet.Name + " is low on ENERGY.  You might want to let them rest.";
-                return message;
+            }
+            else if (somePet.IsPetEnergized())
+            {
+                somePet.MaximizeEnergy();
+                message = somePet.Name + " is full of ENERGY.  You might want to player with them.";
             }
             else
             {
                 message = null;
-                return message;
             }
+            return message;
         }
+        
         public static string CheckHealthLevel(Pet somePet)
         {
             string message;
@@ -323,6 +310,26 @@ namespace VirtualPet
             {
                 somePet.MinimizeHealth();
                 message = somePet.Name + " is not feeling well.  You might want to take them to the vet.";
+            }
+            else if (somePet.IsPetHealthy())
+            {
+                somePet.MaximizeHealth();
+                message = somePet.Name + " is completly healthy.";
+            }
+            else
+            {
+                message = null;
+            }
+            return message;
+        }
+        
+        public static string CheckIrritationLevel(Pet somePet)
+        {
+            string message;
+            if (somePet.IsPetIrritated())
+            {
+                somePet.MaximizeIrritation();
+                message = somePet.Name + " is IRRITATED.  You might want to take " + somePet.Name + " outside before they have an accident.";
                 return message;
             }
             else

@@ -244,7 +244,7 @@ namespace VirtualPet
 
         public void MaximizeHealth()
         {
-            Health = healthThresholdMIN;
+            Health = healthThresholdMAX;
         }
 
         public bool IsPetHungry()
@@ -292,7 +292,7 @@ namespace VirtualPet
 
         public bool IsPetHealthy()
         {
-            if (Health > healthThresholdMIN)
+            if (Health >= healthThresholdMAX)
                 return true;
             else return false;
         }
@@ -311,6 +311,13 @@ namespace VirtualPet
             { return true; }
             else
             { return false; }
+        }
+
+        public bool IsPetEnergized()
+        {
+            if (GetEnergy() >= energyThresholdMAX)
+                return true;
+            else return false;
         }
 
         public bool IsPetTired()
