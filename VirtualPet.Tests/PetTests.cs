@@ -176,14 +176,11 @@ namespace VirtualPet.Tests
         }
 
         [Fact]
-        public void Drink_Should_Decrease_By_20()
+        public void Drink_Should_Increase_By_20()
         {
-            //TODO:  ???
-            //testPet.Drink();
-            //Assert.Equal(50, testPet.GetHyrdation());
             int currentDrinkLevel = testPet.GetHyrdation();
             testPet.Drink();
-            Assert.Equal(currentDrinkLevel - 20, testPet.GetHyrdation());
+            Assert.Equal(currentDrinkLevel + 20, testPet.GetHyrdation());
         }
 
         [Fact]

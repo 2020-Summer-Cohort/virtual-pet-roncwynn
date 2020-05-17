@@ -127,7 +127,7 @@ namespace VirtualPet
         }
         public void Drink()
         {
-            Hydration = Hydration - 20;
+            Hydration = Hydration + 20;
         }
 
         public void Relieve()
@@ -182,7 +182,7 @@ namespace VirtualPet
             Hunger = Hunger + 5;
             Health = Health - 5;
             Boredom = Boredom + 5;
-            Hydration = Hydration + 5;
+            Hydration = Hydration - 5;
             Irritated = Irritated + 5;
             Energy = Energy - 5; 
         }
@@ -254,9 +254,9 @@ namespace VirtualPet
             else  return false; 
         }
 
-        public bool IsPetFull()
+        public bool IsPetFullOfFood()
         {
-            if (Hunger <= hungerThresholdMIN || Hydration >= hydrationThresholdMAX)
+            if (Hunger <= hungerThresholdMIN)
                 return true;
             else return false;
         }
@@ -265,6 +265,13 @@ namespace VirtualPet
         {
             if (Hydration <= hydrationThresholdMIN)
              return true; 
+            else return false;
+        }
+
+        public bool IsPetFullOfWater()
+        {
+            if (Hydration >= hydrationThresholdMAX)
+                return true;
             else return false;
         }
 

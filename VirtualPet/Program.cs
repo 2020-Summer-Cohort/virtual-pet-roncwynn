@@ -64,7 +64,6 @@ namespace VirtualPet
             Pet playersPet = CreatePet();
             Console.WriteLine("\n CONGRATULATIONS");
             Console.WriteLine($"\nYou have created a new pet {playersPet.Species} named {playersPet.Name}.");
-            Console.WriteLine($"\nYour pet has the following initial settings.");
             ShowPetStatus(playersPet);
 
             Console.WriteLine("\nAs you play the game these settings will change dependant on your actions.\nGood Luck!");
@@ -74,9 +73,20 @@ namespace VirtualPet
 
         public static void PlayGame(Pet somePet)
         {
+            int currEnergy, currHealth, currHydration, currIrritated, currBoredome, currHunger ;
+
             bool keepPlaying = true;
             while (keepPlaying)
             {
+                //DEBUG Start
+                currEnergy = somePet.GetEnergy();
+                currHealth = somePet.GetHealth();
+                currHydration = somePet.GetHyrdation();
+                currIrritated = somePet.GetIrritable();
+                currBoredome = somePet.GetBoredom();
+                currHunger = somePet.GetHunger();
+                //DEBUG End
+
                 Console.WriteLine($"\nWhat would you like to do with {somePet.Name}?");
                 Console.WriteLine();
                 Console.WriteLine($"1. Play with {somePet.Name}");
@@ -126,7 +136,7 @@ namespace VirtualPet
                         }
                     case "3": //Give Water
                        {
-                            if (somePet.GetHyrdation() <= somePet.healthThresholdMIN)
+                            if (somePet.GetHyrdation() <= somePet.hydrationThresholdMAX)
                             {
                                 somePet.Drink();
                                 Console.WriteLine($"You gave {somePet.Name} some water to drink.");
@@ -193,6 +203,15 @@ namespace VirtualPet
                 if (keepPlaying)
                 {
                     ProcessTime(somePet);
+                    //DEBUG Start
+                    Console.WriteLine("\nPREVIOUS LEVELS:");
+                    Console.WriteLine($"HEALTH factor is {currHealth}.");
+                    Console.WriteLine($"HUNGER factor is {currHunger}.");
+                    Console.WriteLine($"THIRST factor is {currHydration}.");
+                    Console.WriteLine($"ENERGY factor is {currEnergy}.");
+                    Console.WriteLine($"BOREDOM factor is {currBoredome}.");
+                    Console.WriteLine($"IRRITATED factor is {currIrritated}.");
+                    //DEBUG End
                     ShowPetStatus(somePet);
                 }
             }
@@ -233,8 +252,10 @@ namespace VirtualPet
             if (somePet.IsPetHungry())
             {
                 message = somePet.Name + " is HUNGRY.  You might want to feed " + somePet.Name + " .";
+                if (somePet.Hunger >= somePet.hungerThresholdMAX)
+                { somePet.MaximizeHunger(); }
             }
-            else if (somePet.IsPetFull())
+            else if (somePet.IsPetFullOfFood())
             {
                 somePet.MinimzeHunger();
                 message = "pet full of food";
@@ -251,8 +272,10 @@ namespace VirtualPet
             if (somePet.IsPetThirsty())
             {
                 message = somePet.Name + " is THIRSTY.  You might want to give " + somePet.Name + " some water.";
+                if (somePet.Hydration <= somePet.hydrationThresholdMIN)
+                { somePet.MinimizeHydration(); }
             }
-            else if (somePet.IsPetFull())
+            else if (somePet.IsPetFullOfWater())
             {
                 somePet.MaximizeHydration();
                 message = "pet full of water.";
@@ -358,7 +381,8 @@ namespace VirtualPet
 
         public static void ShowPetStatus(Pet somePet)
         {
-            Console.WriteLine($"\n{somePet.Name}'s HEALTH factor is {somePet.Health}.");
+            Console.WriteLine($"\nHere is how {somePet.Name} is doing:");
+            Console.WriteLine($"HEALTH factor is {somePet.Health}.");
             Console.WriteLine($"HUNGER factor is {somePet.Hunger}.");
             Console.WriteLine($"THIRST factor is {somePet.Hydration}.");
             Console.WriteLine($"ENERGY factor is {somePet.Energy}.");
