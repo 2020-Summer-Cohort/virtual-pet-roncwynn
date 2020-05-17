@@ -47,8 +47,8 @@ namespace VirtualPet
         public Pet()
         {
             //TODO:  next 2 lines resolve NotNull test failures, but not sure why they are necessary???
-            Name = "PetName";
-            Species = "PetSpecies";
+            //Name = "PetName";
+            //Species = "PetSpecies";
             SetInitialPetValues();
         }
 
@@ -197,7 +197,7 @@ namespace VirtualPet
             else return false;
         }
 
-        private void LivingPetProcess()
+        public void LivingPetProcess()
         {
             if (IsPetHungry()) 
             { Feed(); }
@@ -216,7 +216,6 @@ namespace VirtualPet
             Boredom = Boredom + 5;
             Energy = Energy - 5; 
             Irritated = Irritated + 5;
-            LivingPetProcess();  //this causes some tests to fail becuase it does additional modification
         }
 
     }

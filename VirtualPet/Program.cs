@@ -143,6 +143,7 @@ namespace VirtualPet
         public static void ProcessTime(Pet somePet)
         {
             somePet.Tick();
+            somePet.LivingPetProcess();
         }
         public static Pet CreatePet()
         {
