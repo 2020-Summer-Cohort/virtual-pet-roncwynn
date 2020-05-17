@@ -110,13 +110,54 @@ namespace VirtualPet.Tests
             testPet.Health = 100;
              Assert.Equal(100,testPet.Health);
         }
-
+                
         [Fact]
         public void GetHealth_Should_Return_Initial_Health_Level_Of_30()
         {
              int testPetHealth = testPet.GetHealth();
             
              Assert.Equal(30, testPetHealth);
+        }
+
+        [Fact]
+        public void Pet_Should_Have_Hydration()
+        {
+            testPet.Hydration = 100;
+            Assert.Equal(100, testPet.Hydration);
+        }
+
+        [Fact]
+        public void GetHydration_Should_Return_Initial_Level_Of_30()
+        {
+            int testPetHydration = testPet.GetHyrdation();
+            Assert.Equal(30, testPetHydration);
+        }
+        [Fact]
+        public void Pet_Should_Have_Irritable()
+        {
+            testPet.Irritated = 100;
+            Assert.Equal(100, testPet.Irritated);
+        }
+
+        [Fact]
+        public void GetIrritable_Should_Return_Initial_Level_25()
+        {
+            int testPerIrritation = testPet.GetIrritable();
+            Assert.Equal(25, testPerIrritation);
+        }
+
+        [Fact]
+        public void Pet_Should_Have_Energy()
+        {
+            testPet.Energy = 100;
+            Assert.Equal(100, testPet.Energy);
+        }
+
+        [Fact]
+        public void GetEnergy_Should_Return_Initial_Level_100()
+        {
+            int testEnergy = testPet.GetEnergy();
+            Assert.Equal(100, testEnergy);
         }
 
         [Fact]
@@ -131,8 +172,25 @@ namespace VirtualPet.Tests
         public void SeeDoctor_Should_Increase_Health_By_30()
         {
              testPet.SeeDoctor();
-
              Assert.Equal(60, testPet.GetHealth());
+        }
+
+        [Fact]
+        public void Drink_Should_Increase_By_20()
+        {
+            //TODO:  ???
+            //testPet.Drink();
+            //Assert.Equal(50, testPet.GetHyrdation());
+            int currentDrinkLevel = testPet.GetHyrdation();
+            testPet.Drink();
+            Assert.Equal(currentDrinkLevel + 20, testPet.GetHyrdation());
+        }
+
+        [Fact]
+        public void Relieve_Should_Set_Irritable_To_0()
+        {
+            testPet.Relieve();
+            Assert.Equal(0, testPet.GetIrritable());
         }
 
         [Fact]
@@ -160,6 +218,30 @@ namespace VirtualPet.Tests
         }
 
         [Fact]
+        public void Play_Should_Decrease_Hydration_By_20()
+        {
+            int currentHydration = testPet.GetHyrdation();
+            testPet.Play();
+            Assert.Equal(currentHydration-20, testPet.GetHyrdation());
+        }
+
+        [Fact]
+        public void Play_Should_Decrease_Energy_By_50()
+        {
+            int currentEnergy = testPet.GetEnergy();
+            testPet.Play();
+            Assert.Equal(currentEnergy-50, testPet.GetEnergy());
+        }
+
+        [Fact]
+        public void Play_Should_Decrease_Irritable_By_10()
+        {
+            int currentIrritable = testPet.GetIrritable();
+            testPet.Play();
+            Assert.Equal(currentIrritable-10, testPet.GetIrritable());
+        }
+
+        [Fact]
         public void Tick_Should_Increase_Hunger_By_5()
         {
             testPet.Tick();
@@ -181,6 +263,30 @@ namespace VirtualPet.Tests
             testPet.Tick();
 
             Assert.Equal(25, testPet.GetHealth());
+        }
+
+        [Fact]
+        public void Tick_Should_Increase_Hydration_By_5()
+        {
+            int currentHydration = testPet.GetHyrdation();
+            testPet.Tick();
+            Assert.Equal(currentHydration+5, testPet.GetHyrdation());
+        }
+
+        [Fact]
+        public void Tick_Should_Increase_Irritable_By_5()
+        {
+            int currentIrritable = testPet.GetIrritable();
+            testPet.Tick();
+            Assert.Equal(currentIrritable+5, testPet.GetIrritable());
+        }
+
+        [Fact]
+        public void Tick_Should_Decrease_Energy_By_5()
+        {
+            int currentEnergy = testPet.GetEnergy();
+            testPet.Tick();
+            Assert.Equal(currentEnergy-5, testPet.GetEnergy());
         }
     }
 }

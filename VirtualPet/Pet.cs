@@ -128,7 +128,7 @@ namespace VirtualPet
         public void Feed()
         {
             Hunger = Hunger - 40;
-            Hydration = Hydration + 10;
+            Hydration = Hydration - 10;
             Irritated = Irritated + 10;
             Health = Health - 10;
         }
@@ -143,9 +143,9 @@ namespace VirtualPet
             Hunger = Hunger + 10;
             Health = Health + 10;
             Boredom = Boredom - 20;
-            Hydration = Hydration + 10;
+            Hydration = Hydration - 20;
             Irritated = Irritated - 10;
-            Energy = Energy - 20;
+            Energy = Energy - 50;
         }
 
         public void Sleep()
@@ -153,18 +153,19 @@ namespace VirtualPet
             Energy = Energy + 20;
             Boredom = Boredom + 10;
             Hunger = Hunger + 20;
-            Hydration = Hydration + 10;
+            Hydration = Hydration - 10;
             Health = Health + 5;
             Irritated = Irritated + 30;
         }
         public void Relieve()
         {
             Irritated = 0;
+            Hydration = Hydration - 20;
         }
 
         public void Drink()
         {
-            Hydration = Hydration - 20;
+            Hydration = Hydration + 20;
             Irritated = Irritated + 10;
         }
 
@@ -211,11 +212,11 @@ namespace VirtualPet
         public void Tick()
         {
             Hunger = Hunger + 5;
-            Hydration = Hydration + 5;
             Health = Health - 5;
             Boredom = Boredom + 5;
-            Energy = Energy - 5; 
+            Hydration = Hydration + 5;
             Irritated = Irritated + 5;
+            Energy = Energy - 5; 
         }
 
     }
