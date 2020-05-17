@@ -28,8 +28,7 @@ namespace VirtualPet
 
         public string Name { get; set; }
         public string Species { get; set; }
-        //TODO:  Create an Enum for Pet Species, and add more types of pets
-        //public enum petSpecies { Cat, Dog, Tiger }
+
 
         public int Hunger { get; set; }
         public int Health { get; set; }

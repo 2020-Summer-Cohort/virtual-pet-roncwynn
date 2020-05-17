@@ -39,11 +39,14 @@ namespace VirtualPet
             Console.WriteLine("\nGREAT.  Glad you want to play.");
 
             Pet playersPet = CreatePet();
+
             Console.WriteLine("\n CONGRATULATIONS");
             Console.WriteLine($"\nYou have created a new pet {playersPet.Species} named {playersPet.Name}.");
-            ShowPetStatus(playersPet);
+            Console.WriteLine($"\nIn this game pets have attributes that will change dependant on your actions.");
+            Console.WriteLine("\nPress ENTER when ready to being playing the game.");
+            Console.ReadLine();
 
-            Console.WriteLine("\nAs you play the game these settings will change dependant on your actions.\nGood Luck!");
+            Console.Clear();
             PlayGame(playersPet);
         }
 
@@ -154,63 +157,63 @@ namespace VirtualPet
             somePet.LivingPetProcess();
         }
 
+        public static void ShowGameMenu(string petName)
+        {
+            Console.WriteLine($"\nWhat would you like to do with {petName}?");
+            Console.WriteLine();
+            Console.WriteLine($"1. Play with {petName}                2.Feed { petName}");
+            Console.WriteLine($"3. Give {petName} some water.         4.Take { petName} to the Vet.");
+            Console.WriteLine($"5. Let {petName} outside.             6. Put {petName} to bed.");
+            Console.WriteLine($"7. Do nothing with {petName}.");
+            Console.WriteLine("\n9. Quit the Game");
+        }
+
+        public static bool ProcessPlayerChoice(string playerChoice, Pet somePet)
+        {
+            switch (playerChoice)
+            {
+                case "1": //Play with Pet
+                    PlayWithPet(somePet);
+                    return true;
+                case "2": //Feed Pet
+                    FeedPet(somePet);
+                    return true;
+                case "3": //Give Water
+                    GivePetWater(somePet);
+                    return true;
+                case "4": //Take to Vet
+                    TakePetToVet(somePet);
+                    return true;
+                case "5": //Let outside
+                    LetPetOutside(somePet);
+                    return true;
+                case "6": //Sleep
+                    LetPetSleep(somePet);
+                    return true;
+                case "7": //Do Nothing
+                    LeavePetAlone(somePet);
+                    return true;
+                case "9": //Quit the Game
+                        return  false;
+                default:
+                    return true;
+            }
+
+        }
+
         public static void PlayGame(Pet somePet)
         {
             bool keepPlaying = true;
             while (keepPlaying)
             {
-                Console.WriteLine($"\nWhat would you like to do with {somePet.Name}?");
-                Console.WriteLine();
-                Console.WriteLine($"1. Play with {somePet.Name}");
-                Console.WriteLine($"2. Feed {somePet.Name}");
-                Console.WriteLine($"3. Give {somePet.Name} some water.");
-                Console.WriteLine($"4. Take {somePet.Name} to the Vet.");
-                Console.WriteLine($"5. Let {somePet.Name} outside to do thier business.");
-                Console.WriteLine($"6. Put {somePet.Name} to bed.");
-                Console.WriteLine($"7. Do nothing with {somePet.Name}.");
-                Console.WriteLine("\n9. Quit the Game");
-
+                ProcessTime(somePet);
+                ShowPetStatus(somePet);
+                ShowGameMenu(somePet.Name);
                 string playerChoice = Console.ReadLine().ToLower();
-
+                keepPlaying = ProcessPlayerChoice(playerChoice, somePet);
                 Console.Clear();
-                Console.WriteLine("\n\n");
-                //TODO:  Create Classes/Methods for game actions
-                switch (playerChoice)
-                {
-                    case "1": //Play with Pet
-                        PlayWithPet(somePet);
-                        break;
-                    case "2": //Feed Pet
-                        FeedPet(somePet);
-                        break;
-                    case "3": //Give Water
-                        GivePetWater(somePet);
-                         break;
-                    case "4": //Take to Vet
-                        TakePetToVet(somePet);
-                        break;
-                    case "5": //Let outside
-                        LetPetOutside(somePet);
-                        break;
-                    case "6": //Sleep
-                        LetPetSleep(somePet);
-                        break;
-                    case "7": //Do Nothing
-                        LeavePetAlone(somePet);
-                        break;
-                    case "9": //Quit the Game
-                        {
-                            keepPlaying = false;
-                            break;
-                        }
-                    default:
-                        break; 
-                }
-                if (keepPlaying)
-                {
-                    ProcessTime(somePet);
-                    ShowPetStatus(somePet);
-                }
+                Console.WriteLine("\n");
+
             }
         }
 
@@ -389,7 +392,7 @@ namespace VirtualPet
         public static void ShowPetStatus(Pet somePet)
         {
             Console.WriteLine($"\nHere is how {somePet.Name} is doing:");
-            Console.WriteLine($"HEALTH factor is {somePet.Health}.");
+            Console.WriteLine($"\nHEALTH factor is {somePet.Health}.");
             Console.WriteLine($"HUNGER factor is {somePet.Hunger}.");
             Console.WriteLine($"THIRST factor is {somePet.Hydration}.");
             Console.WriteLine($"ENERGY factor is {somePet.Energy}.");
