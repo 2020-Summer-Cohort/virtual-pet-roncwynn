@@ -14,18 +14,18 @@ namespace VirtualPet
         private int initialIritableValue = 25;
         private int initialEnergyValue = 100;
 
-        private int hungerThresholdMIN = 10;
-        private int hungerThresholdMAX = 100;
-        private int boresomeThresholdMIN = 10;
-        private int boresomeThresholdMAX = 100;
-        private int healthThresholdMIN = 10;
-        private int healthThresholdMAX = 100;
-        private int irritabaleThresholdMIN = 10;
-        private int irritabaleThresholdMAX = 100;
-        private int hydrationThresholdMIN = 10;
-        private int hydrationThresholdMAX = 100;
-        private int energyThresholdMIN = 10;
-        private int enerfyThresholdMAX = 100;
+        public int hungerThresholdMIN = 10;
+        public int hungerThresholdMAX = 100;
+        public int boredomeThresholdMIN = 10;
+        public int boredomeThresholdMAX = 100;
+        public int healthThresholdMIN = 10;
+        public int healthThresholdMAX = 100;
+        public int irritabaleThresholdMIN = 10;
+        public int irritabaleThresholdMAX = 100;
+        public int hydrationThresholdMIN = 10;
+        public int hydrationThresholdMAX = 100;
+        public int energyThresholdMIN = 10;
+        public int energyThresholdMAX = 100;
 
         //TODO:  Create an Enum for Pet Species, and add more types of pets
         //public enum petSpecies { Cat, Dog, Tiger }
@@ -42,20 +42,14 @@ namespace VirtualPet
         public int Energy { get; set; }
         public int Irritated { get; set; }
 
-
-
         public Pet()
         {
-            //TODO:  next 2 lines resolve NotNull test failures, but not sure why they are necessary???
-            //Name = "PetName";
-            //Species = "PetSpecies";
             SetInitialPetValues();
         }
 
         public Pet(string name)
         {
             Name = name;
-            //Name = "My Pet Name";
             SetInitialPetValues();
         }
 
@@ -76,6 +70,7 @@ namespace VirtualPet
             Irritated = initialIritableValue;
 
         }
+
         public void SetName(string name)
         {
             Name = name;
@@ -125,6 +120,7 @@ namespace VirtualPet
         {
             return Irritated;
         }
+        
         public void Feed()
         {
             Hunger = Hunger - 40;
@@ -157,6 +153,7 @@ namespace VirtualPet
             Health = Health + 5;
             Irritated = Irritated + 30;
         }
+        
         public void Relieve()
         {
             Irritated = 0;
@@ -209,6 +206,7 @@ namespace VirtualPet
             if (IsPetIrritated())
             { Relieve(); }
         }
+       
         public void Tick()
         {
             Hunger = Hunger + 5;
@@ -219,5 +217,30 @@ namespace VirtualPet
             Energy = Energy - 5; 
         }
 
+        public void ResetPetBoredome()
+        {
+            Boredom = initialBoredomValue;
+        }
+
+        public void MaximizeBoredome()
+        {
+            Boredom = boredomeThresholdMAX;
+        }
+
+        public bool IsPetBored()
+        {
+            if (GetBoredom() >= boredomeThresholdMAX)
+            { return true; }
+            else 
+            { return false; }
+        }
+
+        public bool IsPetHappy()
+        {
+            if (GetBoredom() <= boredomeThresholdMIN)
+            { return true; }
+            else
+            { return false; }
+        }
     }
 }
