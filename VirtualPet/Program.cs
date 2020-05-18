@@ -24,8 +24,6 @@ namespace VirtualPet
             {
                 StartGame();
                 //TODO:  Create Game Class, for Starting, Playing, Ending.  Figure best class for all Methods
-                //Branch Test
-
             }
             else 
             {
@@ -47,117 +45,49 @@ namespace VirtualPet
             Console.ReadLine();
 
             Console.Clear();
-            PlayGame(playersPet);
+
+            Game playersGame = new Game();
+
+            PlayGame(playersGame, playersPet);
         }
 
-        public static void PlayWithPet(Pet somePet)
+        static void PlayGame(Game someGame, Pet somePet)
         {
-            Random rand = new Random();
-            int petPlayFactor = rand.Next(1, 6);
-            if (petPlayFactor == 4)
+            bool keepPlaying = true;
+            while (keepPlaying)
             {
-                Console.WriteLine($"{somePet.Name} doesn't want to play right now.");
-            }
-            else
-            {
-                somePet.Play();
-                Console.WriteLine($"You played with {somePet.Name}.");
+                ProcessTime(somePet);
+                ShowPetStatus(somePet);
+                ShowGameMenu(somePet.Name);
+                string playerChoice = Console.ReadLine().ToLower();
+                keepPlaying = ProcessPlayerChoice(playerChoice, someGame, somePet);
+                Console.Clear();
+                Console.WriteLine("\n");
+
             }
         }
 
-        public static void FeedPet(Pet somePet)
+        static Pet CreatePet()
         {
-            if (somePet.GetHunger() > somePet.hungerThresholdMIN)
-            {
-                somePet.Feed();
-                Console.WriteLine($"You fed {somePet.Name}.");
+            string playerPetSpeciesEntry = "";
+            while (playerPetSpeciesEntry == "")
+            { 
+                Console.WriteLine("\nWhat kind of Pet would you like?");
+                playerPetSpeciesEntry = Console.ReadLine();
             }
-            else
+
+            string playerPetNameEntry = "";
+            while (playerPetNameEntry == "")
             {
-                Console.WriteLine($"{somePet.Name} isn't hungry right now, maybe try something else.");
+                Console.WriteLine("\nWhat would you like to name your pet?");
+                playerPetNameEntry = Console.ReadLine();
             }
+
+            Pet somePet = new Pet(playerPetNameEntry, playerPetSpeciesEntry);
+            return somePet;
         }
-
-        public static void GivePetWater(Pet somePet)
-        {
-            if (somePet.GetHyrdation() < somePet.hydrationThresholdMAX)
-            {
-                somePet.Drink();
-                Console.WriteLine($"You gave {somePet.Name} some water to drink.");
-            }
-            else
-            {
-                Console.WriteLine($"{somePet.Name} is fully hydrated.  Act quick before {somePet.Name} has an accident!");
-            }
-        }
-
-        public static void TakePetToVet(Pet somePet)
-        {
-            if (somePet.GetHealth() < somePet.healthThresholdMAX)
-            {
-                somePet.SeeDoctor();
-                Console.WriteLine($"You took {somePet.Name} to the vet and all is well.");
-            }
-            else
-            {
-                Console.WriteLine($"{somePet.Name} is as healthy as can be.  Save your money.");
-            }
-        }
-
-        public static void LetPetOutside(Pet somePet)
-        {
-            if (somePet.GetIrritable() > somePet.irritabaleThresholdMIN)
-            {
-                somePet.Relieve();
-                Console.WriteLine($"You let {somePet.Name} relieve themself.");
-            }
-            else
-            {
-                Console.WriteLine($"{somePet.Name} is being stubborn and won't go outside right now.");
-            }
-        }
-
-        public static void LetPetSleep(Pet somePet)
-        {
-            if (somePet.IsPetTired())
-            {
-                Console.WriteLine($"{somePet.Name} is sleeping soundly.");
-                somePet.Sleep();
-            }
-            else if (somePet.IsPetEnergized())
-            {
-                Console.WriteLine($"{somePet.Name} is full of energy right now and refuses to sleep.");
-            }
-            else
-            {
-                somePet.Sleep();
-            }
-        }
-
-        public static void LeavePetAlone(Pet somePet)
-        {
-            Console.WriteLine($"{somePet.Name} is doing their own thing.");
-            somePet.Ignore();
-
-            Random rand = new Random();
-            int petFreedomFactor = rand.Next(1, 4);
-
-            switch (petFreedomFactor)
-            {
-                case 1:
-                    somePet.Sleep();
-                    break;
-                case 2:
-                    somePet.Feed();
-                    break;
-                case 3:
-                    somePet.Drink();
-                    break;
-            }
-            somePet.LivingPetProcess();
-        }
-
-        public static void ShowGameMenu(string petName)
+        
+        static void ShowGameMenu(string petName)
         {
             Console.WriteLine($"\nWhat would you like to do with {petName}?");
             Console.WriteLine();
@@ -168,30 +98,30 @@ namespace VirtualPet
             Console.WriteLine("\n9. Quit the Game");
         }
 
-        public static bool ProcessPlayerChoice(string playerChoice, Pet somePet)
+        static bool ProcessPlayerChoice(string playerChoice, Game someGame, Pet somePet)
         {
             switch (playerChoice)
             {
                 case "1": //Play with Pet
-                    PlayWithPet(somePet);
+                    someGame.PlayWithPet(somePet);
                     return true;
                 case "2": //Feed Pet
-                    FeedPet(somePet);
+                    someGame.FeedPet(somePet);
                     return true;
                 case "3": //Give Water
-                    GivePetWater(somePet);
+                    someGame.GivePetWater(somePet);
                     return true;
                 case "4": //Take to Vet
-                    TakePetToVet(somePet);
+                    someGame.TakePetToVet(somePet);
                     return true;
                 case "5": //Let outside
-                    LetPetOutside(somePet);
+                    someGame.LetPetOutside(somePet);
                     return true;
                 case "6": //Sleep
-                    LetPetSleep(somePet);
+                    someGame.LetPetSleep(somePet);
                     return true;
                 case "7": //Do Nothing
-                    LeavePetAlone(somePet);
+                    someGame.LeavePetAlone(somePet);
                     return true;
                 case "9": //Quit the Game
                         return  false;
@@ -201,29 +131,13 @@ namespace VirtualPet
 
         }
 
-        public static void PlayGame(Pet somePet)
-        {
-            bool keepPlaying = true;
-            while (keepPlaying)
-            {
-                ProcessTime(somePet);
-                ShowPetStatus(somePet);
-                ShowGameMenu(somePet.Name);
-                string playerChoice = Console.ReadLine().ToLower();
-                keepPlaying = ProcessPlayerChoice(playerChoice, somePet);
-                Console.Clear();
-                Console.WriteLine("\n");
-
-            }
-        }
-
-        public static void ProcessTime(Pet somePet)
+        static void ProcessTime(Pet somePet)
         {
             somePet.Tick();
             CheckPetLevels(somePet);
         }
 
-        public static string CheckBoredomeLevel(Pet somePet)
+        static string CheckBoredomeLevel(Pet somePet)
         {
             string message;
             if (somePet.IsPetBored())
@@ -242,7 +156,7 @@ namespace VirtualPet
             }
             return message;
         }
-        public static string CheckHungerLevel(Pet somePet)
+        static string CheckHungerLevel(Pet somePet)
         {
             string message;
             if (somePet.IsPetHungry())
@@ -262,7 +176,7 @@ namespace VirtualPet
             }
             return message;
         }
-        public static string CheckThirstLevel(Pet somePet)
+        static string CheckThirstLevel(Pet somePet)
         {
             string message;
             if (somePet.IsPetThirsty())
@@ -282,7 +196,7 @@ namespace VirtualPet
             }
             return message;
         }
-        public static string CheckEnergyLevel(Pet somePet)
+        static string CheckEnergyLevel(Pet somePet)
         {
             string message;
             if (somePet.IsPetTired())
@@ -301,7 +215,7 @@ namespace VirtualPet
             }
             return message;
         }
-        public static string CheckHealthLevel(Pet somePet)
+        static string CheckHealthLevel(Pet somePet)
         {
             string message;
             if (somePet.IsPetSick())
@@ -320,7 +234,7 @@ namespace VirtualPet
             }
             return message;
         }
-        public static string CheckIrritationLevel(Pet somePet)
+        static string CheckIrritationLevel(Pet somePet)
         {
             string message;
             if (somePet.IsPetIrritated())
@@ -340,7 +254,7 @@ namespace VirtualPet
             }
         }
 
-        public static void CheckPetLevels(Pet somePet)
+        static void CheckPetLevels(Pet somePet)
         {
             string petBoredomeLevelMessage = CheckBoredomeLevel(somePet);
             string petIrritatedLevelMessage = CheckIrritationLevel(somePet);
@@ -368,28 +282,7 @@ namespace VirtualPet
             { Console.WriteLine(petHealthLevelMessage); }
 
         }
-
-        public static Pet CreatePet()
-        {
-            string playerPetSpeciesEntry = "";
-            while (playerPetSpeciesEntry == "")
-            { 
-                Console.WriteLine("\nWhat kind of Pet would you like?");
-                playerPetSpeciesEntry = Console.ReadLine();
-            }
-
-            string playerPetNameEntry = "";
-            while (playerPetNameEntry == "")
-            {
-                Console.WriteLine("\nWhat would you like to name your pet?");
-                playerPetNameEntry = Console.ReadLine();
-            }
-
-            Pet somePet = new Pet(playerPetNameEntry, playerPetSpeciesEntry);
-            return somePet;
-        }
-
-        public static void ShowPetStatus(Pet somePet)
+        static void ShowPetStatus(Pet somePet)
         {
             Console.WriteLine($"\nHere is how {somePet.Name} is doing:");
             Console.WriteLine($"\nHEALTH factor is {somePet.Health}.");
