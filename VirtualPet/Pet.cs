@@ -26,33 +26,40 @@ namespace VirtualPet
         public int energyThresholdMIN = 10;
         public int energyThresholdMAX = 100;
 
-        public string Name { get; set; }
-        public string Species { get; set; }
+        public static string Name { get; set; }
+        public static string Species { get; set; }
 
 
-        public int Hunger { get; set; }
-        public int Health { get; set; }
-        public int Boredom { get; set; }
-        public int Hydration { get; set; }
-        public int Energy { get; set; }
-        public int Irritated { get; set; }
+        public static int Hunger { get; set; }
+        public static int Health { get; set; }
+        public static int Boredom { get; set; }
+        public static int Hydration { get; set; }
+        public static int Energy { get; set; }
+        public static int Irritated { get; set; }
 
-        public Pet()
+        static Pet()
         {
-            SetInitialPetValues();
+            //TODO:  Figure out why next line won't work/compile
+            //SetInitialPetValues();
+            Hunger = initialHungerValue;
+            Health = initialHealthValue;
+            Boredom = initialBoredomValue;
+            Hydration = initialHydrationValue;
+            Energy = initialEnergyValue;
+            Irritated = initialIritableValue;
         }
 
         public Pet(string name)
         {
             Name = name;
-            SetInitialPetValues();
+            //SetInitialPetValues();
         }
 
         public Pet(string name, string species)
         {
             Name = name;
             Species = species;
-            SetInitialPetValues();
+            //SetInitialPetValues();
         }
 
         private void SetInitialPetValues()

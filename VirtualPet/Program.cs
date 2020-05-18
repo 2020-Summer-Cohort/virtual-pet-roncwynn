@@ -23,7 +23,6 @@ namespace VirtualPet
             if (playerGameResponse.ToLower() == "y")
             {
                 StartGame();
-                //TODO:  Create Game Class, for Starting, Playing, Ending.  Figure best class for all Methods
             }
             else 
             {
@@ -39,7 +38,7 @@ namespace VirtualPet
             Pet playersPet = CreatePet();
 
             Console.WriteLine("\n CONGRATULATIONS");
-            Console.WriteLine($"\nYou have created a new pet {playersPet.Species} named {playersPet.Name}.");
+            Console.WriteLine($"\nYou have created a new pet {playersPet.GetSpecies()} named {playersPet.GetName()}.");
             Console.WriteLine($"\nIn this game pets have attributes that will change dependant on your actions.");
             Console.WriteLine("\nPress ENTER when ready to being playing the game.");
             Console.ReadLine();
@@ -58,7 +57,7 @@ namespace VirtualPet
             {
                 ProcessTime(somePet);
                 ShowPetStatus(somePet);
-                ShowGameMenu(somePet.Name);
+                ShowGameMenu(somePet.GetName());
                 string playerChoice = Console.ReadLine().ToLower();
                 keepPlaying = ProcessPlayerChoice(playerChoice, someGame, somePet);
                 Console.Clear();
@@ -84,6 +83,7 @@ namespace VirtualPet
             }
 
             Pet somePet = new Pet(playerPetNameEntry, playerPetSpeciesEntry);
+            Console.WriteLine($"Energy = {somePet.GetEnergy()}");
             return somePet;
         }
         
@@ -143,12 +143,12 @@ namespace VirtualPet
             if (somePet.IsPetBored())
             {
                 somePet.MaximizeBoredome();
-                message = somePet.Name + " is EXTREMELY bored.  Best to play with " + somePet.Name + " before they start chewing on your furniture.";
+                message = somePet.GetName() + " is EXTREMELY bored.  Best to play with " + somePet.GetName() + " before they start chewing on your furniture.";
             }
             else if (somePet.IsPetHappy())
             {
                 somePet.ResetPetBoredome();
-                message = somePet.Name + " feels very loved and appreciated.  Great Job!";
+                message = somePet.GetName() + " feels very loved and appreciated.  Great Job!";
             }
             else
             {
@@ -161,8 +161,8 @@ namespace VirtualPet
             string message;
             if (somePet.IsPetHungry())
             {
-                message = somePet.Name + " is HUNGRY.  You might want to feed " + somePet.Name + " .";
-                if (somePet.Hunger >= somePet.hungerThresholdMAX)
+                message = somePet.GetName() + " is HUNGRY.  You might want to feed " + somePet.GetName() + " .";
+                if (somePet.GetHunger() >= somePet.hungerThresholdMAX)
                 { somePet.MaximizeHunger(); }
             }
             else if (somePet.IsPetFullOfFood())
@@ -181,8 +181,8 @@ namespace VirtualPet
             string message;
             if (somePet.IsPetThirsty())
             {
-                message = somePet.Name + " is THIRSTY.  You might want to give " + somePet.Name + " some water.";
-                if (somePet.Hydration <= somePet.hydrationThresholdMIN)
+                message = somePet.GetName() + " is THIRSTY.  You might want to give " + somePet.GetName() + " some water.";
+                if (somePet.GetHyrdation() <= somePet.hydrationThresholdMIN)
                 { somePet.MinimizeHydration(); }
             }
             else if (somePet.IsPetFullOfWater())
@@ -202,12 +202,12 @@ namespace VirtualPet
             if (somePet.IsPetTired())
             {
                 somePet.MinimizeEnergy();
-                message = somePet.Name + " is low on ENERGY.  You might want to let them rest.";
+                message = somePet.GetName() + " is low on ENERGY.  You might want to let them rest.";
             }
             else if (somePet.IsPetEnergized())
             {
                 somePet.MaximizeEnergy();
-                message = somePet.Name + " is full of ENERGY.  You might want to player with them.";
+                message = somePet.GetName() + " is full of ENERGY.  You might want to player with them.";
             }
             else
             {
@@ -221,12 +221,12 @@ namespace VirtualPet
             if (somePet.IsPetSick())
             {
                 somePet.MinimizeHealth();
-                message = somePet.Name + " is not feeling well.  You might want to take them to the vet.";
+                message = somePet.GetName() + " is not feeling well.  You might want to take them to the vet.";
             }
             else if (somePet.IsPetHealthy())
             {
                 somePet.MaximizeHealth();
-                message = somePet.Name + " is completly healthy.";
+                message = somePet.GetName() + " is completly healthy.";
             }
             else
             {
@@ -240,7 +240,7 @@ namespace VirtualPet
             if (somePet.IsPetIrritated())
             {
                 somePet.MaximizeIrritation();
-                message = somePet.Name + " is IRRITATED.  You might want to take " + somePet.Name + " outside before they have an accident.";
+                message = somePet.GetName() + " is IRRITATED.  You might want to take " + somePet.GetName() + " outside before they have an accident.";
                 return message;
             }
             else if (somePet.IsPetContent())
@@ -284,13 +284,13 @@ namespace VirtualPet
         }
         static void ShowPetStatus(Pet somePet)
         {
-            Console.WriteLine($"\nHere is how {somePet.Name} is doing:");
-            Console.WriteLine($"\nHEALTH factor is {somePet.Health}.");
-            Console.WriteLine($"HUNGER factor is {somePet.Hunger}.");
-            Console.WriteLine($"THIRST factor is {somePet.Hydration}.");
-            Console.WriteLine($"ENERGY factor is {somePet.Energy}.");
-            Console.WriteLine($"BOREDOM factor is {somePet.Boredom}.");
-            Console.WriteLine($"IRRITATED factor is {somePet.Irritated}.");
+            Console.WriteLine($"\nHere is how {somePet.GetName()} is doing:");
+            Console.WriteLine($"\nHEALTH factor is {somePet.GetHealth()}.");
+            Console.WriteLine($"HUNGER factor is {somePet.GetHunger()}.");
+            Console.WriteLine($"THIRST factor is {somePet.GetHyrdation()}.");
+            Console.WriteLine($"ENERGY factor is {somePet.GetEnergy()}.");
+            Console.WriteLine($"BOREDOM factor is {somePet.GetBoredom()}.");
+            Console.WriteLine($"IRRITATED factor is {somePet.GetIrritable()}.");
         }
     }
 }

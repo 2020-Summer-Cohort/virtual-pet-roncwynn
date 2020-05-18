@@ -12,12 +12,12 @@ namespace VirtualPet
             int petPlayFactor = rand.Next(1, 6);
             if (petPlayFactor == 4)
             {
-                Console.WriteLine($"{somePet.Name} doesn't want to play right now.");
+                Console.WriteLine($"{somePet.GetName()} doesn't want to play right now.");
             }
             else
             {
                 somePet.Play();
-                Console.WriteLine($"You played with {somePet.Name}.");
+                Console.WriteLine($"You played with {somePet.GetName()}.");
             }
         }
 
@@ -26,11 +26,11 @@ namespace VirtualPet
             if (somePet.GetHunger() > somePet.hungerThresholdMIN)
             {
                 somePet.Feed();
-                Console.WriteLine($"You fed {somePet.Name}.");
+                Console.WriteLine($"You fed {somePet.GetName()}.");
             }
             else
             {
-                Console.WriteLine($"{somePet.Name} isn't hungry right now, maybe try something else.");
+                Console.WriteLine($"{somePet.GetName()} isn't hungry right now, maybe try something else.");
             }
         }
 
@@ -39,11 +39,11 @@ namespace VirtualPet
             if (somePet.GetHyrdation() < somePet.hydrationThresholdMAX)
             {
                 somePet.Drink();
-                Console.WriteLine($"You gave {somePet.Name} some water to drink.");
+                Console.WriteLine($"You gave {somePet.GetName()} some water to drink.");
             }
             else
             {
-                Console.WriteLine($"{somePet.Name} is fully hydrated.  Act quick before {somePet.Name} has an accident!");
+                Console.WriteLine($"{somePet.GetName()} is fully hydrated.  Act quick before {somePet.GetName()} has an accident!");
             }
         }
 
@@ -52,11 +52,11 @@ namespace VirtualPet
             if (somePet.GetHealth() < somePet.healthThresholdMAX)
             {
                 somePet.SeeDoctor();
-                Console.WriteLine($"You took {somePet.Name} to the vet and all is well.");
+                Console.WriteLine($"You took {somePet.GetName()} to the vet and all is well.");
             }
             else
             {
-                Console.WriteLine($"{somePet.Name} is as healthy as can be.  Save your money.");
+                Console.WriteLine($"{somePet.GetName()} is as healthy as can be.  Save your money.");
             }
         }
 
@@ -65,11 +65,11 @@ namespace VirtualPet
             if (somePet.GetIrritable() > somePet.irritabaleThresholdMIN)
             {
                 somePet.Relieve();
-                Console.WriteLine($"You let {somePet.Name} relieve themself.");
+                Console.WriteLine($"You let {somePet.GetName()} relieve themself.");
             }
             else
             {
-                Console.WriteLine($"{somePet.Name} is being stubborn and won't go outside right now.");
+                Console.WriteLine($"{somePet.GetName()} is being stubborn and won't go outside right now.");
             }
         }
 
@@ -77,12 +77,12 @@ namespace VirtualPet
         {
             if (somePet.IsPetTired())
             {
-                Console.WriteLine($"{somePet.Name} is sleeping soundly.");
+                Console.WriteLine($"{somePet.GetName()} is sleeping soundly.");
                 somePet.Sleep();
             }
             else if (somePet.IsPetEnergized())
             {
-                Console.WriteLine($"{somePet.Name} is full of energy right now and refuses to sleep.");
+                Console.WriteLine($"{somePet.GetName()} is full of energy right now and refuses to sleep.");
             }
             else
             {
@@ -92,7 +92,7 @@ namespace VirtualPet
 
         public void LeavePetAlone(Pet somePet)
         {
-            Console.WriteLine($"{somePet.Name} is doing their own thing.");
+            Console.WriteLine($"{somePet.GetName()} is doing their own thing.");
             somePet.Ignore();
 
             Random rand = new Random();
