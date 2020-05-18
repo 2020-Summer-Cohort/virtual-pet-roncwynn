@@ -46,7 +46,6 @@ namespace VirtualPet
             Console.Clear();
 
             Game playersGame = new Game();
-
             PlayGame(playersGame, playersPet);
         }
 
@@ -57,6 +56,10 @@ namespace VirtualPet
             {
                 ProcessTime(somePet);
                 ShowPetStatus(somePet);
+                //TODO: temp code start
+                Pet tempPet = new Pet("PetName", "PetSpecies");
+                ShowPetStatus(tempPet);
+                //TOFO: temp code end
                 ShowGameMenu(somePet.GetName());
                 string playerChoice = Console.ReadLine().ToLower();
                 keepPlaying = ProcessPlayerChoice(playerChoice, someGame, somePet);
