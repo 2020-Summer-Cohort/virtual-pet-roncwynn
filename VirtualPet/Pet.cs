@@ -122,7 +122,7 @@ namespace VirtualPet
 
         public void Drink()
         {
-            Hydration = Hydration + 20;
+            Hydration = Hydration + 40;
         }
 
         public void Relieve()
@@ -139,7 +139,7 @@ namespace VirtualPet
         {
             Hunger = Hunger + 10;
             Health = Health + 10;
-            Boredom = Boredom - 20;
+            Boredom = Boredom - 40;
             Hydration = Hydration - 20;
             Irritated = Irritated - 10;
             Energy = Energy - 50;
@@ -147,7 +147,7 @@ namespace VirtualPet
 
         public void Sleep()
         {
-            Energy = Energy + 20;
+            Energy = Energy + 40;
             Boredom = Boredom + 10;
             Hunger = Hunger + 20;
             Hydration = Hydration - 10;

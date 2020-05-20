@@ -17,7 +17,7 @@ namespace VirtualPet.Tests
         {
             Assert.NotNull(testPet);
         }
-
+        
         // INSTRUCTIONS:
         // Uncomment code in the test body one test at a time
         // Add source code to eliminate the build errors (red squiggle) and pass the test
@@ -175,11 +175,11 @@ namespace VirtualPet.Tests
         }
 
         [Fact]
-        public void Drink_Should_Increase_By_20()
+        public void Drink_Should_Increase_By_40()
         {
             int currentDrinkLevel = testPet.GetHyrdation();
             testPet.Drink();
-            Assert.Equal(currentDrinkLevel + 20, testPet.GetHyrdation());
+            Assert.Equal(currentDrinkLevel + 40, testPet.GetHyrdation());
         }
 
         [Fact]
@@ -198,11 +198,11 @@ namespace VirtualPet.Tests
         }
 
         [Fact]
-        public void Play_Should_Decrease_Boredom_By_20()
+        public void Play_Should_Decrease_Boredom_By_40()
         {
-             testPet.Play();
-
-             Assert.Equal(40, testPet.GetBoredom());
+            int currentBoredomeLevel = testPet.GetBoredom(); 
+            testPet.Play();
+             Assert.Equal(currentBoredomeLevel- 40, testPet.GetBoredom());
         }
 
         [Fact]
