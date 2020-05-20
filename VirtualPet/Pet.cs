@@ -26,17 +26,15 @@ namespace VirtualPet
         public int energyThresholdMIN = 10;
         public int energyThresholdMAX = 100;
 
-        public string Name { get; set; }
-        public string Species { get; set; }
-        //TODO:  Create an Enum for Pet Species, and add more types of pets
-        //public enum petSpecies { Cat, Dog, Tiger }
+        public  string Name { get; set; }
+        public  string Species { get; set; }
 
-        public int Hunger { get; set; }
-        public int Health { get; set; }
-        public int Boredom { get; set; }
-        public int Hydration { get; set; }
-        public int Energy { get; set; }
-        public int Irritated { get; set; }
+        public  int Hunger { get; set; }
+        public  int Health { get; set; }
+        public  int Boredom { get; set; }
+        public  int Hydration { get; set; }
+        public  int Energy { get; set; }
+        public  int Irritated { get; set; }
 
         public Pet()
         {
@@ -56,7 +54,7 @@ namespace VirtualPet
             SetInitialPetValues();
         }
 
-        private void SetInitialPetValues()
+        private  void SetInitialPetValues()
         {
             Hunger = initialHungerValue;
             Boredom = initialBoredomValue;
@@ -64,7 +62,6 @@ namespace VirtualPet
             Hydration = initialHydrationValue;
             Energy = initialEnergyValue;
             Irritated = initialIritableValue;
-
         }
 
         public void SetName(string name)
