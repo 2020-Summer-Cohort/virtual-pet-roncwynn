@@ -134,134 +134,18 @@ namespace VirtualPet
         static void ProcessTime(Game someGame, Pet somePet)
         {
             someGame.Tick(somePet);
-            CheckPetLevels(somePet);
+            CheckPetLevels(someGame, somePet);
         }
 
-        static string CheckBoredomeLevel(Pet somePet)
-        {
-            string message;
-            if (somePet.IsPetBored())
-            {
-                somePet.MaximizeBoredome();
-                message = somePet.GetName() + " is EXTREMELY bored.  Best to play with " + somePet.GetName() + " before they start chewing on your furniture.";
-            }
-            else if (somePet.IsPetHappy())
-            {
-                somePet.MinimizePetBoredome();
-                message = somePet.GetName() + " feels very loved and appreciated.  Great Job!";
-            }
-            else
-            {
-                message = null;
-            }
-            return message;
-        }
-        static string CheckHungerLevel(Pet somePet)
-        {
-            string message;
-            if (somePet.IsPetHungry())
-            {
-                message = somePet.GetName() + " is HUNGRY.  You might want to feed " + somePet.GetName() + " .";
-                if (somePet.GetHunger() >= somePet.hungerThresholdMAX)
-                { somePet.MaximizeHunger(); }
-            }
-            else if (somePet.IsPetFullOfFood())
-            {
-                somePet.MinimzeHunger();
-                message = null;
-            }
-            else
-            {
-                message = null;
-            }
-            return message;
-        }
-        static string CheckThirstLevel(Pet somePet)
-        {
-            string message;
-            if (somePet.IsPetThirsty())
-            {
-                message = somePet.GetName() + " is THIRSTY.  You might want to give " + somePet.GetName() + " some water.";
-                if (somePet.GetHyrdation() <= somePet.hydrationThresholdMIN)
-                { somePet.MinimizeHydration(); }
-            }
-            else if (somePet.IsPetFullOfWater())
-            {
-                somePet.MaximizeHydration();
-                message = null;
-            }
-            else
-            {
-                message = null;
-            }
-            return message;
-        }
-        static string CheckEnergyLevel(Pet somePet)
-        {
-            string message;
-            if (somePet.IsPetTired())
-            {
-                somePet.MinimizeEnergy();
-                message = somePet.GetName() + " is low on ENERGY.  You might want to let them rest.";
-            }
-            else if (somePet.IsPetEnergized())
-            {
-                somePet.MaximizeEnergy();
-                message = somePet.GetName() + " is full of ENERGY.  You might want to player with them.";
-            }
-            else
-            {
-                message = null;
-            }
-            return message;
-        }
-        static string CheckHealthLevel(Pet somePet)
-        {
-            string message;
-            if (somePet.IsPetSick())
-            {
-                somePet.MinimizeHealth();
-                message = somePet.GetName() + " is not feeling well.  You might want to take them to the vet.";
-            }
-            else if (somePet.IsPetHealthy())
-            {
-                somePet.MaximizeHealth();
-                message = somePet.GetName() + " is completly healthy.";
-            }
-            else
-            {
-                message = null;
-            }
-            return message;
-        }
-        static string CheckIrritationLevel(Pet somePet)
-        {
-            string message;
-            if (somePet.IsPetIrritated())
-            {
-                somePet.MaximizeIrritation();
-                message = somePet.GetName() + " is IRRITATED.  You might want to take " + somePet.GetName() + " outside before they have an accident.";
-                return message;
-            }
-            else if (somePet.IsPetContent())
-            {
-                somePet.MinimizeIrritation();
-                message = null;
-            }
-            {
-                message = null;
-                return message;
-            }
-        }
 
-        static void CheckPetLevels(Pet somePet)
+        static void CheckPetLevels(Game someGame, Pet somePet)
         {
-            string petBoredomeLevelMessage = CheckBoredomeLevel(somePet);
-            string petIrritatedLevelMessage = CheckIrritationLevel(somePet);
-            string petHungerLevelMessage = CheckHungerLevel(somePet);
-            string petThirstLevelMessage = CheckThirstLevel(somePet);
-            string petEnergyLevelMessage = CheckEnergyLevel(somePet);
-            string petHealthLevelMessage = CheckHealthLevel(somePet);
+            string petBoredomeLevelMessage =  someGame.CheckBoredomeLevel(somePet);
+            string petIrritatedLevelMessage = someGame.CheckIrritationLevel(somePet);
+            string petHungerLevelMessage = someGame.CheckHungerLevel(somePet);
+            string petThirstLevelMessage = someGame.CheckThirstLevel(somePet);
+            string petEnergyLevelMessage = someGame.CheckEnergyLevel(somePet);
+            string petHealthLevelMessage = someGame.CheckHealthLevel(somePet);
 
             if (petBoredomeLevelMessage != null)
             { Console.WriteLine(petBoredomeLevelMessage); }
