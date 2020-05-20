@@ -55,12 +55,8 @@ namespace VirtualPet
             bool keepPlaying = true;
             while (keepPlaying)
             {
-                ProcessTime(somePet);
+                ProcessTime(someGame, somePet);
                 ShowPetStatus(somePet);
-                //TODO: temp code start
-                Pet tempPet = new Pet("PetName", "PetSpecies");
-                ShowPetStatus(tempPet);
-                //TOFO: temp code end
                 ShowGameMenu(somePet.GetName());
                 string playerChoice = Console.ReadLine().ToLower();
                 keepPlaying = ProcessPlayerChoice(playerChoice, someGame, somePet);
@@ -135,9 +131,9 @@ namespace VirtualPet
 
         }
 
-        static void ProcessTime(Pet somePet)
+        static void ProcessTime(Game someGame, Pet somePet)
         {
-            somePet.Tick();
+            someGame.Tick(somePet);
             CheckPetLevels(somePet);
         }
 
@@ -151,7 +147,7 @@ namespace VirtualPet
             }
             else if (somePet.IsPetHappy())
             {
-                somePet.ResetPetBoredome();
+                somePet.MinimizePetBoredome();
                 message = somePet.GetName() + " feels very loved and appreciated.  Great Job!";
             }
             else

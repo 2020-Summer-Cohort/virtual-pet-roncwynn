@@ -162,29 +162,7 @@ namespace VirtualPet
             Energy = Energy - 10;
         }
         
-        public void LivingPetProcess()
-        {
-            if (IsPetHungry()) 
-            { Feed(); }
-
-            if (IsPetThirsty())
-            { Drink(); }
-
-            if (IsPetTired())
-            { Sleep(); }
-        }
-       
-        public void Tick()
-        {
-            Hunger = Hunger + 5;
-            Health = Health - 5;
-            Boredom = Boredom + 5;
-            Hydration = Hydration - 5;
-            Irritated = Irritated + 5;
-            Energy = Energy - 5; 
-        }
-
-        public void ResetPetBoredome()
+        public void MinimizePetBoredome()
         {
             Boredom = initialBoredomValue;
         }

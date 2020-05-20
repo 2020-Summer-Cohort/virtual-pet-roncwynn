@@ -3,9 +3,8 @@ using Xunit;
 
 namespace VirtualPet.Tests
 {
-    class ShelterTests
+    public class ShelterTests
     {
-        private Pet testPet;
 
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace VirtualPet
 {
-    class Game
+    public class  Game
     {
         public  void PlayWithPet(Pet somePet)
         {
@@ -110,8 +110,31 @@ namespace VirtualPet
                     somePet.Drink();
                     break;
             }
-            somePet.LivingPetProcess();
+            LivingPetProcess(somePet);
         }
+
+        public void LivingPetProcess(Pet somePet)
+        {
+            if (somePet.IsPetHungry())
+            { somePet.Feed(); }
+
+            if (somePet.IsPetThirsty())
+            { somePet.Drink(); }
+
+            if (somePet.IsPetTired())
+            { somePet.Sleep(); }
+        }
+
+        public void Tick(Pet somePet)
+        {
+            somePet.Hunger = somePet.Hunger + 5;
+            somePet.Health = somePet.Health - 5;
+            somePet.Boredom = somePet.Boredom + 5;
+            somePet.Hydration = somePet.Hydration - 5;
+            somePet.Irritated = somePet.Irritated + 5;
+            somePet.Energy = somePet.Energy - 5;
+        }
+
 
     }
 }
