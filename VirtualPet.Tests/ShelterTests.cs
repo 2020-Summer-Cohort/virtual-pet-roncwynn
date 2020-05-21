@@ -21,13 +21,17 @@ namespace VirtualPet.Tests
         }
 
         [Fact]
+        public void GetShelterPetCount_should_return_0()
+        {
+            Assert.Equal(0, testShelter.GetShelterPetCount());
+        }
+
+        [Fact]
         public void RemovePetFromShelter_Should_Decrease_Total_Pets_By_1()
         {
             int currentShelterPetCount = testShelter.GetShelterPetCount();
-
             bool petAdded = testShelter.RemovePetFromShelter(testPet);
-
-            Assert.Equal(currentShelterPetCount + 1, testShelter.GetShelterPetCount());
+            Assert.Equal(currentShelterPetCount - 1, testShelter.GetShelterPetCount());
         }
         
         [Fact]
@@ -49,7 +53,7 @@ namespace VirtualPet.Tests
         public void IsShelterFull_Should_Return_True_If_Full()
         {
             int shelterMAX = testShelter.GetShelterCapacity();
-            for (int i = 1;i < shelterMAX;i++)
+            for (int i = 1;i <= shelterMAX;i++)
             {
                 testShelter.AddPetToShelter(testPet);
             }
