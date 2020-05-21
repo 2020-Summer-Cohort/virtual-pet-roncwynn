@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Http;
@@ -6,11 +7,198 @@ using System.Text;
 
 namespace VirtualPet
 {
-    public class  Game
+    public class Game
     {
         public Game()
         {
 
+        }
+
+        public void BeginGame()
+        {
+            //Pet playersPet = CreatePet();
+            //PlayGame(playersPet);
+            PlayGame2();
+        }
+
+        public void PlayGame2()
+        {
+            bool keepPlaying = true;
+            while (keepPlaying)
+            {
+                ShowGameMainMenu();
+                string selectedMenuOption = GetPlayerMainMenuChoice();
+                //ProcessPlayerMainMenuChoice(selectedMenuOption);
+                switch (selectedMenuOption)
+                {
+                    case "1":     //Show Status of all Pets
+                        ShowAllPets();
+                        break;
+                    case "2":     //Feed all Pets
+                        FeedAllPets();
+                        break;
+                    case "3":     //Water all Pets
+                        WaterAllPets();
+                        break;
+                    case "4":     //Play with all Pets
+                        PlayWithPets();
+                        break;
+                    case "5":    //Select a Pet
+                        SelectPet();
+                        break;
+                    case "6":    //Admit new Pet
+                        AdmitPet();
+                        break;
+                    case "7":    //Adopt a Pet
+                        AdoptPet();
+                        break;
+                    case "9":    //Leave Shelter
+                        LeaveShelter();
+                        keepPlaying = false;
+                        break;
+                    default:
+                        //message = "Invalid Choice.  Please try again.";
+                        Console.WriteLine("nvalid Choice.  Please try again.");
+                        break;
+                }
+
+                //ProvideFeedbackToPlayer();
+                //Repeat
+            }
+        }
+
+        public void ShowGameMainMenu()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Tiger Kings Wildly Popular Pet Shelter");
+            Console.WriteLine("\n            MAIN MENU");
+            Console.WriteLine();
+            Console.WriteLine("1. Show all Pets in the Shelter");
+            Console.WriteLine("2. Feed the Pets");
+            Console.WriteLine("3. Water the Pets");
+            Console.WriteLine("4. Play with the Pets");
+            Console.WriteLine("5. Select a Pet");
+            Console.WriteLine("6. Admit a new Pet to the Shelter");
+            Console.WriteLine("7. Adopt a Pet");
+            Console.WriteLine("9. Leave the Shelter");
+        }
+
+        public string GetPlayerMainMenuChoice()
+        {
+            Console.WriteLine("\nPlease enter your selection");
+            string playerGameResponse = Console.ReadKey().KeyChar.ToString().ToLower();
+            return playerGameResponse;
+        }
+
+        public void ProcessPlayerMainMenuChoice(string selectedMenuOption)
+        {
+            switch (selectedMenuOption)
+            {
+                case "1":     //Show Status of all Pets
+                    ShowAllPets();
+                    break;
+                case "2":     //Feed all Pets
+                    FeedAllPets();
+                    break;
+                case "3":     //Water all Pets
+                    WaterAllPets();
+                    break;
+                case "4":     //Play with all Pets
+                    PlayWithPets();
+                    break;
+                case "5":    //Select a Pet
+                    SelectPet();
+                    break;
+                case "6":    //Admit new Pet
+                    AdmitPet();
+                    break;
+                case "7":    //Adopt a Pet
+                    AdoptPet();
+                    break;
+                case "9":    //Leave Shelter
+                    LeaveShelter();
+                    break;
+                default:
+                    //message = "Invalid Choice.  Please try again.";
+                    Console.WriteLine("nvalid Choice.  Please try again.");
+                    break;
+            }
+        }
+
+        public void ShowAllPets()
+        {
+            Console.WriteLine("Show All Pets");
+            Console.ReadLine();
+        }
+        public void FeedAllPets()
+        {
+            Console.WriteLine("Feed Pets");
+            Console.ReadLine();
+
+        }
+        public void WaterAllPets()
+        {
+            Console.WriteLine("Water All Pets");
+            Console.ReadLine();
+
+        }
+        public void PlayWithPets()
+        {
+            Console.WriteLine("Play All Pets");
+            Console.ReadLine();
+
+        }
+        public void SelectPet()
+        {
+            Console.WriteLine("Select Pet");
+            Console.ReadLine();
+
+        }
+        public void AdmitPet()
+        {
+            Console.WriteLine("Admit Pet");
+            Console.ReadLine();
+
+        }
+        public void AdoptPet()
+        {
+            Console.WriteLine("Adopt Pet");
+            Console.ReadLine();
+
+        }
+        public void LeaveShelter()
+        {
+            Console.WriteLine("Leave Shelter");
+            Console.ReadLine();
+
+        }
+
+
+        public Pet CreatePet()
+        {
+            string playerPetSpeciesEntry = "";
+            while (playerPetSpeciesEntry == "")
+            {
+                Console.WriteLine("\nWhat kind of Pet would you like?");
+                playerPetSpeciesEntry = Console.ReadLine();
+            }
+
+            string playerPetNameEntry = "";
+            while (playerPetNameEntry == "")
+            {
+                Console.WriteLine("\nWhat would you like to name your pet?");
+                playerPetNameEntry = Console.ReadLine();
+            }
+
+            //TODO:  Add Try Catch here
+            Pet somePet = new Pet(playerPetNameEntry, playerPetSpeciesEntry);
+            Console.WriteLine("\n CONGRATULATIONS");
+            Console.WriteLine($"\nYou have created a new pet {playerPetSpeciesEntry} named {playerPetNameEntry}.");
+            Console.WriteLine($"\nIn this game pets have attributes that will change dependant on your actions.");
+            Console.WriteLine("\nPress ENTER when ready to being playing the game.");
+            Console.ReadLine();
+            Console.Clear();
+            return somePet;
         }
 
         public void PlayGame(Pet somePet)

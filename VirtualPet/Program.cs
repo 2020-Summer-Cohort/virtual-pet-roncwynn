@@ -23,54 +23,16 @@ namespace VirtualPet
             }
             if (playerGameResponse == "y")
             {
-                StartGame();
+                Console.Clear();
+                Console.WriteLine("\nGREAT.  Glad you want to play.");
+                Game playersGame = new Game();
+                playersGame.BeginGame();
             }
             else 
             {
                 Console.WriteLine("\nPlease come back another time.");
             }
         }
-
-        static void StartGame()
-        {
-            Console.Clear();
-            Console.WriteLine("\nGREAT.  Glad you want to play.");
-
-            Pet playersPet = CreatePet();
-
-            Console.WriteLine("\n CONGRATULATIONS");
-            Console.WriteLine($"\nYou have created a new pet {playersPet.GetSpecies()} named {playersPet.GetName()}.");
-            Console.WriteLine($"\nIn this game pets have attributes that will change dependant on your actions.");
-            Console.WriteLine("\nPress ENTER when ready to being playing the game.");
-            Console.ReadLine();
-
-            Console.Clear();
-
-            Game playersGame = new Game();
-            playersGame.PlayGame(playersPet);
-        }
-
-        static Pet CreatePet()
-        {
-            string playerPetSpeciesEntry = "";
-            while (playerPetSpeciesEntry == "")
-            { 
-                Console.WriteLine("\nWhat kind of Pet would you like?");
-                playerPetSpeciesEntry = Console.ReadLine();
-            }
-
-            string playerPetNameEntry = "";
-            while (playerPetNameEntry == "")
-            {
-                Console.WriteLine("\nWhat would you like to name your pet?");
-                playerPetNameEntry = Console.ReadLine();
-            }
-
-            Pet somePet = new Pet(playerPetNameEntry, playerPetSpeciesEntry);
-            Console.WriteLine($"Energy = {somePet.GetEnergy()}");
-            return somePet;
-        }
-        
 
     }
 }

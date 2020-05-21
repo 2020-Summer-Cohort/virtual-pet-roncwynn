@@ -14,7 +14,7 @@ namespace VirtualPet
 
         public Shelter()
         {
-
+            //TODO:  Setup initial Shelter with some Pets
         }
 
         public bool IsShelterFull()
