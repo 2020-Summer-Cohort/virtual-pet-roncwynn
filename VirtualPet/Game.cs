@@ -13,7 +13,91 @@ namespace VirtualPet
 
         }
 
-        public  string PlayWithPet(Pet somePet)
+        public void PlayGame(Pet somePet)
+        {
+            bool keepPlaying = true;
+            while (keepPlaying)
+            {
+                ShowPetStatus(somePet);
+                ShowGameMenu(somePet.GetName());
+                string playerChoice = Console.ReadLine().ToLower();
+                //TODO:  better variable name here
+                string gameFeedbackToPlayer = ProcessPlayerChoice(playerChoice, somePet);
+
+                Console.Clear();
+                Console.WriteLine("\n");
+                Console.WriteLine(gameFeedbackToPlayer);
+
+                //TODO:  better variable name here
+                string petFeedbacktoPlayer = ProcessTime(somePet);
+                Console.WriteLine(petFeedbacktoPlayer);
+
+                //TODO:  Find beter way to do this
+                if (gameFeedbackToPlayer == "QuitGame")
+                    keepPlaying = false;
+
+            }
+        }
+
+        static void ShowGameMenu(string petName)
+        {
+            Console.WriteLine($"\nWhat would you like to do with {petName}?");
+            Console.WriteLine();
+            Console.WriteLine($"1. Play with {petName}                2.Feed { petName}");
+            Console.WriteLine($"3. Give {petName} some water.         4.Take { petName} to the Vet.");
+            Console.WriteLine($"5. Let {petName} outside.             6. Put {petName} to bed.");
+            Console.WriteLine($"7. Do nothing with {petName}.");
+            Console.WriteLine("\n9. Quit the Game");
+        }
+
+        public string ProcessPlayerChoice(string playerChoice, Pet somePet)
+        {
+            string message = "";
+            switch (playerChoice)
+            {
+                case "1": //Play with Pet
+                    message = PlayWithPet(somePet);
+                    return message;
+                case "2": //Feed Pet
+                    message = FeedPet(somePet);
+                    return message;
+                case "3": //Give Water
+                    message = GivePetWater(somePet);
+                    return message;
+                case "4": //Take to Vet
+                    message = TakePetToVet(somePet);
+                    return message;
+                case "5": //Let outside
+                    message = LetPetOutside(somePet);
+                    return message;
+                case "6": //Sleep
+                    message = LetPetSleep(somePet);
+                    return message;
+                case "7": //Do Nothing
+                    message = LeavePetAlone(somePet);
+                    return message;
+                case "9": //Quit the Game
+                    message = "QuitGame";
+                    return message;
+                default:
+                    message = "Invalid Choice.  Please try again.";
+                    return message;
+            }
+
+        }
+
+        static void ShowPetStatus(Pet somePet)
+        {
+            Console.WriteLine($"\nHere is how {somePet.GetName()} is doing:");
+            Console.WriteLine($"\nHEALTH factor is {somePet.GetHealth()}.");
+            Console.WriteLine($"HUNGER factor is {somePet.GetHunger()}.");
+            Console.WriteLine($"THIRST factor is {somePet.GetHyrdation()}.");
+            Console.WriteLine($"ENERGY factor is {somePet.GetEnergy()}.");
+            Console.WriteLine($"BOREDOM factor is {somePet.GetBoredom()}.");
+            Console.WriteLine($"IRRITATED factor is {somePet.GetIrritable()}.");
+        }
+
+        public string PlayWithPet(Pet somePet)
         {
             string message = "";
             Random rand = new Random();

@@ -47,33 +47,7 @@ namespace VirtualPet
             Console.Clear();
 
             Game playersGame = new Game();
-            PlayGame(playersGame, playersPet);
-        }
-
-        static void PlayGame(Game someGame, Pet somePet)
-        {
-            bool keepPlaying = true;
-            while (keepPlaying)
-            {
-                ShowPetStatus(somePet);
-                ShowGameMenu(somePet.GetName());
-                string playerChoice = Console.ReadLine().ToLower();
-                //TODO:  better variable name here
-                string gameFeedbackToPlayer = ProcessPlayerChoice(playerChoice, someGame, somePet);
-
-                Console.Clear();
-                Console.WriteLine("\n");
-                Console.WriteLine(gameFeedbackToPlayer);
-
-                //TODO:  better variable name here
-                string petFeedbacktoPlayer = someGame.ProcessTime(somePet);
-                Console.WriteLine(petFeedbacktoPlayer);
-
-                //TODO:  Find beter way to do this
-                if (gameFeedbackToPlayer == "QuitGame")
-                    keepPlaying = false;
-
-            }
+            playersGame.PlayGame(playersPet);
         }
 
         static Pet CreatePet()
@@ -97,62 +71,6 @@ namespace VirtualPet
             return somePet;
         }
         
-        static void ShowGameMenu(string petName)
-        {
-            Console.WriteLine($"\nWhat would you like to do with {petName}?");
-            Console.WriteLine();
-            Console.WriteLine($"1. Play with {petName}                2.Feed { petName}");
-            Console.WriteLine($"3. Give {petName} some water.         4.Take { petName} to the Vet.");
-            Console.WriteLine($"5. Let {petName} outside.             6. Put {petName} to bed.");
-            Console.WriteLine($"7. Do nothing with {petName}.");
-            Console.WriteLine("\n9. Quit the Game");
-        }
 
-        static string ProcessPlayerChoice(string playerChoice, Game someGame, Pet somePet)
-        {
-            string message = "";
-            switch (playerChoice)
-            {
-                case "1": //Play with Pet
-                    message = someGame.PlayWithPet(somePet);
-                    return message;
-                case "2": //Feed Pet
-                    message = someGame.FeedPet(somePet);
-                    return message;
-                case "3": //Give Water
-                    message = someGame.GivePetWater(somePet);
-                    return message;
-                case "4": //Take to Vet
-                    message = someGame.TakePetToVet(somePet);
-                    return message;
-                case "5": //Let outside
-                    message = someGame.LetPetOutside(somePet);
-                    return message;
-                case "6": //Sleep
-                    message = someGame.LetPetSleep(somePet);
-                    return message;
-                case "7": //Do Nothing
-                    message = someGame.LeavePetAlone(somePet);
-                    return message;
-                case "9": //Quit the Game
-                    message = "QuitGame";
-                    return message;
-                default:
-                    message = "Invalid Choice.  Please try again.";
-                    return message;
-            }
-
-        }
-
-        static void ShowPetStatus(Pet somePet)
-        {
-            Console.WriteLine($"\nHere is how {somePet.GetName()} is doing:");
-            Console.WriteLine($"\nHEALTH factor is {somePet.GetHealth()}.");
-            Console.WriteLine($"HUNGER factor is {somePet.GetHunger()}.");
-            Console.WriteLine($"THIRST factor is {somePet.GetHyrdation()}.");
-            Console.WriteLine($"ENERGY factor is {somePet.GetEnergy()}.");
-            Console.WriteLine($"BOREDOM factor is {somePet.GetBoredom()}.");
-            Console.WriteLine($"IRRITATED factor is {somePet.GetIrritable()}.");
-        }
     }
 }
