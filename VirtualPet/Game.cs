@@ -6,6 +6,11 @@ namespace VirtualPet
 {
     public class  Game
     {
+        public Game()
+        {
+
+        }
+
         public  void PlayWithPet(Pet somePet)
         {
             Random rand = new Random();
@@ -240,6 +245,40 @@ namespace VirtualPet
                 message = null;
                 return message;
             }
+        }
+
+        public void CheckPetLevels(Pet somePet)
+        {
+            string petBoredomeLevelMessage = CheckBoredomeLevel(somePet);
+            string petIrritatedLevelMessage = CheckIrritationLevel(somePet);
+            string petHungerLevelMessage = CheckHungerLevel(somePet);
+            string petThirstLevelMessage = CheckThirstLevel(somePet);
+            string petEnergyLevelMessage = CheckEnergyLevel(somePet);
+            string petHealthLevelMessage = CheckHealthLevel(somePet);
+
+            if (petBoredomeLevelMessage != null)
+            { Console.WriteLine(petBoredomeLevelMessage); }
+
+            if (petIrritatedLevelMessage != null)
+            { Console.WriteLine(petIrritatedLevelMessage); }
+
+            if (petHungerLevelMessage != null)
+            { Console.WriteLine(petHungerLevelMessage); }
+
+            if (petThirstLevelMessage != null)
+            { Console.WriteLine(petThirstLevelMessage); }
+
+            if (petEnergyLevelMessage != null)
+            { Console.WriteLine(petEnergyLevelMessage); }
+
+            if (petHealthLevelMessage != null)
+            { Console.WriteLine(petHealthLevelMessage); }
+        }
+
+        public void ProcessTime(Pet somePet)
+        {
+            Tick(somePet);
+            CheckPetLevels(somePet);
         }
 
         public void Tick(Pet somePet)

@@ -55,7 +55,7 @@ namespace VirtualPet
             bool keepPlaying = true;
             while (keepPlaying)
             {
-                ProcessTime(someGame, somePet);
+                someGame.ProcessTime(somePet);
                 ShowPetStatus(somePet);
                 ShowGameMenu(somePet.GetName());
                 string playerChoice = Console.ReadLine().ToLower();
@@ -131,41 +131,6 @@ namespace VirtualPet
 
         }
 
-        static void ProcessTime(Game someGame, Pet somePet)
-        {
-            someGame.Tick(somePet);
-            CheckPetLevels(someGame, somePet);
-        }
-
-
-        static void CheckPetLevels(Game someGame, Pet somePet)
-        {
-            string petBoredomeLevelMessage =  someGame.CheckBoredomeLevel(somePet);
-            string petIrritatedLevelMessage = someGame.CheckIrritationLevel(somePet);
-            string petHungerLevelMessage = someGame.CheckHungerLevel(somePet);
-            string petThirstLevelMessage = someGame.CheckThirstLevel(somePet);
-            string petEnergyLevelMessage = someGame.CheckEnergyLevel(somePet);
-            string petHealthLevelMessage = someGame.CheckHealthLevel(somePet);
-
-            if (petBoredomeLevelMessage != null)
-            { Console.WriteLine(petBoredomeLevelMessage); }
-
-            if (petIrritatedLevelMessage != null)
-            { Console.WriteLine(petIrritatedLevelMessage); }
-
-            if (petHungerLevelMessage != null)
-            { Console.WriteLine(petHungerLevelMessage); }
-
-            if (petThirstLevelMessage != null)
-            { Console.WriteLine(petThirstLevelMessage); }
-
-            if (petEnergyLevelMessage != null)
-            { Console.WriteLine(petEnergyLevelMessage); }
-
-            if (petHealthLevelMessage != null)
-            { Console.WriteLine(petHealthLevelMessage); }
-
-        }
         static void ShowPetStatus(Pet somePet)
         {
             Console.WriteLine($"\nHere is how {somePet.GetName()} is doing:");

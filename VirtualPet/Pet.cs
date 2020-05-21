@@ -6,6 +6,7 @@ namespace VirtualPet
 {
     public class Pet
     {
+        //TODO:  Change CONST names to PascalCase
         const int initialHungerValue = 50;
         const int initialBoredomValue = 60;
         const int initialHealthValue = 30;
@@ -127,7 +128,7 @@ namespace VirtualPet
 
         public void Relieve()
         {
-            Irritated = 0;
+            Irritated = irritabaleThresholdMIN;
         }
 
         public void SeeDoctor()

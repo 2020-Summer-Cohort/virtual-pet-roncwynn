@@ -237,5 +237,31 @@ namespace VirtualPet.Tests
             Assert.Equal(currentIrritable-10, testPet.GetIrritable());
         }
 
+        [Fact]
+        public void Relieve_Should_Set_Irritable_To_10()
+        {
+            testPet.Relieve();
+            Assert.Equal(10, testPet.GetIrritable());
+        }
+
+        [Fact]
+        public void Ignore_Should_Increase_Boredome()
+        {
+            //int currentBoresomeLevel = testPet.GetBoredom();
+            //testPet.Ignore();
+            
+        }
+
+        [Fact]
+        public void Ignore_Should_Increase_Irriatable()
+        {
+
+        }
+
+        [Fact]
+        public void Ignore_Should_Decrease_Engergy()
+        {
+
+        }
     }
 }

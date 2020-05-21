@@ -11,18 +11,17 @@ namespace VirtualPet.Tests
             testGame = new Game();
         }
 
-        //TODO:  Figure out why declaring testPet fails here, and not in each test
-        //private Pet testPet;
-        //public PetTests()
-        //{
-        //    testPet = new Pet();
-        //}
+        internal Pet testPet = new Pet();
+
+        [Fact]
+        public void Game_Constructor_Should_Instantiate_Game_Object()
+        {
+            Assert.NotNull(testGame);
+        }
 
         [Fact]
         public void Tick_Should_Increase_Boredom_By_5()
         {
-            //testPet.Tick();
-            Pet testPet = new Pet();
             testGame.Tick(testPet);
 
             Assert.Equal(65, testPet.GetBoredom());
@@ -31,8 +30,6 @@ namespace VirtualPet.Tests
         [Fact]
         public void Tick_Should_Decrease_Health_By_5()
         {
-            //testPet.Tick();
-            Pet testPet = new Pet();
             testGame.Tick(testPet);
 
             Assert.Equal(25, testPet.GetHealth());
@@ -41,10 +38,8 @@ namespace VirtualPet.Tests
         [Fact]
         public void Tick_Should_Decrease_Hydration_By_5()
         {
-            Pet testPet = new Pet();
 
             int currentHydration = testPet.GetHyrdation();
-            //testPet.Tick();
             testGame.Tick(testPet);
             Assert.Equal(currentHydration - 5, testPet.GetHyrdation());
         }
@@ -52,10 +47,8 @@ namespace VirtualPet.Tests
         [Fact]
         public void Tick_Should_Increase_Irritable_By_5()
         {
-            Pet testPet = new Pet();
 
             int currentIrritable = testPet.GetIrritable();
-            //testPet.Tick();
             testGame.Tick(testPet);
             Assert.Equal(currentIrritable + 5, testPet.GetIrritable());
         }
@@ -63,10 +56,8 @@ namespace VirtualPet.Tests
         [Fact]
         public void Tick_Should_Decrease_Energy_By_5()
         {
-            Pet testPet = new Pet();
 
             int currentEnergy = testPet.GetEnergy();
-            //testPet.Tick();
             testGame.Tick(testPet);
             Assert.Equal(currentEnergy - 5, testPet.GetEnergy());
         }
@@ -74,8 +65,6 @@ namespace VirtualPet.Tests
         [Fact]
         public void Tick_Should_Increase_Hunger_By_5()
         {
-            //testPet.Tick();
-            Pet testPet = new Pet();
 
             testGame.Tick(testPet);
 
