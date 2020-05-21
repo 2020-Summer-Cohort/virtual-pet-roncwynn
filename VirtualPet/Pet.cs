@@ -31,6 +31,7 @@ namespace VirtualPet
         public  string Name { get; set; }
         public  string Species { get; set; }
 
+        //TODO:  Question for me:  Should these be private instead of public?
         public  int Hunger { get; set; }
         public  int Health { get; set; }
         public  int Boredom { get; set; }

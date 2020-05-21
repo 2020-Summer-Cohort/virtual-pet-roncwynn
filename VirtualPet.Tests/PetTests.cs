@@ -183,13 +183,6 @@ namespace VirtualPet.Tests
         }
 
         [Fact]
-        public void Relieve_Should_Set_Irritable_To_0()
-        {
-            testPet.Relieve();
-            Assert.Equal(0, testPet.GetIrritable());
-        }
-
-        [Fact]
         public void Play_Should_Increase_Hunger_By_10()
         {
              testPet.Play();
@@ -247,21 +240,70 @@ namespace VirtualPet.Tests
         [Fact]
         public void Ignore_Should_Increase_Boredome()
         {
-            //int currentBoresomeLevel = testPet.GetBoredom();
-            //testPet.Ignore();
-            
+            int currentBoresomeLevel = testPet.GetBoredom();
+            testPet.Ignore();
+            Assert.True(currentBoresomeLevel < testPet.GetBoredom());
         }
 
         [Fact]
         public void Ignore_Should_Increase_Irriatable()
         {
-
+            int currentIrritable = testPet.GetIrritable();
+            testPet.Ignore();
+            Assert.True(currentIrritable < testPet.GetIrritable());
         }
 
         [Fact]
         public void Ignore_Should_Decrease_Engergy()
         {
-
+            int currentEnergy = testPet.GetEnergy();
+            testPet.Ignore();
+            Assert.True(currentEnergy > testPet.GetEnergy());
         }
+
+        [Fact]
+        public void Sleep_Should_Increase_Energy()
+        {
+            int currentEnergy = testPet.GetEnergy();
+            testPet.Sleep();
+            Assert.True(currentEnergy < testPet.GetEnergy());
+        }
+
+        [Fact]
+        public void Sleep_Should_Increase_Boredome()
+        {
+            int currentBoredome = testPet.GetBoredom();
+            testPet.Sleep();
+            Assert.True(currentBoredome < testPet.GetBoredom());
+        }
+        [Fact]
+        public void Sleep_Should_Increase_Hunger()
+        {
+            int currentHunger = testPet.GetHunger();
+            testPet.Sleep();
+            Assert.True(currentHunger < testPet.GetHunger());
+        }
+        [Fact]
+        public void Sleep_Should_Increase_Health()
+        {
+            int currentHealth = testPet.GetHealth();
+            testPet.Sleep();
+            Assert.True(currentHealth < testPet.GetHealth());
+        }
+        [Fact]
+        public void Sleep_Should_Increase_Irritation()
+        {
+            int currentIrritation = testPet.GetIrritable();
+            testPet.Sleep();
+            Assert.True(currentIrritation < testPet.GetIrritable());
+        }
+        [Fact]
+        public void Sleep_Should_Decrease_Hydration()
+        {
+            int currentHydration = testPet.GetHyrdation();
+            testPet.Sleep();
+            Assert.True(currentHydration > testPet.GetHyrdation());
+        }
+
     }
 }
