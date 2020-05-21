@@ -7,7 +7,7 @@ namespace VirtualPet.Tests
     {
         private Shelter testShelter;
 
-        internal Pet testPet = new Pet();
+        Pet testPet = new Pet();
 
         public ShelterTests()
         {

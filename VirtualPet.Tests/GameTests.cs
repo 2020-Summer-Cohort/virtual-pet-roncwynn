@@ -11,7 +11,7 @@ namespace VirtualPet.Tests
             testGame = new Game();
         }
 
-        internal Pet testPet = new Pet();
+        Pet testPet = new Pet();
 
         [Fact]
         public void Game_Constructor_Should_Instantiate_Game_Object()

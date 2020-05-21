@@ -55,18 +55,22 @@ namespace VirtualPet
             bool keepPlaying = true;
             while (keepPlaying)
             {
-                someGame.ProcessTime(somePet);
                 ShowPetStatus(somePet);
                 ShowGameMenu(somePet.GetName());
                 string playerChoice = Console.ReadLine().ToLower();
-                string messageToPlayer = ProcessPlayerChoice(playerChoice, someGame, somePet);
-                //keepPlaying = ProcessPlayerChoice(playerChoice, someGame, somePet);
+                //TODO:  better variable name here
+                string gameFeedbackToPlayer = ProcessPlayerChoice(playerChoice, someGame, somePet);
 
                 Console.Clear();
                 Console.WriteLine("\n");
-                Console.WriteLine(messageToPlayer);
+                Console.WriteLine(gameFeedbackToPlayer);
+
+                //TODO:  better variable name here
+                string petFeedbacktoPlayer = someGame.ProcessTime(somePet);
+                Console.WriteLine(petFeedbacktoPlayer);
+
                 //TODO:  Find beter way to do this
-                if (messageToPlayer == "QuitGame")
+                if (gameFeedbackToPlayer == "QuitGame")
                     keepPlaying = false;
 
             }
