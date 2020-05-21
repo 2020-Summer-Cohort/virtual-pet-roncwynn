@@ -18,10 +18,11 @@ namespace VirtualPet
         {
             //Pet playersPet = CreatePet();
             //PlayGame(playersPet);
-            PlayGame2();
+            Shelter someShelter = new Shelter();
+            PlayGame2(someShelter);
         }
 
-        public void PlayGame2()
+        public void PlayGame2(Shelter someShelter)
         {
             bool keepPlaying = true;
             while (keepPlaying)
@@ -32,10 +33,10 @@ namespace VirtualPet
                 switch (selectedMenuOption)
                 {
                     case "1":     //Show Status of all Pets
-                        ShowAllPets();
+                        ShowAllPets(someShelter);
                         break;
                     case "2":     //Feed all Pets
-                        FeedAllPets();
+                        FeedAllPets(someShelter);
                         break;
                     case "3":     //Water all Pets
                         WaterAllPets();
@@ -47,7 +48,7 @@ namespace VirtualPet
                         SelectPet();
                         break;
                     case "6":    //Admit new Pet
-                        AdmitPet();
+                        AdmitPet(someShelter);
                         break;
                     case "7":    //Adopt a Pet
                         AdoptPet();
@@ -90,50 +91,62 @@ namespace VirtualPet
             return playerGameResponse;
         }
 
-        public void ProcessPlayerMainMenuChoice(string selectedMenuOption)
-        {
-            switch (selectedMenuOption)
-            {
-                case "1":     //Show Status of all Pets
-                    ShowAllPets();
-                    break;
-                case "2":     //Feed all Pets
-                    FeedAllPets();
-                    break;
-                case "3":     //Water all Pets
-                    WaterAllPets();
-                    break;
-                case "4":     //Play with all Pets
-                    PlayWithPets();
-                    break;
-                case "5":    //Select a Pet
-                    SelectPet();
-                    break;
-                case "6":    //Admit new Pet
-                    AdmitPet();
-                    break;
-                case "7":    //Adopt a Pet
-                    AdoptPet();
-                    break;
-                case "9":    //Leave Shelter
-                    LeaveShelter();
-                    break;
-                default:
-                    //message = "Invalid Choice.  Please try again.";
-                    Console.WriteLine("nvalid Choice.  Please try again.");
-                    break;
-            }
-        }
+        //public void ProcessPlayerMainMenuChoice(string selectedMenuOption)
+        //{
+        //    switch (selectedMenuOption)
+        //    {
+        //        case "1":     //Show Status of all Pets
+        //            ShowAllPets();
+        //            break;
+        //        case "2":     //Feed all Pets
+        //            FeedAllPets();
+        //            break;
+        //        case "3":     //Water all Pets
+        //            WaterAllPets();
+        //            break;
+        //        case "4":     //Play with all Pets
+        //            PlayWithPets();
+        //            break;
+        //        case "5":    //Select a Pet
+        //            SelectPet();
+        //            break;
+        //        case "6":    //Admit new Pet
+        //            AdmitPet();
+        //            break;
+        //        case "7":    //Adopt a Pet
+        //            AdoptPet();
+        //            break;
+        //        case "9":    //Leave Shelter
+        //            LeaveShelter();
+        //            break;
+        //        default:
+        //            //message = "Invalid Choice.  Please try again.";
+        //            Console.WriteLine("nvalid Choice.  Please try again.");
+        //            break;
+        //    }
+        //}
 
-        public void ShowAllPets()
+        public void ShowAllPets(Shelter someShelter)
         {
-            Console.WriteLine("Show All Pets");
-            Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine("Here are all the pets currently in the shelter:");
+
+            int index = 1;
+            foreach(Pet somePet in someShelter.pets)
+            {
+                Console.WriteLine($"{index}.  {somePet.GetName()} is a {somePet.GetSpecies()}. Hunger = {somePet.GetHunger()}.");
+                index++;
+            }
+
         }
-        public void FeedAllPets()
+        public void FeedAllPets(Shelter someShelter)
         {
             Console.WriteLine("Feed Pets");
             Console.ReadLine();
+            foreach (Pet somePet in someShelter.pets)
+            {
+                somePet.Feed();
+            }
 
         }
         public void WaterAllPets()
@@ -150,14 +163,18 @@ namespace VirtualPet
         }
         public void SelectPet()
         {
-            Console.WriteLine("Select Pet");
-            Console.ReadLine();
+            Console.Clear();
+            Console.WriteLine("\nPlease Select a Pet from the Options Below");
+
+
+
 
         }
-        public void AdmitPet()
+        public void AdmitPet(Shelter someShelter)
         {
             Console.WriteLine("Admit Pet");
             Console.ReadLine();
+            CreatePet(someShelter);
 
         }
         public void AdoptPet()
@@ -174,7 +191,7 @@ namespace VirtualPet
         }
 
 
-        public Pet CreatePet()
+        public Pet CreatePet(Shelter someShelter)
         {
             string playerPetSpeciesEntry = "";
             while (playerPetSpeciesEntry == "")
@@ -192,12 +209,14 @@ namespace VirtualPet
 
             //TODO:  Add Try Catch here
             Pet somePet = new Pet(playerPetNameEntry, playerPetSpeciesEntry);
-            Console.WriteLine("\n CONGRATULATIONS");
-            Console.WriteLine($"\nYou have created a new pet {playerPetSpeciesEntry} named {playerPetNameEntry}.");
-            Console.WriteLine($"\nIn this game pets have attributes that will change dependant on your actions.");
-            Console.WriteLine("\nPress ENTER when ready to being playing the game.");
-            Console.ReadLine();
-            Console.Clear();
+            someShelter.pets.Add(somePet);
+            
+            //Console.WriteLine("\n CONGRATULATIONS");
+            //Console.WriteLine($"\nYou have created a new pet {playerPetSpeciesEntry} named {playerPetNameEntry}.");
+            //Console.WriteLine($"\nIn this game pets have attributes that will change dependant on your actions.");
+            //Console.WriteLine("\nPress ENTER when ready to being playing the game.");
+            //Console.ReadLine();
+            //Console.Clear();
             return somePet;
         }
 

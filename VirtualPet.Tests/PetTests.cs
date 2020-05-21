@@ -25,8 +25,8 @@ namespace VirtualPet.Tests
         [Fact]
         public void Pet_Should_Have_Name()
         {
-            testPet.Name = "Pet Name";
-            Assert.Equal("Pet Name",testPet.Name);
+            testPet.SetName("Pet Name");
+            Assert.Equal("Pet Name",testPet.GetName());
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace VirtualPet.Tests
         {
             testPet.SetName("Fluffy");
 
-            Assert.Equal("Fluffy", testPet.Name);
+            Assert.Equal("Fluffy", testPet.GetName());
 
         }
 
@@ -51,8 +51,8 @@ namespace VirtualPet.Tests
         [Fact]
         public void Pet_Should_Have_Species()
         {
-            testPet.Species = "Pet Species";
-             Assert.Equal("Pet Species",testPet.Species);
+            testPet.SetSpecies("Pet Species");
+             Assert.Equal("Pet Species",testPet.GetSpecies());
         }
 
         [Fact]
@@ -60,7 +60,7 @@ namespace VirtualPet.Tests
         {
             testPet.SetSpecies("Cat");
 
-            Assert.Equal("Cat", testPet.Species);
+            Assert.Equal("Cat", testPet.GetSpecies());
         }
 
         [Fact]

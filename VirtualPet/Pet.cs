@@ -28,8 +28,8 @@ namespace VirtualPet
         public int energyThresholdMAX = 100;
 
         //TODO:  Question for me: Do these 2 need to be public?  Does SetGet later on do the same thing?
-        public  string Name { get; set; }
-        public  string Species { get; set; }
+        private  string Name { get; set; }
+        private  string Species { get; set; }
 
         //TODO:  Question for me:  Should these be private instead of public?
         public  int Hunger { get; set; }
