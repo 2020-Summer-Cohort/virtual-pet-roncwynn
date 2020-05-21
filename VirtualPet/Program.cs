@@ -59,9 +59,15 @@ namespace VirtualPet
                 ShowPetStatus(somePet);
                 ShowGameMenu(somePet.GetName());
                 string playerChoice = Console.ReadLine().ToLower();
-                keepPlaying = ProcessPlayerChoice(playerChoice, someGame, somePet);
+                string messageToPlayer = ProcessPlayerChoice(playerChoice, someGame, somePet);
+                //keepPlaying = ProcessPlayerChoice(playerChoice, someGame, somePet);
+
                 Console.Clear();
                 Console.WriteLine("\n");
+                Console.WriteLine(messageToPlayer);
+                //TODO:  Find beter way to do this
+                if (messageToPlayer == "QuitGame")
+                    keepPlaying = false;
 
             }
         }
@@ -98,35 +104,38 @@ namespace VirtualPet
             Console.WriteLine("\n9. Quit the Game");
         }
 
-        static bool ProcessPlayerChoice(string playerChoice, Game someGame, Pet somePet)
+        static string ProcessPlayerChoice(string playerChoice, Game someGame, Pet somePet)
         {
+            string message = "";
             switch (playerChoice)
             {
                 case "1": //Play with Pet
-                    someGame.PlayWithPet(somePet);
-                    return true;
+                    message = someGame.PlayWithPet(somePet);
+                    return message;
                 case "2": //Feed Pet
-                    someGame.FeedPet(somePet);
-                    return true;
+                    message = someGame.FeedPet(somePet);
+                    return message;
                 case "3": //Give Water
-                    someGame.GivePetWater(somePet);
-                    return true;
+                    message = someGame.GivePetWater(somePet);
+                    return message;
                 case "4": //Take to Vet
-                    someGame.TakePetToVet(somePet);
-                    return true;
+                    message = someGame.TakePetToVet(somePet);
+                    return message;
                 case "5": //Let outside
-                    someGame.LetPetOutside(somePet);
-                    return true;
+                    message = someGame.LetPetOutside(somePet);
+                    return message;
                 case "6": //Sleep
-                    someGame.LetPetSleep(somePet);
-                    return true;
+                    message = someGame.LetPetSleep(somePet);
+                    return message;
                 case "7": //Do Nothing
-                    someGame.LeavePetAlone(somePet);
-                    return true;
+                    message = someGame.LeavePetAlone(somePet);
+                    return message;
                 case "9": //Quit the Game
-                        return  false;
+                    message = "QuitGame";
+                    return message;
                 default:
-                    return true;
+                    message = "Invalid Choice.  Please try again.";
+                    return message;
             }
 
         }

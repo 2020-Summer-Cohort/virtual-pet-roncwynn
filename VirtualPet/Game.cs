@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Net.Http;
 using System.Text;
 
 namespace VirtualPet
@@ -11,94 +13,135 @@ namespace VirtualPet
 
         }
 
-        public  void PlayWithPet(Pet somePet)
+        public  string PlayWithPet(Pet somePet)
         {
+            string message = "";
             Random rand = new Random();
             int petPlayFactor = rand.Next(1, 6);
             if (petPlayFactor == 4)
             {
-                Console.WriteLine($"{somePet.GetName()} doesn't want to play right now.");
+                //TODO: Remove user interaction from Game Class
+                //Console.WriteLine($"{somePet.GetName()} doesn't want to play right now.");
+                message = $"{somePet.GetName()} doesn't want to play right now.";
             }
             else
             {
                 somePet.Play();
-                Console.WriteLine($"You played with {somePet.GetName()}.");
+                //TODO: Remove user interaction from Game Class
+                //Console.WriteLine($"You played with {somePet.GetName()}.");
+                message = $"You played with {somePet.GetName()}.";
             }
+            return message;
         }
 
-        public void FeedPet(Pet somePet)
+        public string FeedPet(Pet somePet)
         {
+            string message = "";
             if (somePet.GetHunger() > somePet.hungerThresholdMIN)
             {
                 somePet.Feed();
-                Console.WriteLine($"You fed {somePet.GetName()}.");
+                //TODO: Remove user interaction from Game Class
+                //Console.WriteLine($"You fed {somePet.GetName()}.");
+                message = $"You fed {somePet.GetName()}.";
             }
             else
             {
-                Console.WriteLine($"{somePet.GetName()} isn't hungry right now, maybe try something else.");
+                //TODO: Remove user interaction from Game Class
+                //Console.WriteLine($"{somePet.GetName()} isn't hungry right now, maybe try something else.");
+                message = $"{somePet.GetName()} isn't hungry right now, maybe try something else.";
             }
+            return message;
         }
 
-        public void GivePetWater(Pet somePet)
+        public string GivePetWater(Pet somePet)
         {
+            string message = "";
             if (somePet.GetHyrdation() < somePet.hydrationThresholdMAX)
             {
                 somePet.Drink();
-                Console.WriteLine($"You gave {somePet.GetName()} some water to drink.");
+                //TODO: Remove user interaction from Game Class
+                //Console.WriteLine($"You gave {somePet.GetName()} some water to drink.");
+                message = $"You gave {somePet.GetName()} some water to drink.";
             }
             else
             {
-                Console.WriteLine($"{somePet.GetName()} is fully hydrated.  Act quick before {somePet.GetName()} has an accident!");
+                //TODO: Remove user interaction from Game Class
+                //Console.WriteLine($"{somePet.GetName()} is fully hydrated.  Act quick before {somePet.GetName()} has an accident!");
+                message = $"{somePet.GetName()} is fully hydrated.  Act quick before {somePet.GetName()} has an accident!";
             }
+            return message;
         }
 
-        public void TakePetToVet(Pet somePet)
+        public string TakePetToVet(Pet somePet)
         {
+            string message = "";
             if (somePet.GetHealth() < somePet.healthThresholdMAX)
             {
                 somePet.SeeDoctor();
-                Console.WriteLine($"You took {somePet.GetName()} to the vet and all is well.");
+                //TODO: Remove user interaction from Game Class
+                //Console.WriteLine($"You took {somePet.GetName()} to the vet and all is well.");
+                message = $"You took {somePet.GetName()} to the vet and all is well.";
             }
             else
             {
-                Console.WriteLine($"{somePet.GetName()} is as healthy as can be.  Save your money.");
+                //TODO: Remove user interaction from Game Class
+                //Console.WriteLine($"{somePet.GetName()} is as healthy as can be.  Save your money.");
+                message = $"{somePet.GetName()} is as healthy as can be.  Save your money.";
             }
+            return message;
         }
 
-        public void LetPetOutside(Pet somePet)
+        public string LetPetOutside(Pet somePet)
         {
+            string message = "";
             if (somePet.GetIrritable() > somePet.irritabaleThresholdMIN)
             {
                 somePet.Relieve();
-                Console.WriteLine($"You let {somePet.GetName()} relieve themself.");
+                //TODO: Remove user interaction from Game Class
+                //Console.WriteLine($"You let {somePet.GetName()} relieve themself.");
+                message = $"You let {somePet.GetName()} relieve themself.";
             }
             else
             {
-                Console.WriteLine($"{somePet.GetName()} is being stubborn and won't go outside right now.");
+                //TODO: Remove user interaction from Game Class
+                //Console.WriteLine($"{somePet.GetName()} is being stubborn and won't go outside right now.");
+                message = $"{somePet.GetName()} is being stubborn and won't go outside right now.";
             }
+            return message;
         }
 
-        public void LetPetSleep(Pet somePet)
+        public string LetPetSleep(Pet somePet)
         {
+            string message = "";
+            //TODO:  Fix logic error, pet never gets tired
             if (somePet.IsPetTired())
             {
-                Console.WriteLine($"{somePet.GetName()} is sleeping soundly.");
+                //TODO: Remove user interaction from Game Class
                 somePet.Sleep();
+                //Console.WriteLine($"{somePet.GetName()} is sleeping soundly.");
+                message = $"{somePet.GetName()} is sleeping soundly.";
             }
             else if (somePet.IsPetEnergized())
             {
-                Console.WriteLine($"{somePet.GetName()} is full of energy right now and refuses to sleep.");
+                //TODO: Remove user interaction from Game Class
+                //Console.WriteLine($"{somePet.GetName()} is full of energy right now and refuses to sleep.");
+                message = $"{somePet.GetName()} is full of energy right now and refuses to sleep.";
             }
             else
             {
                 somePet.Sleep();
             }
+            return message;
         }
 
-        public void LeavePetAlone(Pet somePet)
+        public string LeavePetAlone(Pet somePet)
         {
-            Console.WriteLine($"{somePet.GetName()} is doing their own thing.");
+            //TODO:  Rethink logic in this method
+            string message = "";
             somePet.Ignore();
+            //TODO: Remove user interaction from Game Class
+            //Console.WriteLine($"{somePet.GetName()} is doing their own thing.");
+            message = $"{somePet.GetName()} is doing their own thing.";
 
             Random rand = new Random();
             int petFreedomFactor = rand.Next(1, 4);
@@ -116,6 +159,7 @@ namespace VirtualPet
                     break;
             }
             LivingPetProcess(somePet);
+            return message;
         }
 
         public void LivingPetProcess(Pet somePet)
@@ -257,23 +301,29 @@ namespace VirtualPet
             string petHealthLevelMessage = CheckHealthLevel(somePet);
 
             if (petBoredomeLevelMessage != null)
-            { Console.WriteLine(petBoredomeLevelMessage); }
+            { //TODO: Remove user interaction from Game Class
+                Console.WriteLine(petBoredomeLevelMessage); }
 
-            if (petIrritatedLevelMessage != null)
-            { Console.WriteLine(petIrritatedLevelMessage); }
+                if (petIrritatedLevelMessage != null)
+            { //TODO: Remove user interaction from Game Class
+                Console.WriteLine(petIrritatedLevelMessage); }
 
-            if (petHungerLevelMessage != null)
-            { Console.WriteLine(petHungerLevelMessage); }
+                if (petHungerLevelMessage != null)
+            { //TODO: Remove user interaction from Game Class
+                Console.WriteLine(petHungerLevelMessage); }
 
-            if (petThirstLevelMessage != null)
-            { Console.WriteLine(petThirstLevelMessage); }
+                if (petThirstLevelMessage != null)
+            { //TODO: Remove user interaction from Game Class
+                Console.WriteLine(petThirstLevelMessage); }
 
-            if (petEnergyLevelMessage != null)
-            { Console.WriteLine(petEnergyLevelMessage); }
+                if (petEnergyLevelMessage != null)
+            { //TODO: Remove user interaction from Game Class
+                Console.WriteLine(petEnergyLevelMessage); }
 
-            if (petHealthLevelMessage != null)
-            { Console.WriteLine(petHealthLevelMessage); }
-        }
+                if (petHealthLevelMessage != null)
+            { //TODO: Remove user interaction from Game Class
+                Console.WriteLine(petHealthLevelMessage); }
+            }
 
         public void ProcessTime(Pet somePet)
         {
