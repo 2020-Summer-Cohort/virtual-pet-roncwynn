@@ -55,12 +55,14 @@ namespace VirtualPet
                         AdoptPet();
                         break;
                     case "9":    //Leave Shelter
-                        LeaveShelter();
+                        playerFeedbackMessage = LeaveShelter();
+                        Console.Clear();
                         keepPlaying = false;
                         break;
                     default:
-                        //message = "Invalid Choice.  Please try again.";
-                        Console.WriteLine("nvalid Choice.  Please try again.");
+                        Console.Clear();
+                        playerFeedbackMessage = "\n\nInvalid Choice.  Please try again.";
+                        //Console.WriteLine("nvalid Choice.  Please try again.");
                         break;
                 }
 
@@ -154,7 +156,6 @@ namespace VirtualPet
                 Console.Write($"{somePet.GetBoredom().ToString().PadRight(10,' ')} ");
                 Console.Write($"{somePet.GetHyrdation().ToString().PadRight(11, ' ')} ");
                 Console.WriteLine($"{somePet.GetIrritable().ToString()} ");
-                //Console.WriteLine();
                 index++;
             }
 
@@ -209,11 +210,15 @@ namespace VirtualPet
 
 
         }
-        public void LeaveShelter()
+        public string LeaveShelter()
         {
-            Console.WriteLine("Leave Shelter");
-            Console.ReadLine();
+            //TODO:  Add color to this exit message
+            string message = "";
+            message = "\n\nThanks for visiting Tiger Kings Wildly Popular Pet Shelter.";
+            message = message + "\n\nPlease come back again soon.";
+            message = message + "\n\nI NEED THE MONEY FOR MY DEFENSE FUND!!!";
 
+            return message;
         }
 
 
