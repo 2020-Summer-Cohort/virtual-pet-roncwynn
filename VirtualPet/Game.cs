@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.Http;
+using System.Reflection.PortableExecutable;
 using System.Text;
 
 namespace VirtualPet
@@ -11,13 +12,11 @@ namespace VirtualPet
     {
         public Game()
         {
-
+            //TODO:  Checks and balances to prevent -1 pets in shelter, 11 pets in shelter
         }
 
         public void BeginGame()
         {
-            //Pet playersPet = CreatePet();
-            //PlayGame(playersPet);
             Shelter someShelter = new Shelter();
             PlayGame(someShelter);
         }
@@ -49,13 +48,32 @@ namespace VirtualPet
                         Console.Clear();
                         InteractWithPet(selectedPet);
                         Console.Clear();
-                        //TODO:  Add code to ask player to adopt selected pet
+                        //Would you like to adopt code START
+                        Console.WriteLine($"Thanks for your interaction with {selectedPet.GetName()}.");
+                        Console.WriteLine($"\nWould you like to Adopt {selectedPet.GetName()}?");
+                        string playerChoice = GetPlayerChoice();
+                        //TODO:  Write something to process Y/N responses as this repeated code
+                        while (playerChoice != "y" && playerChoice != "n")
+                        {
+                            Console.WriteLine($"\nThat input was not a 'Y' or 'N'.  Please try again.");
+                            playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
+                        }
+                        if (playerChoice == "y")
+                        {
+                            AdoptPet(someShelter, selectedPet);
+                        }
+                        else
+                        {
+
+                        }
+                        //Would you like to adopt code END
                         break;
                     case "6":    //Admit new Pet
                         AdmitPet(someShelter);
                         break;
                     case "7":    //Adopt a Pet
-                        AdoptPet();
+                        selectedPet = SelectPet(someShelter);
+                        AdoptPet(someShelter, selectedPet);
                         break;
                     case "9":    //Leave Shelter
                         playerFeedbackMessage = LeaveShelter();
@@ -90,6 +108,7 @@ namespace VirtualPet
 
         public string GetPlayerChoice()
         {
+            //TODO:  Change this to accept a string for a question
             Console.WriteLine("\nPlease enter your selection");
             string playerGameResponse = Console.ReadKey().KeyChar.ToString().ToLower();
             return playerGameResponse;
@@ -179,14 +198,10 @@ namespace VirtualPet
             return "Pet has been added to Shelter.";
 
         }
-        public void AdoptPet()
+        public void AdoptPet(Shelter someShelter, Pet somePet)
         {
-            Console.WriteLine("Adopt Pet");
-            Console.ReadLine();
-            //TODO:  This method should take in a selected Pet, give feedback to user, remove pet from shelter
-            //SelectPet();
-
-
+            Console.WriteLine($"Thanks for adopting {somePet.GetName()}.  We hope you give them a good home.");
+            someShelter.pets.Remove(somePet);
         }
         public string LeaveShelter()
         {
