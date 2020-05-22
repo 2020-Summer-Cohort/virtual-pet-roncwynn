@@ -29,6 +29,7 @@ namespace VirtualPet
             {
                 ShowGameMainMenu();
                 string selectedMenuOption = GetPlayerMainMenuChoice();
+                string playerFeedbackMessage = "";
                 //ProcessPlayerMainMenuChoice(selectedMenuOption);
                 switch (selectedMenuOption)
                 {
@@ -36,13 +37,13 @@ namespace VirtualPet
                         ShowAllPets(someShelter);
                         break;
                     case "2":     //Feed all Pets
-                        FeedAllPets(someShelter);
+                        playerFeedbackMessage = FeedAllPets(someShelter);
                         break;
                     case "3":     //Water all Pets
-                        WaterAllPets(someShelter);
+                        playerFeedbackMessage = WaterAllPets(someShelter);
                         break;
                     case "4":     //Play with all Pets
-                        PlayWithPets(someShelter);
+                        playerFeedbackMessage = PlayWithPets(someShelter);
                         break;
                     case "5":    //Select a Pet
                         SelectPet();
@@ -64,7 +65,7 @@ namespace VirtualPet
                 }
 
                 //ProvideFeedbackToPlayer();
-                //Repeat
+                Console.WriteLine(playerFeedbackMessage);
             }
         }
 
@@ -139,6 +140,7 @@ namespace VirtualPet
             Console.ResetColor();
             Console.WriteLine();
             int index = 1;
+            //TODO:  Add highlights in color for pet status, ie High Energy
             foreach(Pet somePet in someShelter.pets)
             {
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -157,35 +159,32 @@ namespace VirtualPet
             }
 
         }
-        public void FeedAllPets(Shelter someShelter)
+        public string FeedAllPets(Shelter someShelter)
         {
-            Console.WriteLine("Feed Pets");
-            Console.ReadLine();
+            Console.Clear();
             foreach (Pet somePet in someShelter.pets)
             {
                 somePet.Feed();
             }
-
+            return "Thanks for feeding the Pets";
         }
-        public void WaterAllPets(Shelter someShelter)
+        public string WaterAllPets(Shelter someShelter)
         {
-            Console.WriteLine("Water All Pets");
-            Console.ReadLine();
+            Console.Clear();
             foreach (Pet somePet in someShelter.pets)
             {
                 somePet.Drink();
             }
-
+            return "Thanks for giving the Pets some water to drink.";
         }
-        public void PlayWithPets(Shelter someShelter)
+        public string PlayWithPets(Shelter someShelter)
         {
-            Console.WriteLine("Play All Pets");
-            Console.ReadLine();
+            Console.Clear();
             foreach (Pet somePet in someShelter.pets)
             {
                 somePet.Play();
             }
-
+            return "Thanks for playing with the Pets.";
 
         }
         public void SelectPet()
@@ -194,17 +193,20 @@ namespace VirtualPet
             Console.WriteLine("\nPlease Select a Pet from the Options Below");
 
         }
-        public void AdmitPet(Shelter someShelter)
+        public string AdmitPet(Shelter someShelter)
         {
-            Console.WriteLine("Admit Pet");
-            Console.ReadLine();
+            Console.Clear();
             CreatePet(someShelter);
+            //TODO:  Add Pet name to this message
+            return "Pet has been added to Shelter.";
 
         }
         public void AdoptPet()
         {
             Console.WriteLine("Adopt Pet");
             Console.ReadLine();
+            SelectPet();
+
 
         }
         public void LeaveShelter()
