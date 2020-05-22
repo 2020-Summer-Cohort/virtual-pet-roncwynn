@@ -11,7 +11,7 @@ namespace VirtualPet
 
         public int totalShelterPetCount { get; set; }
 
-        public List<Pet> pets = new List<Pet>();
+        private List<Pet> pets = new List<Pet>();
 
         public Shelter()
         {
@@ -30,28 +30,32 @@ namespace VirtualPet
 
         public bool IsShelterFull()
         {
-            //throw new NotImplementedException();
-            if (totalShelterPetCount == ShelterCapacity)
+            if (totalShelterPetCount >= ShelterCapacity)
                 return true;
             return false;
         }
+        
         public int GetShelterPetCount()
         {
-            //throw new NotImplementedException();
             return totalShelterPetCount;
         }
 
         public bool AddPetToShelter(Pet somePet)
         {
-            //throw new NotImplementedException();
-            pets.Add(somePet);
-            totalShelterPetCount = totalShelterPetCount + 1;
-            return true;
+            if (IsShelterFull() == false)
+            {
+                pets.Add(somePet);
+                totalShelterPetCount = totalShelterPetCount + 1;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public bool RemovePetFromShelter(Pet somePet)
         {
-            //throw new NotImplementedException();
             pets.Remove(somePet);
             totalShelterPetCount = totalShelterPetCount - 1;
             return true;
@@ -59,11 +63,18 @@ namespace VirtualPet
 
         public int GetShelterCapacity()
         {
-            //throw new NotImplementedException();
-            Console.WriteLine($"SHelter cap = {ShelterCapacity}");
             return ShelterCapacity;
         }
 
+        public List<Pet> GetListOfPets()
+        {
+            return pets;
+        }
+
+        public Pet GetPet(int index)
+        {
+            return pets[index];
+        }
 
     }
 

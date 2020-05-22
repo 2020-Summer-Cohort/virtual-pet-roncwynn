@@ -153,10 +153,10 @@ namespace VirtualPet.Tests
         }
 
         [Fact]
-        public void GetEnergy_Should_Return_Initial_Level_100()
+        public void GetEnergy_Should_Return_Initial_Level_90()
         {
             int testEnergy = testPet.GetEnergy();
-            Assert.Equal(100, testEnergy);
+            Assert.Equal(90, testEnergy);
         }
 
         [Fact]

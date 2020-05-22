@@ -21,9 +21,9 @@ namespace VirtualPet.Tests
         }
 
         [Fact]
-        public void GetShelterPetCount_should_return_0()
+        public void GetShelterPetCount_should_return_2()
         {
-            Assert.Equal(0, testShelter.GetShelterPetCount());
+            Assert.Equal(2, testShelter.GetShelterPetCount());
         }
 
         [Fact]
