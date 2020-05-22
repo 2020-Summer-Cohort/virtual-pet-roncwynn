@@ -24,13 +24,12 @@ namespace VirtualPet
 
         public void PlayGame2(Shelter someShelter)
         {
+            string playerFeedbackMessage = "";
             bool keepPlaying = true;
             while (keepPlaying)
             {
                 ShowGameMainMenu();
-                string selectedMenuOption = GetPlayerMainMenuChoice();
-                string playerFeedbackMessage = "";
-                //ProcessPlayerMainMenuChoice(selectedMenuOption);
+                string selectedMenuOption = GetPlayerChoice();
                 switch (selectedMenuOption)
                 {
                     case "1":     //Show Status of all Pets
@@ -46,7 +45,10 @@ namespace VirtualPet
                         playerFeedbackMessage = PlayWithPets(someShelter);
                         break;
                     case "5":    //Select a Pet
-                        SelectPet();
+                        Pet selectedPet = SelectPet(someShelter);
+                        Console.Clear();
+                        Console.WriteLine($"You have selected {selectedPet.GetName()}");
+                        Console.ReadLine();
                         break;
                     case "6":    //Admit new Pet
                         AdmitPet(someShelter);
@@ -62,17 +64,15 @@ namespace VirtualPet
                     default:
                         Console.Clear();
                         playerFeedbackMessage = "\n\nInvalid Choice.  Please try again.";
-                        //Console.WriteLine("nvalid Choice.  Please try again.");
                         break;
                 }
-
-                //ProvideFeedbackToPlayer();
                 Console.WriteLine(playerFeedbackMessage);
             }
         }
 
         public void ShowGameMainMenu()
         {
+            //TODO:  Add color to this menu
             Console.WriteLine();
             Console.WriteLine("Tiger Kings Wildly Popular Pet Shelter");
             Console.WriteLine("\n            MAIN MENU");
@@ -87,7 +87,7 @@ namespace VirtualPet
             Console.WriteLine("9. Leave the Shelter");
         }
 
-        public string GetPlayerMainMenuChoice()
+        public string GetPlayerChoice()
         {
             Console.WriteLine("\nPlease enter your selection");
             string playerGameResponse = Console.ReadKey().KeyChar.ToString().ToLower();
@@ -188,12 +188,24 @@ namespace VirtualPet
             return "Thanks for playing with the Pets.";
 
         }
-        public void SelectPet()
+        public Pet SelectPet(Shelter someShelter)
         {
             Console.Clear();
-            Console.WriteLine("\nPlease Select a Pet from the Options Below");
-
+            Console.WriteLine("\nPlease Select a Pet from the Shelter:");
+            Console.WriteLine();
+            int index = 1;
+            foreach (Pet pet in someShelter.pets)
+            {
+                Console.WriteLine($"{index}.  {pet.GetName()} is a {pet.GetSpecies()}.");
+                index++;
+            }
+            string selectedMenuOption = GetPlayerChoice();
+            Pet selectedPet = new Pet();
+            int petIndex = Convert.ToInt32(selectedMenuOption) - 1;
+            selectedPet = someShelter.pets[Convert.ToInt32(selectedMenuOption) - 1];
+            return selectedPet;
         }
+
         public string AdmitPet(Shelter someShelter)
         {
             Console.Clear();
@@ -206,7 +218,7 @@ namespace VirtualPet
         {
             Console.WriteLine("Adopt Pet");
             Console.ReadLine();
-            SelectPet();
+            //SelectPet();
 
 
         }
@@ -220,7 +232,6 @@ namespace VirtualPet
 
             return message;
         }
-
 
         public Pet CreatePet(Shelter someShelter)
         {
