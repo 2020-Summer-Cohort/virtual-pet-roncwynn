@@ -19,10 +19,10 @@ namespace VirtualPet
             //Pet playersPet = CreatePet();
             //PlayGame(playersPet);
             Shelter someShelter = new Shelter();
-            PlayGame2(someShelter);
+            PlayGame(someShelter);
         }
 
-        public void PlayGame2(Shelter someShelter)
+        public void PlayGame(Shelter someShelter)
         {
             string playerFeedbackMessage = "";
             bool keepPlaying = true;
@@ -47,8 +47,9 @@ namespace VirtualPet
                     case "5":    //Select a Pet
                         Pet selectedPet = SelectPet(someShelter);
                         Console.Clear();
-                        Console.WriteLine($"You have selected {selectedPet.GetName()}");
-                        Console.ReadLine();
+                        InteractWithPet(selectedPet);
+                        Console.Clear();
+                        //TODO:  Add code to ask player to adopt selected pet
                         break;
                     case "6":    //Admit new Pet
                         AdmitPet(someShelter);
@@ -93,41 +94,6 @@ namespace VirtualPet
             string playerGameResponse = Console.ReadKey().KeyChar.ToString().ToLower();
             return playerGameResponse;
         }
-
-        //public void ProcessPlayerMainMenuChoice(string selectedMenuOption)
-        //{
-        //    switch (selectedMenuOption)
-        //    {
-        //        case "1":     //Show Status of all Pets
-        //            ShowAllPets();
-        //            break;
-        //        case "2":     //Feed all Pets
-        //            FeedAllPets();
-        //            break;
-        //        case "3":     //Water all Pets
-        //            WaterAllPets();
-        //            break;
-        //        case "4":     //Play with all Pets
-        //            PlayWithPets();
-        //            break;
-        //        case "5":    //Select a Pet
-        //            SelectPet();
-        //            break;
-        //        case "6":    //Admit new Pet
-        //            AdmitPet();
-        //            break;
-        //        case "7":    //Adopt a Pet
-        //            AdoptPet();
-        //            break;
-        //        case "9":    //Leave Shelter
-        //            LeaveShelter();
-        //            break;
-        //        default:
-        //            //message = "Invalid Choice.  Please try again.";
-        //            Console.WriteLine("nvalid Choice.  Please try again.");
-        //            break;
-        //    }
-        //}
 
         public void ShowAllPets(Shelter someShelter)
         {
@@ -205,7 +171,6 @@ namespace VirtualPet
             selectedPet = someShelter.pets[Convert.ToInt32(selectedMenuOption) - 1];
             return selectedPet;
         }
-
         public string AdmitPet(Shelter someShelter)
         {
             Console.Clear();
@@ -218,6 +183,7 @@ namespace VirtualPet
         {
             Console.WriteLine("Adopt Pet");
             Console.ReadLine();
+            //TODO:  This method should take in a selected Pet, give feedback to user, remove pet from shelter
             //SelectPet();
 
 
@@ -262,19 +228,20 @@ namespace VirtualPet
             return somePet;
         }
 
-        public void PlayGame(Pet somePet)
+        public void InteractWithPet(Pet somePet)
         {
             bool keepPlaying = true;
             while (keepPlaying)
             {
                 ShowPetStatus(somePet);
-                ShowGameMenu(somePet.GetName());
+                ShowPetMenu(somePet.GetName());
                 string playerChoice = Console.ReadLine().ToLower();
                 //TODO:  better variable name here
                 string gameFeedbackToPlayer = ProcessPlayerChoice(playerChoice, somePet);
 
                 Console.Clear();
                 Console.WriteLine("\n");
+                //TODO:  need better logic here, don't want to do anything if player chose to stop
                 Console.WriteLine(gameFeedbackToPlayer);
 
                 //TODO:  better variable name here
@@ -288,7 +255,7 @@ namespace VirtualPet
             }
         }
 
-        static void ShowGameMenu(string petName)
+        static void ShowPetMenu(string petName)
         {
             Console.WriteLine($"\nWhat would you like to do with {petName}?");
             Console.WriteLine();
@@ -296,7 +263,7 @@ namespace VirtualPet
             Console.WriteLine($"3. Give {petName} some water.         4.Take { petName} to the Vet.");
             Console.WriteLine($"5. Let {petName} outside.             6. Put {petName} to bed.");
             Console.WriteLine($"7. Do nothing with {petName}.");
-            Console.WriteLine("\n9. Quit the Game");
+            Console.WriteLine($"\n9. Stop Interacting with {petName}");
         }
 
         public string ProcessPlayerChoice(string playerChoice, Pet somePet)
@@ -325,7 +292,7 @@ namespace VirtualPet
                 case "7": //Do Nothing
                     message = LeavePetAlone(somePet);
                     return message;
-                case "9": //Quit the Game
+                case "9": //Stop
                     message = "QuitGame";
                     return message;
                 default:
