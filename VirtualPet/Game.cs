@@ -39,10 +39,10 @@ namespace VirtualPet
                         FeedAllPets(someShelter);
                         break;
                     case "3":     //Water all Pets
-                        WaterAllPets();
+                        WaterAllPets(someShelter);
                         break;
                     case "4":     //Play with all Pets
-                        PlayWithPets();
+                        PlayWithPets(someShelter);
                         break;
                     case "5":    //Select a Pet
                         SelectPet();
@@ -129,12 +129,30 @@ namespace VirtualPet
         public void ShowAllPets(Shelter someShelter)
         {
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Here are all the pets currently in the shelter:");
+            Console.ResetColor();
 
+            Console.BackgroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("\nPet Name   Type      Health | Energy | Hunger | Boredom | Hydration | Irritable");
+            Console.ResetColor();
+            Console.WriteLine();
             int index = 1;
             foreach(Pet somePet in someShelter.pets)
             {
-                Console.WriteLine($"{index}.  {somePet.GetName()} is a {somePet.GetSpecies()}. Hunger = {somePet.GetHunger()}.");
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write($"{somePet.GetName().PadRight(11,' ')}");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"{somePet.GetSpecies().PadRight(12,' ')}");
+                Console.ResetColor();
+                Console.Write($"{somePet.GetEnergy().ToString().PadRight(9,' ')}");
+                Console.Write($"{somePet.GetHealth().ToString().PadRight(8,' ')} ");
+                Console.Write($"{somePet.GetHunger().ToString().PadRight(8,' ')} ");
+                Console.Write($"{somePet.GetBoredom().ToString().PadRight(10,' ')} ");
+                Console.Write($"{somePet.GetHyrdation().ToString().PadRight(11, ' ')} ");
+                Console.WriteLine($"{somePet.GetIrritable().ToString()} ");
+                //Console.WriteLine();
                 index++;
             }
 
@@ -149,25 +167,31 @@ namespace VirtualPet
             }
 
         }
-        public void WaterAllPets()
+        public void WaterAllPets(Shelter someShelter)
         {
             Console.WriteLine("Water All Pets");
             Console.ReadLine();
+            foreach (Pet somePet in someShelter.pets)
+            {
+                somePet.Drink();
+            }
 
         }
-        public void PlayWithPets()
+        public void PlayWithPets(Shelter someShelter)
         {
             Console.WriteLine("Play All Pets");
             Console.ReadLine();
+            foreach (Pet somePet in someShelter.pets)
+            {
+                somePet.Play();
+            }
+
 
         }
         public void SelectPet()
         {
             Console.Clear();
             Console.WriteLine("\nPlease Select a Pet from the Options Below");
-
-
-
 
         }
         public void AdmitPet(Shelter someShelter)

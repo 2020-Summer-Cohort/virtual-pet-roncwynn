@@ -12,22 +12,21 @@ namespace VirtualPet
         const int initialHealthValue = 30;
         const int initialHydrationValue = 30;
         const int initialIritableValue = 25;
-        const int initialEnergyValue = 100;
+        const int initialEnergyValue = 90;
 
         public int hungerThresholdMIN = 10;
-        public int hungerThresholdMAX = 100;
+        public int hungerThresholdMAX = 90;
         public int boredomeThresholdMIN = 10;
-        public int boredomeThresholdMAX = 100;
+        public int boredomeThresholdMAX = 90;
         public int healthThresholdMIN = 10;
-        public int healthThresholdMAX = 100;
+        public int healthThresholdMAX = 90;
         public int irritabaleThresholdMIN = 10;
-        public int irritabaleThresholdMAX = 100;
+        public int irritabaleThresholdMAX = 90;
         public int hydrationThresholdMIN = 10;
-        public int hydrationThresholdMAX = 100;
+        public int hydrationThresholdMAX = 90;
         public int energyThresholdMIN = 10;
-        public int energyThresholdMAX = 100;
+        public int energyThresholdMAX = 90;
 
-        //TODO:  Question for me: Do these 2 need to be public?  Does SetGet later on do the same thing?
         private  string Name { get; set; }
         private  string Species { get; set; }
 
