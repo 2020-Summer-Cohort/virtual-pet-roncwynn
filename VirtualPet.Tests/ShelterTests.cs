@@ -23,6 +23,7 @@ namespace VirtualPet.Tests
         [Fact]
         public void RemovePetFromShelter_Should_Decrease_Total_Pets_By_1()
         {
+            testShelter.AddPetToShelter(testPet);
             int currentShelterPetCount = testShelter.GetShelterPetCount();
             bool petAdded = testShelter.RemovePetFromShelter(testPet);
             Assert.Equal(currentShelterPetCount - 1, testShelter.GetShelterPetCount());
@@ -38,9 +39,9 @@ namespace VirtualPet.Tests
         }
 
         [Fact]
-        public void GetShelterCapacity_Should_Return_10()
+        public void GetShelterCapacity_Should_Return_9()
         {
-            Assert.Equal(10, testShelter.GetShelterCapacity());
+            Assert.Equal(9, testShelter.GetShelterCapacity());
         }
 
         [Fact]

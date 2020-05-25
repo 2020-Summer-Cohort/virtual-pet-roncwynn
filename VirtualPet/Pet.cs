@@ -13,11 +13,11 @@ namespace VirtualPet
         const int InitialIritableValue = 25;
         const int InitialEnergyValue = 90;
         
-        //TODO:  Attempted to make this const but it caused other errors.
+        //TODO:  Note to instructor.  I Attempted to make this const but it caused other errors.  Would like feedback on this.
         public int hungerThresholdMIN = 10;
         public int hungerThresholdMAX = 90;
-        public int boredomeThresholdMIN = 10;
-        public int boredomeThresholdMAX = 90;
+        public int boredomThresholdMIN = 10;
+        public int boredomThresholdMAX = 90;
         public int healthThresholdMIN = 10;
         public int healthThresholdMAX = 90;
         public int irritabaleThresholdMIN = 10;
@@ -162,14 +162,14 @@ namespace VirtualPet
             Energy = Energy - 10;
         }
         
-        public void MinimizePetBoredome()
+        public void MinimizeBoredom()
         {
-            Boredom = InitialBoredomValue;
+            Boredom = boredomThresholdMIN;
         }
 
-        public void MaximizeBoredome()
+        public void MaximizeBoredom()
         {
-            Boredom = boredomeThresholdMAX;
+            Boredom = boredomThresholdMAX;
         }
 
         public void MinimizeIrritation()
@@ -280,14 +280,14 @@ namespace VirtualPet
 
         public bool IsPetBored()
         {
-            if (GetBoredom() >= boredomeThresholdMAX)
+            if (GetBoredom() >= boredomThresholdMAX)
                 return true; 
             else return false; 
         }
 
         public bool IsPetHappy()
         {
-            if (GetBoredom() <= boredomeThresholdMIN)
+            if (GetBoredom() <= boredomThresholdMIN)
                 return true; 
             else return false;
         }

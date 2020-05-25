@@ -500,7 +500,6 @@ namespace VirtualPet
         public string LetPetSleep(Pet somePet)
         {
             string message = "";
-            //TODO:  Fix logic error, pet never gets tired
             if (somePet.IsPetTired())
             {
                 somePet.Sleep();
@@ -560,12 +559,12 @@ namespace VirtualPet
             string message;
             if (somePet.IsPetBored())
             {
-                somePet.MaximizeBoredome();
+                somePet.MaximizeBoredom();
                 message = somePet.GetName() + " is EXTREMELY bored.  Best to play with " + somePet.GetName() + " before they start chewing on your furniture.";
             }
             else if (somePet.IsPetHappy())
             {
-                somePet.MinimizePetBoredome();
+                somePet.MinimizeBoredom();
                 message = somePet.GetName() + " feels very loved and appreciated.  Great Job!";
             }
             else
