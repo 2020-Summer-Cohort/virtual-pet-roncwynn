@@ -74,13 +74,6 @@ namespace VirtualPet
                 Console.Clear();
                 CheckForAdoption(someShelter, selectedPet);
             }
-            else
-            {
-                //TODO:  Bad input
-                Console.WriteLine("bad input");
-                Console.ReadLine();
-
-            }
         }
 
         public void PlayGame(Shelter someShelter)
@@ -266,10 +259,8 @@ namespace VirtualPet
                 catch (Exception)
                 {
                     Console.WriteLine("\nInvalid Option.  Please try again.");
-                    //throw;
                 }
             }
-            //selectedPet = someShelter.GetPet(petIndex);
             return selectedPet;
         }
         public string AdmitPet(Shelter someShelter)

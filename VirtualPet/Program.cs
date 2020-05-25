@@ -10,28 +10,20 @@ namespace VirtualPet
     {
         static void Main(string[] args)
         {
-            //Console.WriteLine("Hello! Welcome to Virtual Pets");
-            //Console.WriteLine("\nVirtual Pets is a game whereby which you, the Player, can create an imaginary pet inside the computer.");
-            //Console.WriteLine("\nYou will be able interact with this pet for a short or as long as you like");
-            //Console.WriteLine("\nWould you like to play the Virtual Pet game now?  Please press Y or N");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Hello! Welcome to Virtual Pets");
+            Console.ResetColor();
+            Console.WriteLine("\nVirtual Pets is a game that allows you, the Player, to interact with virutal pets.");
+            Console.WriteLine("\nYou will be able interact with these pets for as short or as long as you like.");
+            Console.WriteLine("\nAdditionally, you can add Virtual Pets to the Shelter and /or adopt pets from the shelter.");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\nPress ENTER to begin the game.");
+            Console.ResetColor();
+            Console.ReadLine();
+            Console.Clear();
 
-            ////TODO:  Repeated Code
-            //string playerGameResponse = Console.ReadKey().KeyChar.ToString().ToLower();
-            //while (playerGameResponse != "y" && playerGameResponse != "n")
-            //{
-            //    Console.WriteLine($"\nThat input was not a 'Y' or 'N'.  Please try again.");
-            //    playerGameResponse = Console.ReadKey().KeyChar.ToString().ToLower();
-            //}
-            //if (playerGameResponse == "y")
-            //{
-            //    Console.Clear();
-                Game playersGame = new Game();
-                playersGame.BeginGame();
-        //    }
-        //    else 
-        //    {
-        //        Console.WriteLine("\nPlease come back another time.");
-        //    }
+            Game playersGame = new Game();
+            playersGame.BeginGame();
         }
 
     }
