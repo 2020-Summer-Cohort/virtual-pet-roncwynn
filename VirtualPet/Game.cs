@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Net.Http;
 using System.Reflection.PortableExecutable;
 using System.Text;
@@ -115,7 +116,7 @@ namespace VirtualPet
                             { PetOneOnOne(someShelter); }
                         break;
                     case "6":   
-                        playerFeedbackMessage =  AdmitPet(someShelter);
+                        AdmitPet(someShelter);
                         break;
                     case "7": 
                         if (someShelter.IsShelterEmpty())
@@ -127,8 +128,7 @@ namespace VirtualPet
                             }
                         break;
                     case "9":    
-                        playerFeedbackMessage = LeaveShelter(someShelter);
-                        Console.Clear();
+                        LeaveShelterMessage(someShelter);
                         keepPlaying = false;
                         break;
                     default:
@@ -136,8 +136,6 @@ namespace VirtualPet
                         playerFeedbackMessage = "\n\nInvalid Choice.  Please try again.";
                         break;
                 }
-                //Console.ForegroundColor = ConsoleColor.Green;
-                //TODO:  Create a Message to Player Method
                 Console.WriteLine(playerFeedbackMessage);
                 playerFeedbackMessage = "";
                 Console.ResetColor();
@@ -183,8 +181,8 @@ namespace VirtualPet
             Console.WriteLine("\nPet Name   Type      Health | Energy | Hunger | Boredom | Hydration | Irritable");
             Console.ResetColor();
             Console.WriteLine();
+
             int index = 1;
-            //TODO:  Add highlights in color for pet status, ie High Energy
             foreach(Pet somePet in someShelter.GetListOfPets())
             {
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
@@ -263,21 +261,22 @@ namespace VirtualPet
             }
             return selectedPet;
         }
-        public string AdmitPet(Shelter someShelter)
+        public void AdmitPet(Shelter someShelter)
         {
-            string message = "";
             Console.Clear();
             Pet newPet = CreatePet(someShelter);
             if (newPet != null)
             {
-                message = $"\n{newPet.GetName()} has been added to Shelter.";
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"\n{newPet.GetName()} has been added to Shelter.");
             }
             else
             {
-                message = "\nSorry, the Shelter is currently at capacity.";
-                message = message + "\n\nPlease try again later.";
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\nSorry, the Shelter is currently at capacity.");
+                Console.WriteLine("\n\nPlease try again later.");
             }
-            return message;
+            Console.ResetColor();
         }
 
         public void AdoptPet(Shelter someShelter, Pet somePet)
@@ -287,15 +286,14 @@ namespace VirtualPet
             Console.ResetColor();
             someShelter.RemovePetFromShelter(somePet);
         }
-        public string LeaveShelter(Shelter someShelter)
+        public void LeaveShelterMessage(Shelter someShelter)
         {
-            //TODO:  Add color to this exit message
-            string message = "";
-            message = $"\n\nThanks for visiting {someShelter.GetShelterName()} Wildly Popular Pet Shelter.";
-            message = message + "\n\nPlease come back again soon.";
-            message = message + "\n\nI NEED THE MONEY FOR MY DEFENSE FUND!!!";
-
-            return message;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"\n\nThanks for visiting {someShelter.GetShelterName()} Wildly Popular Pet Shelter.");
+            Console.WriteLine("\n\nPlease come back again soon.");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\n\nI NEED THE MONEY FOR MY DEFENSE FUND!!!");
+            Console.ResetColor();
         }
 
         public Pet CreatePet(Shelter someShelter)
@@ -316,7 +314,6 @@ namespace VirtualPet
                     playerPetNameEntry = Console.ReadLine();
                 }
 
-                //TODO:  Add Try Catch here???
                 Pet somePet = new Pet(playerPetNameEntry, playerPetSpeciesEntry);
                 someShelter.AddPetToShelter(somePet);
                 return somePet;
@@ -344,18 +341,17 @@ namespace VirtualPet
                 string playerChoice = GetPlayerChoice();
                 string gameFeedbackToPlayer = ProcessPlayerChoice(playerChoice, somePet);
 
-                Console.Clear();
-                Console.WriteLine("\n");
-                //TODO:  need better logic here, don't want to do anything if player chose to stop
-                Console.WriteLine(gameFeedbackToPlayer);
+                if (gameFeedbackToPlayer == "stop")
+                { keepPlaying = false; }
+                else
+                { 
+                    Console.Clear();
+                    Console.WriteLine("\n");
+                    Console.WriteLine(gameFeedbackToPlayer);
 
-                string petFeedbacktoPlayer = ProcessTime(somePet);
-                Console.WriteLine(petFeedbacktoPlayer);
-
-                //TODO:  Find beter way to do this
-                if (gameFeedbackToPlayer == "QuitGame")
-                    keepPlaying = false;
-
+                    string petFeedbacktoPlayer = ProcessTime(somePet);
+                    Console.WriteLine(petFeedbacktoPlayer);
+                }
             }
         }
 
@@ -402,8 +398,7 @@ namespace VirtualPet
                     message = LeavePetAlone(somePet);
                     return message;
                 case "9": 
-                    //TODO:  do this better
-                    message = "QuitGame";
+                    message = "stop";
                     return message;
                 default:
                     message = "Invalid Choice.  Please try again.";
@@ -525,7 +520,6 @@ namespace VirtualPet
 
         public string LeavePetAlone(Pet somePet)
         {
-            //TODO:  Rethink logic in this method
             string message = "";
             somePet.Ignore();
             message = $"{somePet.GetName()} is doing their own thing.";
@@ -687,46 +681,28 @@ namespace VirtualPet
             string petEnergyLevelMessage = CheckEnergyLevel(somePet);
             string petHealthLevelMessage = CheckHealthLevel(somePet);
 
-            //TODO: Find better way to do this
             string returnMessage = "";
 
             if (petBoredomeLevelMessage != null)
-            { 
-                returnMessage = petBoredomeLevelMessage;
-                //Console.WriteLine(petBoredomeLevelMessage); 
-            }
+            { returnMessage = petBoredomeLevelMessage; }
 
             if (petIrritatedLevelMessage != null)
-            { 
-                returnMessage = returnMessage + "\n" + petIrritatedLevelMessage;
-                //Console.WriteLine(petIrritatedLevelMessage); 
-            }
+            { returnMessage = returnMessage + "\n" + petIrritatedLevelMessage; }
 
             if (petHungerLevelMessage != null)
-            { 
-                returnMessage = returnMessage + "\n" + petHungerLevelMessage;
-                //Console.WriteLine(petHungerLevelMessage); 
-            }
+            { returnMessage = returnMessage + "\n" + petHungerLevelMessage; }
 
             if (petThirstLevelMessage != null)
-            { 
-                returnMessage = returnMessage + "\n" + petThirstLevelMessage;
-                //Console.WriteLine(petThirstLevelMessage); 
-            }
+            { returnMessage = returnMessage + "\n" + petThirstLevelMessage; }
 
             if (petEnergyLevelMessage != null)
-            { 
-                returnMessage = returnMessage + "\n" + petEnergyLevelMessage;
-                //Console.WriteLine(petEnergyLevelMessage); 
-            }
+            { returnMessage = returnMessage + "\n" + petEnergyLevelMessage; }
 
             if (petHealthLevelMessage != null)
-            { 
-                returnMessage = returnMessage + "\n" + petHealthLevelMessage;
-                //Console.WriteLine(petHealthLevelMessage); 
-            }
+            { returnMessage = returnMessage + "\n" + petHealthLevelMessage; }
+
             return returnMessage;
-            }
+        }
 
         public string ProcessTime(Pet somePet)
         {
