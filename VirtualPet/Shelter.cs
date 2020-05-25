@@ -34,6 +34,14 @@ namespace VirtualPet
                 return true;
             return false;
         }
+
+        public bool IsShelterEmpty()
+        {
+            //throw new NotImplementedException();
+            if (totalShelterPetCount > 0)
+                return false;
+            else return true;
+        }
         
         public int GetShelterPetCount()
         {

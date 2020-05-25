@@ -24,58 +24,83 @@ namespace VirtualPet
         public void PlayGame(Shelter someShelter)
         {
             string playerFeedbackMessage = "";
+            string selectedMenuOption = "";
             bool keepPlaying = true;
             while (keepPlaying)
             {
                 ShowGameMainMenu();
-                string selectedMenuOption = GetPlayerChoice();
+                selectedMenuOption = GetPlayerChoice();
                 switch (selectedMenuOption)
                 {
-                    case "1":     //Show Status of all Pets
+                    case "1":     
                         ShowAllPets(someShelter);
                         break;
-                    case "2":     //Feed all Pets
+                    case "2":     
                         playerFeedbackMessage = FeedAllPets(someShelter);
                         break;
-                    case "3":     //Water all Pets
+                    case "3":     
                         playerFeedbackMessage = WaterAllPets(someShelter);
                         break;
-                    case "4":     //Play with all Pets
+                    case "4":     
                         playerFeedbackMessage = PlayWithPets(someShelter);
                         break;
                     case "5":    //Select a Pet
-                        Pet selectedPet = SelectPet(someShelter);
-                        Console.Clear();
-                        InteractWithPet(selectedPet);
-                        Console.Clear();
-                        //Would you like to adopt code START
-                        Console.WriteLine($"Thanks for your interaction with {selectedPet.GetName()}.");
-                        Console.WriteLine($"\nWould you like to Adopt {selectedPet.GetName()}?");
-                        string playerChoice = GetPlayerChoice();
-                        //TODO:  Write something to process Y/N responses as this repeated code
-                        while (playerChoice != "y" && playerChoice != "n")
+                        //TODO:  Write method for this if structure, repeated code
+                        if (someShelter.IsShelterEmpty())
                         {
-                            Console.WriteLine($"\nThat input was not a 'Y' or 'N'.  Please try again.");
-                            playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
-                        }
-                        if (playerChoice == "y")
-                        {
-                            AdoptPet(someShelter, selectedPet);
+                            //TODO:  Write shelter Empty method for this message, repeated code
+                            Console.Clear();
+                            Console.WriteLine("Shetler Empty");
+                            Console.ReadLine();
                         }
                         else
                         {
+                            //TODO:  Create method for this block of code
+                            Pet selectedPet = SelectPet(someShelter);
+                            Console.Clear();
+                            InteractWithPet(selectedPet);
+                            Console.Clear();
+                            //Would you like to adopt code START
+                            Console.WriteLine($"Thanks for your interaction with {selectedPet.GetName()}.");
+                            Console.WriteLine($"\nWould you like to Adopt {selectedPet.GetName()}?");
+                            string playerChoice = GetPlayerChoice();
+                            //TODO:  Write something to process Y/N responses as this repeated code
+                            while (playerChoice != "y" && playerChoice != "n")
+                            {
+                                Console.WriteLine($"\nThat input was not a 'Y' or 'N'.  Please try again.");
+                                playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
+                            }
+                            if (playerChoice == "y")
+                            {
+                                AdoptPet(someShelter, selectedPet);
+                            }
+                            else
+                            {
 
+                            }
+                            //Would you like to adopt code END
                         }
-                        //Would you like to adopt code END
                         break;
-                    case "6":    //Admit new Pet
+                    case "6":   
                         playerFeedbackMessage =  AdmitPet(someShelter);
                         break;
                     case "7":    //Adopt a Pet
-                        selectedPet = SelectPet(someShelter);
-                        AdoptPet(someShelter, selectedPet);
+
+                        //TODO:  This is repeated code from option 5
+                        if (someShelter.IsShelterEmpty())
+                        {
+                            //Shelter Empty
+                            Console.Clear();
+                            Console.WriteLine("Shetler Empty");
+                            Console.ReadLine();
+                        }
+                        else
+                        {
+                            Pet selectedPet = SelectPet(someShelter);
+                            AdoptPet(someShelter, selectedPet);
+                        }
                         break;
-                    case "9":    //Leave Shelter
+                    case "9":    
                         playerFeedbackMessage = LeaveShelter();
                         Console.Clear();
                         keepPlaying = false;
@@ -175,21 +200,21 @@ namespace VirtualPet
         }
         public Pet SelectPet(Shelter someShelter)
         {
-            Console.Clear();
-            Console.WriteLine("\nPlease Select a Pet from the Shelter:");
-            Console.WriteLine();
-            int index = 1;
-            foreach (Pet pet in someShelter.GetListOfPets())
-            {
-                Console.WriteLine($"{index}.  {pet.GetName()} is a {pet.GetSpecies()}.");
-                index++;
-            }
-            string selectedMenuOption = GetPlayerChoice();
-            Pet selectedPet = new Pet();
-            int petIndex = Convert.ToInt32(selectedMenuOption) - 1;
-            //selectedPet = someShelter.pets[Convert.ToInt32(selectedMenuOption) - 1];
-            selectedPet = someShelter.GetPet(petIndex);
-            return selectedPet;
+                Console.Clear();
+                Console.WriteLine("\nPlease Select a Pet from the Shelter:");
+                Console.WriteLine();
+                int index = 1;
+                foreach (Pet pet in someShelter.GetListOfPets())
+                {
+                    Console.WriteLine($"{index}.  {pet.GetName()} is a {pet.GetSpecies()}.");
+                    index++;
+                }
+                string selectedMenuOption = GetPlayerChoice();
+                Pet selectedPet = new Pet();
+                int petIndex = Convert.ToInt32(selectedMenuOption) - 1;
+                //selectedPet = someShelter.pets[Convert.ToInt32(selectedMenuOption) - 1];
+                selectedPet = someShelter.GetPet(petIndex);
+                return selectedPet;
         }
         public string AdmitPet(Shelter someShelter)
         {

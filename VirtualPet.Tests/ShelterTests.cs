@@ -57,7 +57,18 @@ namespace VirtualPet.Tests
             {
                 testShelter.AddPetToShelter(testPet);
             }
-            Assert.Equal(shelterMAX, testShelter.GetShelterPetCount());
+            Assert.True(testShelter.IsShelterFull());
+        }
+
+        [Fact]
+        public void IsShelterEmpty_Should_Return_True_If_Empty()
+        {
+            int shelterPetCount = testShelter.GetShelterPetCount();
+            for (int i=shelterPetCount; i >0;i--)
+            {
+                testShelter.RemovePetFromShelter(testPet);
+            }
+            Assert.True(testShelter.IsShelterEmpty());
         }
 
         //[Fact]
