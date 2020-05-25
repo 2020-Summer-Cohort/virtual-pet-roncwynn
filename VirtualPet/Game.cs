@@ -31,10 +31,14 @@ namespace VirtualPet
 
         private void ShowShelterEmptyMessage(Shelter someShelter)
         {
-            //TODO:  Add more text and color
             Console.Clear();
-            Console.WriteLine("Shetler Empty");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("We are very sorry but at this time the shetler is empty.");
+            Console.WriteLine("\nIf you have pet that needs a new home, please feel free to donate them to the shelter.");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\n\nPlease press ENTER to return to the main menu.");
             Console.ReadLine();
+            Console.Clear();
 
         }
 
@@ -73,40 +77,48 @@ namespace VirtualPet
                     case "1":     
                         ShowAllPets(someShelter);
                         break;
-                    case "2":     
-                        playerFeedbackMessage = FeedAllPets(someShelter);
+                    case "2":
+                        if (someShelter.IsShelterEmpty())
+                            { ShowShelterEmptyMessage(someShelter); }
+                        else
+                            { playerFeedbackMessage = FeedAllPets(someShelter); }
                         break;
-                    case "3":     
-                        playerFeedbackMessage = WaterAllPets(someShelter);
+                    case "3":
+                        if (someShelter.IsShelterEmpty())
+                            { ShowShelterEmptyMessage(someShelter); }
+                        else
+                            { playerFeedbackMessage = WaterAllPets(someShelter); }
                         break;
-                    case "4":     
-                        playerFeedbackMessage = PlayWithPets(someShelter);
+                    case "4":
+                        if (someShelter.IsShelterEmpty())
+                            { ShowShelterEmptyMessage(someShelter); }
+                        else
+                            { playerFeedbackMessage = PlayWithPets(someShelter); }
                         break;
                     case "5":    //Select a Pet
                         if (someShelter.IsShelterEmpty())
-                        {
-                            ShowShelterEmptyMessage(someShelter); }
+                            { ShowShelterEmptyMessage(someShelter); }
                         else
-                        {
-                            //TODO:  Create method for this block of code???
-                            Pet selectedPet = SelectPet(someShelter);
-                            Console.Clear();
-                            InteractWithPet(selectedPet);
-                            Console.Clear();
-                            CheckForAdoption(someShelter, selectedPet);
-                        }
+                            {
+                                //TODO:  Create method for this block of code???
+                                Pet selectedPet = SelectPet(someShelter);
+                                Console.Clear();
+                                InteractWithPet(selectedPet);
+                                Console.Clear();
+                                CheckForAdoption(someShelter, selectedPet);
+                            }
                         break;
                     case "6":   
                         playerFeedbackMessage =  AdmitPet(someShelter);
                         break;
                     case "7": 
                         if (someShelter.IsShelterEmpty())
-                        { ShowShelterEmptyMessage(someShelter); }
+                            { ShowShelterEmptyMessage(someShelter); }
                         else
-                        {
-                            Pet selectedPet = SelectPet(someShelter);
-                            AdoptPet(someShelter, selectedPet);
-                        }
+                            {
+                                Pet selectedPet = SelectPet(someShelter);
+                                AdoptPet(someShelter, selectedPet);
+                            }
                         break;
                     case "9":    
                         playerFeedbackMessage = LeaveShelter();
@@ -659,39 +671,39 @@ namespace VirtualPet
             string returnMessage = "";
 
             if (petBoredomeLevelMessage != null)
-            { //TODO: Remove user interaction from Game Class
+            { 
                 returnMessage = petBoredomeLevelMessage;
                 //Console.WriteLine(petBoredomeLevelMessage); 
             }
 
             if (petIrritatedLevelMessage != null)
-            { //TODO: Remove user interaction from Game Class
-                    returnMessage = returnMessage + "\n" + petIrritatedLevelMessage;
+            { 
+                returnMessage = returnMessage + "\n" + petIrritatedLevelMessage;
                 //Console.WriteLine(petIrritatedLevelMessage); 
             }
 
             if (petHungerLevelMessage != null)
-            { //TODO: Remove user interaction from Game Class
-                   returnMessage = returnMessage + "\n" + petHungerLevelMessage;
-                                //Console.WriteLine(petHungerLevelMessage); 
+            { 
+                returnMessage = returnMessage + "\n" + petHungerLevelMessage;
+                //Console.WriteLine(petHungerLevelMessage); 
             }
 
             if (petThirstLevelMessage != null)
-            { //TODO: Remove user interaction from Game Class
-                            returnMessage = returnMessage + "\n" + petThirstLevelMessage;
-                                        //Console.WriteLine(petThirstLevelMessage); 
+            { 
+                returnMessage = returnMessage + "\n" + petThirstLevelMessage;
+                //Console.WriteLine(petThirstLevelMessage); 
             }
 
             if (petEnergyLevelMessage != null)
-            { //TODO: Remove user interaction from Game Class
-                                returnMessage = returnMessage + "\n" + petEnergyLevelMessage;
-                                                //Console.WriteLine(petEnergyLevelMessage); 
+            { 
+                returnMessage = returnMessage + "\n" + petEnergyLevelMessage;
+                //Console.WriteLine(petEnergyLevelMessage); 
             }
 
-                if (petHealthLevelMessage != null)
-                { //TODO: Remove user interaction from Game Class
-                                        returnMessage = returnMessage + "\n" + petHealthLevelMessage;
-                    //Console.WriteLine(petHealthLevelMessage); 
+            if (petHealthLevelMessage != null)
+            { 
+                returnMessage = returnMessage + "\n" + petHealthLevelMessage;
+                //Console.WriteLine(petHealthLevelMessage); 
             }
             return returnMessage;
             }
