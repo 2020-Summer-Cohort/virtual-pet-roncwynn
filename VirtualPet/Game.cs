@@ -140,12 +140,13 @@ namespace VirtualPet
 
         public void ShowGameMainMenu()
         {
-            //TODO:  Add color to this menu
             Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Tiger Kings Wildly Popular Pet Shelter");
-            //TODO:  Add Pad right
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\n            MAIN MENU");
             Console.WriteLine();
+            Console.ResetColor();
             Console.WriteLine("1. Show all Pets in the Shelter");
             Console.WriteLine("2. Feed the Pets");
             Console.WriteLine("3. Water the Pets");
@@ -159,8 +160,10 @@ namespace VirtualPet
         public string GetPlayerChoice()
         {
             //TODO:  Change this to accept a string for a question???
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("\nPlease enter your selection");
             string playerGameResponse = Console.ReadKey().KeyChar.ToString().ToLower();
+            Console.ResetColor();
             return playerGameResponse;
         }
 

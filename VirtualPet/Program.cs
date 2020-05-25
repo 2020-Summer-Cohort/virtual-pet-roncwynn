@@ -24,7 +24,6 @@ namespace VirtualPet
             if (playerGameResponse == "y")
             {
                 Console.Clear();
-                Console.WriteLine("\nGREAT.  Glad you want to play.");
                 Game playersGame = new Game();
                 playersGame.BeginGame();
             }
