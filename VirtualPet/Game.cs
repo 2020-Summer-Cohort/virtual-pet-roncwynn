@@ -46,19 +46,39 @@ namespace VirtualPet
         {
             Console.WriteLine($"Thanks for your interaction with {somePet.GetName()}.");
             Console.WriteLine($"\nWould you like to Adopt {somePet.GetName()}?");
-            string playerChoice = GetPlayerChoice();
-            //TODO:  Write something to process Y/N responses as this repeated code
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Please enter (Y)es or (N)o.");
+            string playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
             while (playerChoice != "y" && playerChoice != "n")
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"\nThat input was not a 'Y' or 'N'.  Please try again.");
+                Console.ResetColor();
                 playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
             }
+            Console.ResetColor();
+            Console.WriteLine();
             if (playerChoice == "y")
+            { AdoptPet(someShelter, somePet); }
+            else
+            { Console.Clear(); }
+        }
+
+        private void PetOneOnOne(Shelter someShelter)
+        {
+            Pet selectedPet = SelectPet(someShelter);
+            if (selectedPet != null)
             {
-                AdoptPet(someShelter, somePet);
+                Console.Clear();
+                InteractWithPet(selectedPet);
+                Console.Clear();
+                CheckForAdoption(someShelter, selectedPet);
             }
             else
             {
+                //TODO:  Bad input
+                Console.WriteLine("bad input");
+                Console.ReadLine();
 
             }
         }
@@ -95,18 +115,11 @@ namespace VirtualPet
                         else
                             { playerFeedbackMessage = PlayWithPets(someShelter); }
                         break;
-                    case "5":    //Select a Pet
+                    case "5":
                         if (someShelter.IsShelterEmpty())
                             { ShowShelterEmptyMessage(someShelter); }
                         else
-                            {
-                                //TODO:  Create method for this block of code???
-                                Pet selectedPet = SelectPet(someShelter);
-                                Console.Clear();
-                                InteractWithPet(selectedPet);
-                                Console.Clear();
-                                CheckForAdoption(someShelter, selectedPet);
-                            }
+                            { PetOneOnOne(someShelter); }
                         break;
                     case "6":   
                         playerFeedbackMessage =  AdmitPet(someShelter);
@@ -151,7 +164,7 @@ namespace VirtualPet
             Console.WriteLine("2. Feed the Pets");
             Console.WriteLine("3. Water the Pets");
             Console.WriteLine("4. Play with the Pets");
-            Console.WriteLine("5. Select a Pet");
+            Console.WriteLine("5. Pick a Pet for One on One");
             Console.WriteLine("6. Admit a new Pet to the Shelter");
             Console.WriteLine("7. Adopt a Pet");
             Console.WriteLine("9. Leave the Shelter");
@@ -159,7 +172,6 @@ namespace VirtualPet
 
         public string GetPlayerChoice()
         {
-            //TODO:  Change this to accept a string for a question???
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("\nPlease enter your selection");
             string playerGameResponse = Console.ReadKey().KeyChar.ToString().ToLower();
@@ -227,7 +239,6 @@ namespace VirtualPet
         }
         public Pet SelectPet(Shelter someShelter)
         {
-            //TODO:  Add a cancel option to this option
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("\nPlease Select a Pet from the Shelter:");
@@ -239,10 +250,26 @@ namespace VirtualPet
                 Console.WriteLine($"{index}.  {pet.GetName()} is a {pet.GetSpecies()}.");
                 index++;
             }
-            string selectedMenuOption = GetPlayerChoice();
-            Pet selectedPet = new Pet();
-            int petIndex = Convert.ToInt32(selectedMenuOption) - 1;
-            selectedPet = someShelter.GetPet(petIndex);
+
+            Pet selectedPet = null;
+            int petIndex = -1;
+            while (selectedPet == null)
+            {
+                string selectedMenuOption = GetPlayerChoice();
+                try
+                {
+                    petIndex = Convert.ToInt32(selectedMenuOption) - 1;
+                    selectedPet = someShelter.GetPet(petIndex);
+                    if (selectedPet == null)
+                    { Console.WriteLine("\nInvalid Option.  Please try again."); }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("\nInvalid Option.  Please try again.");
+                    //throw;
+                }
+            }
+            //selectedPet = someShelter.GetPet(petIndex);
             return selectedPet;
         }
         public string AdmitPet(Shelter someShelter)
@@ -264,7 +291,9 @@ namespace VirtualPet
 
         public void AdoptPet(Shelter someShelter, Pet somePet)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Thanks for adopting {somePet.GetName()}.  We hope you give them a good home.");
+            Console.ResetColor();
             someShelter.RemovePetFromShelter(somePet);
         }
         public string LeaveShelter(Shelter someShelter)
@@ -321,8 +350,7 @@ namespace VirtualPet
             {
                 ShowPetStatus(somePet);
                 ShowPetMenu(somePet.GetName());
-                string playerChoice = Console.ReadLine().ToLower();
-                //TODO:  better variable name here
+                string playerChoice = GetPlayerChoice();
                 string gameFeedbackToPlayer = ProcessPlayerChoice(playerChoice, somePet);
 
                 Console.Clear();
@@ -330,7 +358,6 @@ namespace VirtualPet
                 //TODO:  need better logic here, don't want to do anything if player chose to stop
                 Console.WriteLine(gameFeedbackToPlayer);
 
-                //TODO:  better variable name here
                 string petFeedbacktoPlayer = ProcessTime(somePet);
                 Console.WriteLine(petFeedbacktoPlayer);
 

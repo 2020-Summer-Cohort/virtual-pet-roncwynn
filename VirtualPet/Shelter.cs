@@ -7,7 +7,7 @@ namespace VirtualPet
 {
     public class Shelter
     {
-        const int ShelterCapacity = 10;
+        const int ShelterCapacity = 9;
 
         private int totalShelterPetCount { get; set; }
 
@@ -16,7 +16,7 @@ namespace VirtualPet
 
         public Shelter()
         {
-            shelterName = "Rons";
+            shelterName = "Tiger Kings";
         }
 
         public string GetShelterName()
@@ -61,9 +61,16 @@ namespace VirtualPet
 
         public bool RemovePetFromShelter(Pet somePet)
         {
-            pets.Remove(somePet);
-            totalShelterPetCount = totalShelterPetCount - 1;
-            return true;
+            if (IsShelterEmpty() == false)
+            {
+                pets.Remove(somePet);
+                totalShelterPetCount = totalShelterPetCount - 1;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public int GetShelterCapacity()
@@ -78,7 +85,15 @@ namespace VirtualPet
 
         public Pet GetPet(int index)
         {
-            return pets[index];
+            try
+            {
+                return pets[index];
+            }
+            catch (Exception)
+            {
+                //throw;
+                return null;
+            }
         }
 
     }
