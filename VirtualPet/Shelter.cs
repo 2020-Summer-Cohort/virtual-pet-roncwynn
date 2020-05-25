@@ -12,10 +12,17 @@ namespace VirtualPet
         private int totalShelterPetCount { get; set; }
 
         private List<Pet> pets = new List<Pet>();
+        private string shelterName { get; set; }
 
         public Shelter()
         {
-            //TODO:  Add Name of Shelter as a Property
+            shelterName = "Rons";
+        }
+
+        public string GetShelterName()
+        {
+            //throw new NotImplementedException();
+            return shelterName;
         }
 
         public bool IsShelterFull()

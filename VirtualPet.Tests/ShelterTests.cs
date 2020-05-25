@@ -21,12 +21,6 @@ namespace VirtualPet.Tests
         }
 
         [Fact]
-        public void GetShelterPetCount_should_return_2()
-        {
-            Assert.Equal(2, testShelter.GetShelterPetCount());
-        }
-
-        [Fact]
         public void RemovePetFromShelter_Should_Decrease_Total_Pets_By_1()
         {
             int currentShelterPetCount = testShelter.GetShelterPetCount();
@@ -69,6 +63,13 @@ namespace VirtualPet.Tests
                 testShelter.RemovePetFromShelter(testPet);
             }
             Assert.True(testShelter.IsShelterEmpty());
+        }
+
+        [Fact]
+        public void GetName_Returns_a_string_value()
+        {
+            string shelterName = testShelter.GetShelterName();
+            Assert.True(shelterName.Length > 0);
         }
 
         //[Fact]

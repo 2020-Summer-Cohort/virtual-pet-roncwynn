@@ -22,7 +22,7 @@ namespace VirtualPet.Tests
         [Fact]
         public void Tick_Should_Increase_Boredom_By_5()
         {
-            testGame.Tick(testPet);
+            testPet.Tick();
 
             Assert.Equal(65, testPet.GetBoredom());
         }
@@ -30,7 +30,7 @@ namespace VirtualPet.Tests
         [Fact]
         public void Tick_Should_Decrease_Health_By_5()
         {
-            testGame.Tick(testPet);
+            testPet.Tick();
 
             Assert.Equal(25, testPet.GetHealth());
         }
@@ -40,7 +40,7 @@ namespace VirtualPet.Tests
         {
 
             int currentHydration = testPet.GetHyrdation();
-            testGame.Tick(testPet);
+            testPet.Tick();
             Assert.Equal(currentHydration - 5, testPet.GetHyrdation());
         }
 
@@ -49,7 +49,7 @@ namespace VirtualPet.Tests
         {
 
             int currentIrritable = testPet.GetIrritable();
-            testGame.Tick(testPet);
+            testPet.Tick();
             Assert.Equal(currentIrritable + 5, testPet.GetIrritable());
         }
 
@@ -58,7 +58,7 @@ namespace VirtualPet.Tests
         {
 
             int currentEnergy = testPet.GetEnergy();
-            testGame.Tick(testPet);
+            testPet.Tick();
             Assert.Equal(currentEnergy - 5, testPet.GetEnergy());
         }
 
@@ -66,7 +66,7 @@ namespace VirtualPet.Tests
         public void Tick_Should_Increase_Hunger_By_5()
         {
 
-            testGame.Tick(testPet);
+            testPet.Tick();
 
             Assert.Equal(55, testPet.GetHunger());
         }

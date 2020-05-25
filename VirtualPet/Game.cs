@@ -70,7 +70,7 @@ namespace VirtualPet
             bool keepPlaying = true;
             while (keepPlaying)
             {
-                ShowGameMainMenu();
+                ShowGameMainMenu(someShelter);
                 selectedMenuOption = GetPlayerChoice();
                 switch (selectedMenuOption)
                 {
@@ -121,7 +121,7 @@ namespace VirtualPet
                             }
                         break;
                     case "9":    
-                        playerFeedbackMessage = LeaveShelter();
+                        playerFeedbackMessage = LeaveShelter(someShelter);
                         Console.Clear();
                         keepPlaying = false;
                         break;
@@ -138,11 +138,11 @@ namespace VirtualPet
             }
         }
 
-        public void ShowGameMainMenu()
+        public void ShowGameMainMenu(Shelter someShelter)
         {
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Tiger Kings Wildly Popular Pet Shelter");
+            Console.WriteLine($"{someShelter.GetShelterName()} Wildly Popular Pet Shelter");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\n            MAIN MENU");
             Console.WriteLine();
@@ -172,7 +172,6 @@ namespace VirtualPet
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Here are all the pets currently in the shelter:");
-            //Console.ResetColor();
 
             Console.BackgroundColor = ConsoleColor.Cyan;
             Console.ForegroundColor = ConsoleColor.Black;
@@ -268,11 +267,11 @@ namespace VirtualPet
             Console.WriteLine($"Thanks for adopting {somePet.GetName()}.  We hope you give them a good home.");
             someShelter.RemovePetFromShelter(somePet);
         }
-        public string LeaveShelter()
+        public string LeaveShelter(Shelter someShelter)
         {
             //TODO:  Add color to this exit message
             string message = "";
-            message = "\n\nThanks for visiting Tiger Kings Wildly Popular Pet Shelter.";
+            message = $"\n\nThanks for visiting {someShelter.GetShelterName()} Wildly Popular Pet Shelter.";
             message = message + "\n\nPlease come back again soon.";
             message = message + "\n\nI NEED THE MONEY FOR MY DEFENSE FUND!!!";
 
