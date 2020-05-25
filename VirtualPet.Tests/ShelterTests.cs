@@ -67,10 +67,17 @@ namespace VirtualPet.Tests
         }
 
         [Fact]
-        public void GetName_Returns_a_string_value()
+        public void GetShelterName_Returns_a_string_value()
         {
             string shelterName = testShelter.GetShelterName();
             Assert.True(shelterName.Length > 0);
+        }
+
+        [Fact]
+        public void GetShelterPetCount_Should_Return_1()
+        {
+            testShelter.AddPetToShelter(testPet);
+            Assert.Equal(1, testShelter.GetShelterPetCount());
         }
 
         //[Fact]
