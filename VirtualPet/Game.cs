@@ -40,7 +40,6 @@ namespace VirtualPet
             Console.WriteLine("\n\nPlease press ENTER to return to the main menu.");
             Console.ReadLine();
             Console.Clear();
-
         }
 
         private void CheckForAdoption(Shelter someShelter, Pet somePet)
@@ -50,6 +49,7 @@ namespace VirtualPet
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Please enter (Y)es or (N)o.");
             string playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
+            
             while (playerChoice != "y" && playerChoice != "n")
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -57,6 +57,7 @@ namespace VirtualPet
                 Console.ResetColor();
                 playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
             }
+            
             Console.ResetColor();
             Console.WriteLine();
             if (playerChoice == "y")
@@ -77,7 +78,7 @@ namespace VirtualPet
             }
         }
 
-        public void PlayGame(Shelter someShelter)
+        private void PlayGame(Shelter someShelter)
         {
             string playerFeedbackMessage = "";
             string selectedMenuOption = "";
@@ -142,7 +143,7 @@ namespace VirtualPet
             }
         }
 
-        public void ShowGameMainMenu(Shelter someShelter)
+        private void ShowGameMainMenu(Shelter someShelter)
         {
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -161,7 +162,7 @@ namespace VirtualPet
             Console.WriteLine("9. Leave the Shelter");
         }
 
-        public string GetPlayerChoice()
+        private string GetPlayerChoice()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("\nPlease enter your selection");
@@ -170,7 +171,7 @@ namespace VirtualPet
             return playerGameResponse;
         }
 
-        public void ShowAllPets(Shelter someShelter)
+        private void ShowAllPets(Shelter someShelter)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -200,7 +201,8 @@ namespace VirtualPet
             }
 
         }
-        public string FeedAllPets(Shelter someShelter)
+
+        private string FeedAllPets(Shelter someShelter)
         {
             Console.Clear();
             foreach (Pet somePet in someShelter.GetListOfPets())
@@ -209,7 +211,8 @@ namespace VirtualPet
             }
             return "Thanks for feeding the Pets";
         }
-        public string WaterAllPets(Shelter someShelter)
+
+        private string WaterAllPets(Shelter someShelter)
         {
             Console.Clear();
             foreach (Pet somePet in someShelter.GetListOfPets())
@@ -218,7 +221,8 @@ namespace VirtualPet
             }
             return "Thanks for giving the Pets some water to drink.";
         }
-        public string PlayWithPets(Shelter someShelter)
+
+        private string PlayWithPets(Shelter someShelter)
         {
             Console.Clear();
             foreach (Pet somePet in someShelter.GetListOfPets())
@@ -228,13 +232,15 @@ namespace VirtualPet
             return "Thanks for playing with the Pets.";
 
         }
-        public Pet SelectPet(Shelter someShelter)
+
+        private Pet SelectPet(Shelter someShelter)
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("\nPlease Select a Pet from the Shelter:");
             Console.ResetColor();
             Console.WriteLine();
+            
             int index = 1;
             foreach (Pet pet in someShelter.GetListOfPets())
             {
@@ -261,7 +267,8 @@ namespace VirtualPet
             }
             return selectedPet;
         }
-        public void AdmitPet(Shelter someShelter)
+
+        private void AdmitPet(Shelter someShelter)
         {
             Console.Clear();
             Pet newPet = CreatePet(someShelter);
@@ -279,14 +286,15 @@ namespace VirtualPet
             Console.ResetColor();
         }
 
-        public void AdoptPet(Shelter someShelter, Pet somePet)
+        private void AdoptPet(Shelter someShelter, Pet somePet)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Thanks for adopting {somePet.GetName()}.  We hope you give them a good home.");
             Console.ResetColor();
             someShelter.RemovePetFromShelter(somePet);
         }
-        public void LeaveShelterMessage(Shelter someShelter)
+
+        private void LeaveShelterMessage(Shelter someShelter)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"\n\nThanks for visiting {someShelter.GetShelterName()} Wildly Popular Pet Shelter.");
@@ -296,7 +304,7 @@ namespace VirtualPet
             Console.ResetColor();
         }
 
-        public Pet CreatePet(Shelter someShelter)
+        private Pet CreatePet(Shelter someShelter)
         {
             if (someShelter.IsShelterFull() == false)
             {
@@ -331,7 +339,7 @@ namespace VirtualPet
             //Console.Clear();
         }
 
-        public void InteractWithPet(Pet somePet)
+        private void InteractWithPet(Pet somePet)
         {
             bool keepPlaying = true;
             while (keepPlaying)
@@ -355,7 +363,7 @@ namespace VirtualPet
             }
         }
 
-        static void ShowPetMenu(string petName)
+        private void ShowPetMenu(string petName)
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine($"\nWhat would you like to do with {petName}?");
@@ -371,7 +379,7 @@ namespace VirtualPet
             Console.WriteLine($"\n9. Stop Interacting with {petName}");
         }
 
-        public string ProcessPlayerChoice(string playerChoice, Pet somePet)
+        private string ProcessPlayerChoice(string playerChoice, Pet somePet)
         {
             string message = "";
             switch (playerChoice)
@@ -407,7 +415,7 @@ namespace VirtualPet
 
         }
 
-        static void ShowPetStatus(Pet somePet)
+        private void ShowPetStatus(Pet somePet)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"\nHere is how {somePet.GetName()} is doing:");
@@ -420,7 +428,7 @@ namespace VirtualPet
             Console.WriteLine($"IRRITATED factor is {somePet.GetIrritable()}.");
         }
 
-        public string PlayWithPet(Pet somePet)
+        private string PlayWithPet(Pet somePet)
         {
             string message = "";
             Random rand = new Random();
@@ -437,7 +445,7 @@ namespace VirtualPet
             return message;
         }
 
-        public string FeedPet(Pet somePet)
+        private string FeedPet(Pet somePet)
         {
             string message = "";
             if (somePet.GetHunger() > somePet.hungerThresholdMIN)
@@ -452,7 +460,7 @@ namespace VirtualPet
             return message;
         }
 
-        public string GivePetWater(Pet somePet)
+        private string GivePetWater(Pet somePet)
         {
             string message = "";
             if (somePet.GetHyrdation() < somePet.hydrationThresholdMAX)
@@ -467,7 +475,7 @@ namespace VirtualPet
             return message;
         }
 
-        public string TakePetToVet(Pet somePet)
+        private string TakePetToVet(Pet somePet)
         {
             string message = "";
             if (somePet.GetHealth() < somePet.healthThresholdMAX)
@@ -482,7 +490,7 @@ namespace VirtualPet
             return message;
         }
 
-        public string LetPetOutside(Pet somePet)
+        private string LetPetOutside(Pet somePet)
         {
             string message = "";
             if (somePet.GetIrritable() > somePet.irritabaleThresholdMIN)
@@ -497,7 +505,7 @@ namespace VirtualPet
             return message;
         }
 
-        public string LetPetSleep(Pet somePet)
+        private string LetPetSleep(Pet somePet)
         {
             string message = "";
             if (somePet.IsPetTired())
@@ -517,7 +525,7 @@ namespace VirtualPet
             return message;
         }
 
-        public string LeavePetAlone(Pet somePet)
+        private string LeavePetAlone(Pet somePet)
         {
             string message = "";
             somePet.Ignore();
@@ -542,7 +550,7 @@ namespace VirtualPet
             return message;
         }
 
-        public void LivingPetProcess(Pet somePet)
+        private void LivingPetProcess(Pet somePet)
         {
             if (somePet.IsPetHungry())
             { somePet.Feed(); }
@@ -554,7 +562,7 @@ namespace VirtualPet
             { somePet.Sleep(); }
         }
 
-        public  string CheckBoredomeLevel(Pet somePet)
+        private string CheckBoredomeLevel(Pet somePet)
         {
             string message;
             if (somePet.IsPetBored())
@@ -573,7 +581,8 @@ namespace VirtualPet
             }
             return message;
         }
-        public string CheckHungerLevel(Pet somePet)
+
+        private string CheckHungerLevel(Pet somePet)
         {
             string message;
             if (somePet.IsPetHungry())
@@ -593,7 +602,8 @@ namespace VirtualPet
             }
             return message;
         }
-        public string CheckThirstLevel(Pet somePet)
+
+        private string CheckThirstLevel(Pet somePet)
         {
             string message;
             if (somePet.IsPetThirsty())
@@ -613,7 +623,8 @@ namespace VirtualPet
             }
             return message;
         }
-        public string CheckEnergyLevel(Pet somePet)
+
+        private string CheckEnergyLevel(Pet somePet)
         {
             string message;
             if (somePet.IsPetTired())
@@ -632,7 +643,8 @@ namespace VirtualPet
             }
             return message;
         }
-        public string CheckHealthLevel(Pet somePet)
+
+        private string CheckHealthLevel(Pet somePet)
         {
             string message;
             if (somePet.IsPetSick())
@@ -651,7 +663,8 @@ namespace VirtualPet
             }
             return message;
         }
-        public string CheckIrritationLevel(Pet somePet)
+
+        private string CheckIrritationLevel(Pet somePet)
         {
             string message;
             if (somePet.IsPetIrritated())
@@ -671,7 +684,7 @@ namespace VirtualPet
             }
         }
 
-        public string CheckPetLevels(Pet somePet)
+        private string CheckPetLevels(Pet somePet)
         {
             string petBoredomeLevelMessage = CheckBoredomeLevel(somePet);
             string petIrritatedLevelMessage = CheckIrritationLevel(somePet);
@@ -703,7 +716,7 @@ namespace VirtualPet
             return returnMessage;
         }
 
-        public string ProcessTime(Pet somePet)
+        private string ProcessTime(Pet somePet)
         {
             somePet.Tick();                                  
             return CheckPetLevels(somePet).ToString();

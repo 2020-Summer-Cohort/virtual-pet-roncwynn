@@ -21,7 +21,6 @@ namespace VirtualPet
 
         public string GetShelterName()
         {
-            //throw new NotImplementedException();
             return shelterName;
         }
 
@@ -34,7 +33,6 @@ namespace VirtualPet
 
         public bool IsShelterEmpty()
         {
-            //throw new NotImplementedException();
             if (totalShelterPetCount > 0)
                 return false;
             else return true;
@@ -91,7 +89,6 @@ namespace VirtualPet
             }
             catch (Exception)
             {
-                //throw;
                 return null;
             }
         }
