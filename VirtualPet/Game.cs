@@ -118,7 +118,11 @@ namespace VirtualPet
                         playerFeedbackMessage = "\n\nInvalid Choice.  Please try again.";
                         break;
                 }
+                //Console.ForegroundColor = ConsoleColor.Green;
+                //TODO:  Create a Message to Player Method
                 Console.WriteLine(playerFeedbackMessage);
+                playerFeedbackMessage = "";
+                Console.ResetColor();
             }
         }
 
@@ -142,7 +146,7 @@ namespace VirtualPet
 
         public string GetPlayerChoice()
         {
-            //TODO:  Change this to accept a string for a question
+            //TODO:  Change this to accept a string for a question???
             Console.WriteLine("\nPlease enter your selection");
             string playerGameResponse = Console.ReadKey().KeyChar.ToString().ToLower();
             return playerGameResponse;
@@ -209,29 +213,32 @@ namespace VirtualPet
         }
         public Pet SelectPet(Shelter someShelter)
         {
-                Console.Clear();
-                Console.WriteLine("\nPlease Select a Pet from the Shelter:");
-                Console.WriteLine();
-                int index = 1;
-                foreach (Pet pet in someShelter.GetListOfPets())
-                {
-                    Console.WriteLine($"{index}.  {pet.GetName()} is a {pet.GetSpecies()}.");
-                    index++;
-                }
-                string selectedMenuOption = GetPlayerChoice();
-                Pet selectedPet = new Pet();
-                int petIndex = Convert.ToInt32(selectedMenuOption) - 1;
-                selectedPet = someShelter.GetPet(petIndex);
-                return selectedPet;
+            //TODO:  Add a cancel option to this option
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("\nPlease Select a Pet from the Shelter:");
+            Console.ResetColor();
+            Console.WriteLine();
+            int index = 1;
+            foreach (Pet pet in someShelter.GetListOfPets())
+            {
+                Console.WriteLine($"{index}.  {pet.GetName()} is a {pet.GetSpecies()}.");
+                index++;
+            }
+            string selectedMenuOption = GetPlayerChoice();
+            Pet selectedPet = new Pet();
+            int petIndex = Convert.ToInt32(selectedMenuOption) - 1;
+            selectedPet = someShelter.GetPet(petIndex);
+            return selectedPet;
         }
         public string AdmitPet(Shelter someShelter)
         {
             string message = "";
             Console.Clear();
-            if (CreatePet(someShelter) != null)
+            Pet newPet = CreatePet(someShelter);
+            if (newPet != null)
             {
-            //TODO:  Add Pet name to this message
-                message = "Pet has been added to Shelter.";
+                message = $"\n{newPet.GetName()} has been added to Shelter.";
             }
             else
             {
@@ -322,12 +329,16 @@ namespace VirtualPet
 
         static void ShowPetMenu(string petName)
         {
-            //TODO:  Make this better, add color
+            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine($"\nWhat would you like to do with {petName}?");
             Console.WriteLine();
-            Console.WriteLine($"1. Play with {petName}                2.Feed { petName}");
-            Console.WriteLine($"3. Give {petName} some water.         4.Take { petName} to the Vet.");
-            Console.WriteLine($"5. Let {petName} outside.             6. Put {petName} to bed.");
+            Console.ResetColor();
+            Console.WriteLine($"1. Play with {petName}.");
+            Console.WriteLine($"2. Feed { petName}.");
+            Console.WriteLine($"3. Give {petName} some water.");
+            Console.WriteLine($"4. Take { petName} to the Vet.");
+            Console.WriteLine($"5. Let {petName} outside.");
+            Console.WriteLine($"6. Put {petName} to bed.");
             Console.WriteLine($"7. Do nothing with {petName}.");
             Console.WriteLine($"\n9. Stop Interacting with {petName}");
         }
@@ -371,8 +382,9 @@ namespace VirtualPet
 
         static void ShowPetStatus(Pet somePet)
         {
-            //TODO:  Add color
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"\nHere is how {somePet.GetName()} is doing:");
+            Console.ResetColor();
             Console.WriteLine($"\nHEALTH factor is {somePet.GetHealth()}.");
             Console.WriteLine($"HUNGER factor is {somePet.GetHunger()}.");
             Console.WriteLine($"THIRST factor is {somePet.GetHyrdation()}.");
