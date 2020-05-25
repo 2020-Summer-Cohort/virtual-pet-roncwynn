@@ -9,24 +9,12 @@ namespace VirtualPet
     {
         const int ShelterCapacity = 10;
 
-        //TODO:  this sould be private
-        public int totalShelterPetCount { get; set; }
+        private int totalShelterPetCount { get; set; }
 
         private List<Pet> pets = new List<Pet>();
 
         public Shelter()
         {
-            //TODO:  Setup initial Shelter with some Pets
-            Pet somePet1 = new Pet();
-            somePet1.SetName("Ron");
-            somePet1.SetSpecies("Tiger");
-            pets.Add(somePet1);
-            Pet somePet2 = new Pet();
-            somePet2.SetName("Rachel");
-            somePet2.SetSpecies("Wife");
-            pets.Add(somePet2);
-
-            totalShelterPetCount = 2;
         }
 
         public bool IsShelterFull()

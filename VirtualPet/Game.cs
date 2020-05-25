@@ -18,7 +18,16 @@ namespace VirtualPet
         public void BeginGame()
         {
             Shelter someShelter = new Shelter();
+            AddInitalPetsToShelter(someShelter);
             PlayGame(someShelter);
+        }
+
+        private void AddInitalPetsToShelter(Shelter someShelter)
+        {
+            Pet somePet = new Pet("Ron","Lion");
+            someShelter.AddPetToShelter(somePet);
+            somePet = new Pet("Rachel","Cat");
+            someShelter.AddPetToShelter(somePet);
         }
 
         public void PlayGame(Shelter someShelter)
@@ -678,21 +687,9 @@ namespace VirtualPet
 
         public string ProcessTime(Pet somePet)
         {
-                                  
-            Tick(somePet);
+            somePet.Tick();                                  
             return CheckPetLevels(somePet).ToString();
         }
-
-        public void Tick(Pet somePet)
-        {
-            somePet.Hunger = somePet.Hunger + 5;
-            somePet.Health = somePet.Health - 5;
-            somePet.Boredom = somePet.Boredom + 5;
-            somePet.Hydration = somePet.Hydration - 5;
-            somePet.Irritated = somePet.Irritated + 5;
-            somePet.Energy = somePet.Energy - 5;
-        }
-
 
     }
 }

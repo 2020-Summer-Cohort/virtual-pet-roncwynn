@@ -6,14 +6,14 @@ namespace VirtualPet
 {
     public class Pet
     {
-        //TODO:  Change CONST names to PascalCase
         const int InitialHungerValue = 50;
         const int InitialBoredomValue = 60;
         const int InitialHealthValue = 30;
         const int InitialHydrationValue = 30;
         const int InitialIritableValue = 25;
         const int InitialEnergyValue = 90;
-
+        
+        //TODO:  Attempted to make this const but it caused other errors.
         public int hungerThresholdMIN = 10;
         public int hungerThresholdMAX = 90;
         public int boredomeThresholdMIN = 10;
@@ -30,13 +30,12 @@ namespace VirtualPet
         private  string Name { get; set; }
         private  string Species { get; set; }
 
-        //TODO:  Question for me:  Should these be private instead of public?
-        public  int Hunger { get; set; }
-        public  int Health { get; set; }
-        public  int Boredom { get; set; }
-        public  int Hydration { get; set; }
-        public  int Energy { get; set; }
-        public  int Irritated { get; set; }
+        public int Hunger { get; set; }
+        public int Health { get; set; }
+        public int Boredom { get; set; }
+        public int Hydration { get; set; }
+        public int Energy { get; set; }
+        public int Irritated { get; set; }
 
         public Pet()
         {
@@ -306,5 +305,16 @@ namespace VirtualPet
                 return true;
             else return false; 
         }
+
+        public void Tick()
+        {
+            Hunger = Hunger + 5;
+            Health = Health - 5;
+            Boredom = Boredom + 5;
+            Hydration = Hydration - 5;
+            Irritated = Irritated + 5;
+            Energy = Energy - 5;
+        }
+
     }
 }
