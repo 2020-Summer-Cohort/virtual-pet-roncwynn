@@ -9,6 +9,7 @@ namespace VirtualPet
     {
         const int ShelterCapacity = 10;
 
+        //TODO:  this sould be private
         public int totalShelterPetCount { get; set; }
 
         private List<Pet> pets = new List<Pet>();

@@ -7,12 +7,12 @@ namespace VirtualPet
     public class Pet
     {
         //TODO:  Change CONST names to PascalCase
-        const int initialHungerValue = 50;
-        const int initialBoredomValue = 60;
-        const int initialHealthValue = 30;
-        const int initialHydrationValue = 30;
-        const int initialIritableValue = 25;
-        const int initialEnergyValue = 90;
+        const int InitialHungerValue = 50;
+        const int InitialBoredomValue = 60;
+        const int InitialHealthValue = 30;
+        const int InitialHydrationValue = 30;
+        const int InitialIritableValue = 25;
+        const int InitialEnergyValue = 90;
 
         public int hungerThresholdMIN = 10;
         public int hungerThresholdMAX = 90;
@@ -58,12 +58,12 @@ namespace VirtualPet
 
         private  void SetInitialPetValues()
         {
-            Hunger = initialHungerValue;
-            Boredom = initialBoredomValue;
-            Health = initialHealthValue;
-            Hydration = initialHydrationValue;
-            Energy = initialEnergyValue;
-            Irritated = initialIritableValue;
+            Hunger = InitialHungerValue;
+            Boredom = InitialBoredomValue;
+            Health = InitialHealthValue;
+            Hydration = InitialHydrationValue;
+            Energy = InitialEnergyValue;
+            Irritated = InitialIritableValue;
         }
 
         public void SetName(string name)
@@ -165,7 +165,7 @@ namespace VirtualPet
         
         public void MinimizePetBoredome()
         {
-            Boredom = initialBoredomValue;
+            Boredom = InitialBoredomValue;
         }
 
         public void MaximizeBoredome()

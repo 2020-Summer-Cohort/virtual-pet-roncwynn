@@ -119,6 +119,7 @@ namespace VirtualPet
             //TODO:  Add color to this menu
             Console.WriteLine();
             Console.WriteLine("Tiger Kings Wildly Popular Pet Shelter");
+            //TODO:  Add Pad right
             Console.WriteLine("\n            MAIN MENU");
             Console.WriteLine();
             Console.WriteLine("1. Show all Pets in the Shelter");
@@ -144,7 +145,7 @@ namespace VirtualPet
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Here are all the pets currently in the shelter:");
-            Console.ResetColor();
+            //Console.ResetColor();
 
             Console.BackgroundColor = ConsoleColor.Cyan;
             Console.ForegroundColor = ConsoleColor.Black;
@@ -212,7 +213,6 @@ namespace VirtualPet
                 string selectedMenuOption = GetPlayerChoice();
                 Pet selectedPet = new Pet();
                 int petIndex = Convert.ToInt32(selectedMenuOption) - 1;
-                //selectedPet = someShelter.pets[Convert.ToInt32(selectedMenuOption) - 1];
                 selectedPet = someShelter.GetPet(petIndex);
                 return selectedPet;
         }
@@ -314,6 +314,7 @@ namespace VirtualPet
 
         static void ShowPetMenu(string petName)
         {
+            //TODO:  Make this better, add color
             Console.WriteLine($"\nWhat would you like to do with {petName}?");
             Console.WriteLine();
             Console.WriteLine($"1. Play with {petName}                2.Feed { petName}");
@@ -328,28 +329,29 @@ namespace VirtualPet
             string message = "";
             switch (playerChoice)
             {
-                case "1": //Play with Pet
+                case "1": 
                     message = PlayWithPet(somePet);
                     return message;
-                case "2": //Feed Pet
+                case "2": 
                     message = FeedPet(somePet);
                     return message;
-                case "3": //Give Water
+                case "3": 
                     message = GivePetWater(somePet);
                     return message;
-                case "4": //Take to Vet
+                case "4": 
                     message = TakePetToVet(somePet);
                     return message;
-                case "5": //Let outside
+                case "5": 
                     message = LetPetOutside(somePet);
                     return message;
-                case "6": //Sleep
+                case "6": 
                     message = LetPetSleep(somePet);
                     return message;
-                case "7": //Do Nothing
+                case "7": 
                     message = LeavePetAlone(somePet);
                     return message;
-                case "9": //Stop
+                case "9": 
+                    //TODO:  do this better
                     message = "QuitGame";
                     return message;
                 default:
@@ -361,6 +363,7 @@ namespace VirtualPet
 
         static void ShowPetStatus(Pet somePet)
         {
+            //TODO:  Add color
             Console.WriteLine($"\nHere is how {somePet.GetName()} is doing:");
             Console.WriteLine($"\nHEALTH factor is {somePet.GetHealth()}.");
             Console.WriteLine($"HUNGER factor is {somePet.GetHunger()}.");
