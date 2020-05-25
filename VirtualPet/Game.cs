@@ -12,7 +12,6 @@ namespace VirtualPet
     {
         public Game()
         {
-            //TODO:  Checks and balances to prevent -1 pets in shelter, 11 pets in shelter
         }
 
         public void BeginGame()
@@ -28,6 +27,36 @@ namespace VirtualPet
             someShelter.AddPetToShelter(somePet);
             somePet = new Pet("Rachel","Cat");
             someShelter.AddPetToShelter(somePet);
+        }
+
+        private void ShowShelterEmptyMessage(Shelter someShelter)
+        {
+            //TODO:  Add more text and color
+            Console.Clear();
+            Console.WriteLine("Shetler Empty");
+            Console.ReadLine();
+
+        }
+
+        private void CheckForAdoption(Shelter someShelter, Pet somePet)
+        {
+            Console.WriteLine($"Thanks for your interaction with {somePet.GetName()}.");
+            Console.WriteLine($"\nWould you like to Adopt {somePet.GetName()}?");
+            string playerChoice = GetPlayerChoice();
+            //TODO:  Write something to process Y/N responses as this repeated code
+            while (playerChoice != "y" && playerChoice != "n")
+            {
+                Console.WriteLine($"\nThat input was not a 'Y' or 'N'.  Please try again.");
+                playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
+            }
+            if (playerChoice == "y")
+            {
+                AdoptPet(someShelter, somePet);
+            }
+            else
+            {
+
+            }
         }
 
         public void PlayGame(Shelter someShelter)
@@ -54,55 +83,25 @@ namespace VirtualPet
                         playerFeedbackMessage = PlayWithPets(someShelter);
                         break;
                     case "5":    //Select a Pet
-                        //TODO:  Write method for this if structure, repeated code
                         if (someShelter.IsShelterEmpty())
                         {
-                            //TODO:  Write shelter Empty method for this message, repeated code
-                            Console.Clear();
-                            Console.WriteLine("Shetler Empty");
-                            Console.ReadLine();
-                        }
+                            ShowShelterEmptyMessage(someShelter); }
                         else
                         {
-                            //TODO:  Create method for this block of code
+                            //TODO:  Create method for this block of code???
                             Pet selectedPet = SelectPet(someShelter);
                             Console.Clear();
                             InteractWithPet(selectedPet);
                             Console.Clear();
-                            //Would you like to adopt code START
-                            Console.WriteLine($"Thanks for your interaction with {selectedPet.GetName()}.");
-                            Console.WriteLine($"\nWould you like to Adopt {selectedPet.GetName()}?");
-                            string playerChoice = GetPlayerChoice();
-                            //TODO:  Write something to process Y/N responses as this repeated code
-                            while (playerChoice != "y" && playerChoice != "n")
-                            {
-                                Console.WriteLine($"\nThat input was not a 'Y' or 'N'.  Please try again.");
-                                playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
-                            }
-                            if (playerChoice == "y")
-                            {
-                                AdoptPet(someShelter, selectedPet);
-                            }
-                            else
-                            {
-
-                            }
-                            //Would you like to adopt code END
+                            CheckForAdoption(someShelter, selectedPet);
                         }
                         break;
                     case "6":   
                         playerFeedbackMessage =  AdmitPet(someShelter);
                         break;
-                    case "7":    //Adopt a Pet
-
-                        //TODO:  This is repeated code from option 5
+                    case "7": 
                         if (someShelter.IsShelterEmpty())
-                        {
-                            //Shelter Empty
-                            Console.Clear();
-                            Console.WriteLine("Shetler Empty");
-                            Console.ReadLine();
-                        }
+                        { ShowShelterEmptyMessage(someShelter); }
                         else
                         {
                             Pet selectedPet = SelectPet(someShelter);

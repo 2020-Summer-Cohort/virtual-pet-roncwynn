@@ -15,6 +15,7 @@ namespace VirtualPet
 
         public Shelter()
         {
+            //TODO:  Add Name of Shelter as a Property
         }
 
         public bool IsShelterFull()
