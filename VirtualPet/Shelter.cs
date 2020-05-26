@@ -11,12 +11,30 @@ namespace VirtualPet
 
         private int totalShelterPetCount { get; set; }
 
+        public struct Cages
+        {
+            //public int cageNumber { get; set; }
+            public bool cageClean { get; set; }
+        }
+
         private List<Pet> pets = new List<Pet>();
+        public Cages[] cages = new Cages[9];
+
         private string shelterName { get; set; }
 
         public Shelter()
         {
             shelterName = "Tiger Kings";
+        }
+
+        public void CleanCage(int index)
+        {
+            cages[index].cageClean = true;
+        }
+
+        public bool IsCageClean(int index)
+        {
+            return cages[index].cageClean;
         }
 
         public string GetShelterName()

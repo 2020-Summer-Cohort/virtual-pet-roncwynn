@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Net.Cache;
 using System.Net.Http;
 using System.Reflection.PortableExecutable;
 using System.Text;
@@ -28,8 +29,8 @@ namespace VirtualPet
             someShelter.AddPetToShelter(somePet);
             somePet = new Pet("Rachel","Cat");
             someShelter.AddPetToShelter(somePet);
-            //somePet = new Pet("Alex", "Dog");
-            //someShelter.AddPetToShelter(somePet);
+            somePet = new Pet("Alex", "Dog");
+            someShelter.AddPetToShelter(somePet);
         }
 
         private void ShowShelterEmptyMessage(Shelter someShelter)

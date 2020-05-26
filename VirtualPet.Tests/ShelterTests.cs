@@ -80,10 +80,20 @@ namespace VirtualPet.Tests
             Assert.Equal(1, testShelter.GetShelterPetCount());
         }
 
+        [Fact]
+        public void IsCleanCage_Should_Return_True()
+        {
+            testShelter.CleanCage(1);
+            Assert.True(testShelter.IsCageClean(1));
+
+        }
+
         //[Fact]
         //public void AddPetToCage_Should_Increase_PetsInCage_by_1()
         //{
-        //    //int currentPetsInCage = testShelter.GetPetsInCage(testCage);
+        //    int currentPetsInCage = testShelter.GetPetsInCage(testCage);
+        //    testShelter.AddPetToCage(testPet);
+
         //}
     }
 }
