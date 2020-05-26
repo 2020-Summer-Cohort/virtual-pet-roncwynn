@@ -28,6 +28,8 @@ namespace VirtualPet
             someShelter.AddPetToShelter(somePet);
             somePet = new Pet("Rachel","Cat");
             someShelter.AddPetToShelter(somePet);
+            somePet = new Pet("Alex", "Dog");
+            someShelter.AddPetToShelter(somePet);
         }
 
         private void ShowShelterEmptyMessage(Shelter someShelter)
