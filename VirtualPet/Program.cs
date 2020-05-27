@@ -14,6 +14,7 @@ namespace VirtualPet
             Console.WriteLine("Hello! Welcome to Virtual Pets");
             Console.ResetColor();
             Console.WriteLine("\nVirtual Pets is a game that allows you, the Player, to interact with virutal pets.");
+            Console.WriteLine("\nIn this version of the game Pets can be Orgainic or Robotic.");
             Console.WriteLine("\nYou will be able interact with these pets for as short or as long as you like.");
             Console.WriteLine("\nAdditionally, you can add Virtual Pets to the Shelter and /or adopt pets from the shelter.");
             Console.ForegroundColor = ConsoleColor.Yellow;
