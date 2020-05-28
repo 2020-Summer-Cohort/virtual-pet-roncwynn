@@ -56,6 +56,12 @@ namespace VirtualPet
             Performance = InitialPerformanceValue;
         }
 
+        public void AddOil()
+        {
+            Oil = Oil + 25;
+        }
+
+
 
     }
 }

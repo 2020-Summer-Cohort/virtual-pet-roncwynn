@@ -250,7 +250,6 @@ namespace VirtualPet
 
         private string FeedAllPets(Shelter someShelter)
         {
-            //TODO:  Figure out why Hunger goes negative
             Console.Clear();
             foreach (Pet somePet in someShelter.GetListOfPets())
             {
@@ -261,13 +260,11 @@ namespace VirtualPet
                     pet.Feed();
                 }
             }
-            return "Thanks for feeding the Pets";
+            return "Thanks for feeding the Organic Pets";
         }
 
         private string WaterAllPets(Shelter someShelter)
         {
-            //TODO:  Figure out why Hydration goes > 100
-
             Console.Clear();
             foreach (Pet somePet in someShelter.GetListOfPets())
             {
@@ -277,8 +274,14 @@ namespace VirtualPet
                     pet = (OrganicPet)somePet;
                     pet.Drink();
                 }
+                else if (somePet.GetType() == typeof(RoboticPet))
+                {
+                    RoboticPet pet = new RoboticPet();
+                    pet = (RoboticPet)somePet;
+                    pet.AddOil();
+                }
             }
-            return "Thanks for giving the Pets some water to drink.";
+            return "Thanks for giving the Organic Pets some water to drink.  And for Oiling the Robotic Pets.";
         }
 
         private string PlayWithPets(Shelter someShelter)
