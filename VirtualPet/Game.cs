@@ -24,12 +24,12 @@ namespace VirtualPet
 
         private void AddInitalPetsToShelter(Shelter someShelter)
         {
-            OrganicPet someOrganicPet = new OrganicPet("Ron","Lion");
-            someShelter.AddPetToShelter(someOrganicPet);
-            someOrganicPet = new OrganicPet("Rachel","Cat");
+            OrganicPet someOrganicPet = new OrganicPet("Ron", "Lion");
             someShelter.AddPetToShelter(someOrganicPet);
             RoboticPet someRoboticPet = new RoboticPet("Alex", "Dog");
             someShelter.AddPetToShelter(someRoboticPet);
+            someOrganicPet = new OrganicPet("Rachel", "Cat");
+            someShelter.AddPetToShelter(someOrganicPet);
         }
 
         private void ShowShelterEmptyMessage(Shelter someShelter)
@@ -51,7 +51,7 @@ namespace VirtualPet
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Please enter (Y)es or (N)o.");
             string playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
-            
+
             while (playerChoice != "y" && playerChoice != "n")
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -59,7 +59,7 @@ namespace VirtualPet
                 Console.ResetColor();
                 playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
             }
-            
+
             Console.ResetColor();
             Console.WriteLine();
             if (playerChoice == "y")
@@ -91,46 +91,46 @@ namespace VirtualPet
                 selectedMenuOption = GetPlayerChoice();
                 switch (selectedMenuOption)
                 {
-                    case "1":     
+                    case "1":
                         ShowAllPets(someShelter);
                         break;
                     case "2":
                         if (someShelter.IsShelterEmpty())
-                            { ShowShelterEmptyMessage(someShelter); }
+                        { ShowShelterEmptyMessage(someShelter); }
                         //else
                         //    { playerFeedbackMessage = FeedAllPets(someShelter); }
                         break;
                     case "3":
                         if (someShelter.IsShelterEmpty())
-                            { ShowShelterEmptyMessage(someShelter); }
+                        { ShowShelterEmptyMessage(someShelter); }
                         //else
                         //    { playerFeedbackMessage = WaterAllPets(someShelter); }
                         break;
                     case "4":
                         if (someShelter.IsShelterEmpty())
-                            { ShowShelterEmptyMessage(someShelter); }
+                        { ShowShelterEmptyMessage(someShelter); }
                         else
-                            { playerFeedbackMessage = PlayWithPets(someShelter); }
+                        { playerFeedbackMessage = PlayWithPets(someShelter); }
                         break;
                     case "5":
                         if (someShelter.IsShelterEmpty())
-                            { ShowShelterEmptyMessage(someShelter); }
+                        { ShowShelterEmptyMessage(someShelter); }
                         else
-                            { PetOneOnOne(someShelter); }
+                        { PetOneOnOne(someShelter); }
                         break;
-                    case "6":   
+                    case "6":
                         AdmitPet(someShelter);
                         break;
-                    case "7": 
+                    case "7":
                         if (someShelter.IsShelterEmpty())
-                            { ShowShelterEmptyMessage(someShelter); }
+                        { ShowShelterEmptyMessage(someShelter); }
                         else
-                            {
-                                Pet selectedPet = SelectPet(someShelter);
-                                AdoptPet(someShelter, selectedPet);
-                            }
+                        {
+                            Pet selectedPet = SelectPet(someShelter);
+                            AdoptPet(someShelter, selectedPet);
+                        }
                         break;
-                    case "9":    
+                    case "9":
                         LeaveShelterMessage(someShelter);
                         keepPlaying = false;
                         break;
@@ -179,68 +179,72 @@ namespace VirtualPet
 
         private void ShowAllPets(Shelter someShelter)
         {
+            //TODO:  Break this up
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Here are all the pets currently in the shelter:");
 
-            //TODO:  Create split screen effect with diff title bars for org vs rob
-            //TODO:  use diff colors as well
+            List<OrganicPet> organicPets = new List<OrganicPet>();
+            List<RoboticPet> roboticPets = new List<RoboticPet>();
+            foreach (Pet somePet in someShelter.GetListOfPets())
+            {
+                if (somePet.GetType() == typeof(OrganicPet))
+                {
+                    OrganicPet someOrganicPet = new OrganicPet();
+                    someOrganicPet = (OrganicPet)somePet;
+                    organicPets.Add(someOrganicPet);
+                }
+                else if (somePet.GetType() == typeof(RoboticPet))
+                {
+                    RoboticPet someRoboticPet = new RoboticPet();
+                    someRoboticPet = (RoboticPet)somePet;
+                    roboticPets.Add(someRoboticPet);
+                }
+            }
+
             Console.BackgroundColor = ConsoleColor.Cyan;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("\nPet Name   Type      Health | Energy | Hunger | Boredom | Hydration | Irritable");
             Console.ResetColor();
             Console.WriteLine();
 
-            //int index = 1;
-            foreach(Pet somePet in someShelter.GetListOfPets())
+            foreach (OrganicPet someOrganicPet in organicPets)
             {
-                if (somePet.GetType() == typeof(OrganicPet))
-                {
-                    Console.ForegroundColor = ConsoleColor.DarkCyan;
-                    Console.Write($"{somePet.GetName().PadRight(11, ' ')}");
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write($"{somePet.GetSpecies().PadRight(12, ' ')}");
-                    Console.ResetColor();
-                    //Console.Write($"{somePet.GetEnergy().ToString().PadRight(9, ' ')}");
-                    //Console.Write($"{somePet.GetHealth().ToString().PadRight(8, ' ')} ");
-                    //Console.Write($"{somePet.GetHunger().ToString().PadRight(8, ' ')} ");
-                    Console.Write($"{somePet.GetBoredom().ToString().PadRight(10, ' ')} ");
-                    //Console.Write($"{somePet.GetHyrdation().ToString().PadRight(11, ' ')} ");
-                    //Console.WriteLine($"{somePet.GetIrritable().ToString()} ");
-                    Console.WriteLine();
-
-                }
-                else if (somePet.GetType() == typeof(RoboticPet))
-                {
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.Write($"{somePet.GetName().PadRight(11, ' ')}");
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write($"{somePet.GetSpecies().PadRight(12, ' ')}");
-                    Console.ResetColor();
-                    Console.Write($"{somePet.GetBoredom().ToString().PadRight(10, ' ')} ");
-                    //Console.WriteLine($"{somePet.GetOil().ToString().PadRight(10, ' ')} ");
-                    Console.WriteLine();
-
-                }
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.Write($"{someOrganicPet.GetName().PadRight(11, ' ')}");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write($"{someOrganicPet.GetSpecies().PadRight(12, ' ')}");
+                Console.ResetColor();
+                Console.Write($"{someOrganicPet.GetBoredom().ToString().PadRight(10, ' ')} ");
+                Console.Write($"{someOrganicPet.GetEnergy().ToString().PadRight(9, ' ')}");
+                Console.Write($"{someOrganicPet.GetHealth().ToString().PadRight(8, ' ')} ");
+                Console.Write($"{someOrganicPet.GetHunger().ToString().PadRight(8, ' ')} ");
+                Console.Write($"{someOrganicPet.GetHyrdation().ToString().PadRight(11, ' ')} ");
+                Console.WriteLine($"{someOrganicPet.GetIrritable().ToString()} ");
             }
 
-            //int index = 1;
-            //foreach (Pet somePet in someShelter.GetListOfPets())
-            //{
-            //    Console.ForegroundColor = ConsoleColor.DarkCyan;
-            //    Console.Write($"{somePet.GetName().PadRight(11, ' ')}");
-            //    Console.ForegroundColor = ConsoleColor.Green;
-            //    Console.Write($"{somePet.GetSpecies().PadRight(12, ' ')}");
-            //    Console.ResetColor();
-            //    Console.Write($"{somePet.GetEnergy().ToString().PadRight(9, ' ')}");
-            //    Console.Write($"{somePet.GetHealth().ToString().PadRight(8, ' ')} ");
-            //    Console.Write($"{somePet.GetHunger().ToString().PadRight(8, ' ')} ");
-            //    Console.Write($"{somePet.GetBoredom().ToString().PadRight(10, ' ')} ");
-            //    Console.Write($"{somePet.GetHyrdation().ToString().PadRight(11, ' ')} ");
-            //    Console.WriteLine($"{somePet.GetIrritable().ToString()} ");
-            //    index++;
-            //}
+            Console.BackgroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("\nPet Name   Type      | Boredom | Oil");
+            Console.ResetColor();
+            Console.WriteLine();
 
+            foreach (RoboticPet someRoboticPet in roboticPets)
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write($"{someRoboticPet.GetName().PadRight(11, ' ')}");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"{someRoboticPet.GetSpecies().PadRight(12, ' ')}");
+                Console.ResetColor();
+                Console.Write($"{someRoboticPet.GetBoredom().ToString().PadRight(10, ' ')} ");
+                Console.WriteLine($"{someRoboticPet.GetOil().ToString().PadRight(10, ' ')} ");
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Press ENTER to return to the main menu.");
+            Console.ReadLine();
+            Console.Clear();
         }
 
         //private string FeedAllPets(Shelter someShelter)
@@ -776,6 +780,7 @@ namespace VirtualPet
 
             return returnMessage;
         }
+
 
         private string ProcessTime(Pet somePet)
         {
