@@ -8,13 +8,13 @@ namespace VirtualPet
     {
         //TODO:  Organic specific values = Hunger, Health, Hydration, Iritable, Energy
         //TODO:  Shared values = Boredom
-        const int InitialHungerValue = 50;
+        //const int InitialHungerValue = 50;
         const int InitialBoredomValue = 60;
-        const int InitialHealthValue = 30;
-        const int InitialHydrationValue = 30;
-        const int InitialIritableValue = 25;
-        const int InitialEnergyValue = 90;
-        
+        //const int InitialHealthValue = 30;
+        //const int InitialHydrationValue = 30;
+        //const int InitialIritableValue = 25;
+        //const int InitialEnergyValue = 90;
+
         //TODO:  Note to instructor.  I Attempted to make this const but it caused other errors.  Would like feedback on this.
         public int hungerThresholdMIN = 10;
         public int hungerThresholdMAX = 90;
@@ -29,8 +29,8 @@ namespace VirtualPet
         public int energyThresholdMIN = 10;
         public int energyThresholdMAX = 90;
 
-        private  string Name { get; set; }
-        private  string Species { get; set; }
+        private string Name { get; set; }
+        private string Species { get; set; }
 
         public int Hunger { get; set; }
         public int Health { get; set; }
@@ -57,14 +57,14 @@ namespace VirtualPet
             SetInitialPetValues();
         }
 
-        private  void SetInitialPetValues()
+        public virtual void SetInitialPetValues()
         {
-            Hunger = InitialHungerValue;
+            //Hunger = InitialHungerValue;
             Boredom = InitialBoredomValue;
-            Health = InitialHealthValue;
-            Hydration = InitialHydrationValue;
-            Energy = InitialEnergyValue;
-            Irritated = InitialIritableValue;
+            //Health = InitialHealthValue;
+            //Hydration = InitialHydrationValue;
+            //Energy = InitialEnergyValue;
+            //Irritated = InitialIritableValue;
         }
 
         public void SetName(string name)

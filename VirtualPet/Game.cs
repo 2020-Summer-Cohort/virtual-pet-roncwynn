@@ -337,7 +337,8 @@ namespace VirtualPet
                     playerPetNameEntry = Console.ReadLine();
                 }
 
-                Pet somePet = new Pet(playerPetNameEntry, playerPetSpeciesEntry);
+                //Pet somePet = new Pet(playerPetNameEntry, playerPetSpeciesEntry);
+                Pet somePet = new OrganicPet(playerPetNameEntry, playerPetSpeciesEntry);
                 someShelter.AddPetToShelter(somePet);
                 return somePet;
             }
