@@ -193,11 +193,6 @@ namespace VirtualPet
             else return false;
         }
 
-        public void Feed()
-        {
-            Hunger = Hunger - 40;
-        }
-
         public void Drink()
         {
             Hydration = Hydration + 40;
@@ -258,6 +253,27 @@ namespace VirtualPet
             Hydration = Hydration - 5;
             Irritated = Irritated + 5;
             Energy = Energy - 5;
+        }
+
+        public void Feed()
+        {
+            Hunger = Hunger - 40;
+        }
+
+        public string FeedPet()
+        {
+            string message = "";
+            if (Hunger > hungerThresholdMIN)
+            {
+                //somePet.Feed();
+                Feed();
+                message = $"You fed {Name}.";
+            }
+            else
+            {
+                message = $"{Name} isn't hungry right now, maybe try something else.";
+            }
+            return message;
         }
 
     }

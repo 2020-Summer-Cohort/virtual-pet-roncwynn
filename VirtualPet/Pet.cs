@@ -29,7 +29,7 @@ namespace VirtualPet
         public int energyThresholdMIN = 10;
         public int energyThresholdMAX = 90;
 
-        private string Name { get; set; }
+        public string Name { get; set; }
         private string Species { get; set; }
 
         public int Boredom { get; set; }

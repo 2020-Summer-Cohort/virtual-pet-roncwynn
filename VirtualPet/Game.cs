@@ -409,6 +409,7 @@ namespace VirtualPet
                 ShowPetStatus(somePet);
                 ShowPetMenu(somePet.GetName());
                 string playerChoice = GetPlayerChoice();
+                //TODO:  Org only call
                 string gameFeedbackToPlayer = ProcessPlayerChoice(playerChoice, somePet);
 
                 if (gameFeedbackToPlayer == "stop")
@@ -446,6 +447,9 @@ namespace VirtualPet
         private string ProcessPlayerChoice(string playerChoice, Pet somePet)
         {
             //TODO: Will need a new version of this method for rob pets
+            //TODO:  This version is ORganic only
+            OrganicPet orgPet = new OrganicPet();
+            orgPet = (OrganicPet)somePet;
 
             string message = "";
             switch (playerChoice)
@@ -455,6 +459,7 @@ namespace VirtualPet
                     return message;
                 case "2": 
                     //message = FeedPet(somePet);
+                    message = orgPet.FeedPet();
                     return message;
                 case "3": 
                     //message = GivePetWater(somePet);
@@ -512,7 +517,7 @@ namespace VirtualPet
             return message;
         }
 
-        //Org only
+        //TODO: Org only
         //private string FeedPet(Pet somePet)
         //{
         //    string message = "";
