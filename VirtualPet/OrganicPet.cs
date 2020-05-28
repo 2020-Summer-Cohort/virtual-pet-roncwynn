@@ -23,6 +23,7 @@ namespace VirtualPet
             base.SetInitialPetValues();
             SetInitialPetValues();
         }
+
         public OrganicPet(string name)
         {
             base.SetName(name);
@@ -37,7 +38,6 @@ namespace VirtualPet
             base.SetInitialPetValues();
             SetInitialPetValues();
         }
-
 
         public override void SetInitialPetValues()
         {
@@ -167,7 +167,7 @@ namespace VirtualPet
 
         public bool IsPetSick()
         {
-            if (GetHealth() <= healthThresholdMIN)
+            if (Health <= healthThresholdMIN)
                 return true;
             else return false;
         }
@@ -181,14 +181,14 @@ namespace VirtualPet
 
         public bool IsPetEnergized()
         {
-            if (GetEnergy() >= energyThresholdMAX)
+            if (Energy >= energyThresholdMAX)
                 return true;
             else return false;
         }
 
         public bool IsPetTired()
         {
-            if (GetEnergy() <= energyThresholdMIN)
+            if (Energy <= energyThresholdMIN)
                 return true;
             else return false;
         }
@@ -215,13 +215,12 @@ namespace VirtualPet
 
         public override void ShowPetStatus()
         {
-            //TODO:  Change to property direct access instead of "Gets"
             base.ShowPetStatus();
-            Console.WriteLine($"\nHEALTH factor is {GetHealth()}.");
-            Console.WriteLine($"HUNGER factor is {GetHunger()}.");
-            Console.WriteLine($"THIRST factor is {GetHyrdation()}.");
-            Console.WriteLine($"ENERGY factor is {GetEnergy()}.");
-            Console.WriteLine($"IRRITATED factor is {GetIrritable()}.");
+            Console.WriteLine($"\nHEALTH factor is {Health}.");
+            Console.WriteLine($"HUNGER factor is {Hunger}.");
+            Console.WriteLine($"THIRST factor is {Hydration}.");
+            Console.WriteLine($"ENERGY factor is {Energy}");
+            Console.WriteLine($"IRRITATED factor is {Irritated}.");
         }
 
         public override void Play()

@@ -97,8 +97,8 @@ namespace VirtualPet
                     case "2":
                         if (someShelter.IsShelterEmpty())
                         { ShowShelterEmptyMessage(someShelter); }
-                        //else
-                        //    { playerFeedbackMessage = FeedAllPets(someShelter); }
+                        else
+                            { playerFeedbackMessage = FeedAllPets(someShelter); }
                         break;
                     case "3":
                         if (someShelter.IsShelterEmpty())
@@ -204,7 +204,7 @@ namespace VirtualPet
 
             Console.BackgroundColor = ConsoleColor.Cyan;
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("\nPet Name   Type      Health | Energy | Hunger | Boredom | Hydration | Irritable");
+            Console.WriteLine("\nPet Name   Type      Boredom | Energy | Health | Hunger | Boredom | Hydration | Irritable");
             Console.ResetColor();
             Console.WriteLine();
 
@@ -247,15 +247,21 @@ namespace VirtualPet
             Console.Clear();
         }
 
-        //private string FeedAllPets(Shelter someShelter)
-        //{
-        //    Console.Clear();
-        //    foreach (Pet somePet in someShelter.GetListOfPets())
-        //    {
-        //        somePet.Feed();
-        //    }
-        //    return "Thanks for feeding the Pets";
-        //}
+        private string FeedAllPets(Shelter someShelter)
+        {
+            //TODO:  Figure out why Hunger goes negative
+            Console.Clear();
+            foreach (Pet somePet in someShelter.GetListOfPets())
+            {
+                if (somePet.GetType() == typeof(OrganicPet))
+                {
+                    OrganicPet pet = new OrganicPet();
+                    pet = (OrganicPet)somePet;
+                    pet.Feed();
+                }
+            }
+            return "Thanks for feeding the Pets";
+        }
 
         //TODO:  org only
         //private string WaterAllPets(Shelter someShelter)

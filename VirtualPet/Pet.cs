@@ -54,12 +54,7 @@ namespace VirtualPet
 
         public virtual void SetInitialPetValues()
         {
-            //Hunger = InitialHungerValue;
             Boredom = InitialBoredomValue;
-            //Health = InitialHealthValue;
-            //Hydration = InitialHydrationValue;
-            //Energy = InitialEnergyValue;
-            //Irritated = InitialIritableValue;
         }
 
         public void SetName(string name)
