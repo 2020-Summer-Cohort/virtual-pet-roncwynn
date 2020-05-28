@@ -74,7 +74,7 @@ namespace VirtualPet
             if (selectedPet != null)
             {
                 Console.Clear();
-                //InteractWithPet(selectedPet);
+                InteractWithPet(selectedPet);
                 Console.Clear();
                 CheckForAdoption(someShelter, selectedPet);
             }
@@ -103,8 +103,8 @@ namespace VirtualPet
                     case "3":
                         if (someShelter.IsShelterEmpty())
                         { ShowShelterEmptyMessage(someShelter); }
-                        //else
-                        //    { playerFeedbackMessage = WaterAllPets(someShelter); }
+                        else
+                            { playerFeedbackMessage = WaterAllPets(someShelter); }
                         break;
                     case "4":
                         if (someShelter.IsShelterEmpty())
@@ -204,7 +204,7 @@ namespace VirtualPet
 
             Console.BackgroundColor = ConsoleColor.Cyan;
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("\nPet Name   Type      Boredom | Energy | Health | Hunger | Boredom | Hydration | Irritable");
+            Console.WriteLine("\nPet Name   Type      Boredom | Energy | Health | Hunger |  Hydration | Irritable");
             Console.ResetColor();
             Console.WriteLine();
 
@@ -263,19 +263,26 @@ namespace VirtualPet
             return "Thanks for feeding the Pets";
         }
 
-        //TODO:  org only
-        //private string WaterAllPets(Shelter someShelter)
-        //{
-        //    Console.Clear();
-        //    foreach (Pet somePet in someShelter.GetListOfPets())
-        //    {
-        //        somePet.Drink();
-        //    }
-        //    return "Thanks for giving the Pets some water to drink.";
-        //}
+        private string WaterAllPets(Shelter someShelter)
+        {
+            //TODO:  Figure out why Hydration goes > 100
+
+            Console.Clear();
+            foreach (Pet somePet in someShelter.GetListOfPets())
+            {
+                if (somePet.GetType() == typeof(OrganicPet))
+                {
+                    OrganicPet pet = new OrganicPet();
+                    pet = (OrganicPet)somePet;
+                    pet.Drink();
+                }
+            }
+            return "Thanks for giving the Pets some water to drink.";
+        }
 
         private string PlayWithPets(Shelter someShelter)
         {
+            //TODO:  Figure out why values are not respecting MIN and MAX
             Console.Clear();
             foreach (Pet somePet in someShelter.GetListOfPets())
             {
@@ -323,6 +330,7 @@ namespace VirtualPet
 
         private void AdmitPet(Shelter someShelter)
         {
+            //TODO:  Add options for Org vs Rob
             Console.Clear();
             Pet newPet = CreatePet(someShelter);
             if (newPet != null)
@@ -390,36 +398,36 @@ namespace VirtualPet
             }           
         }
 
-        //private void InteractWithPet(Pet somePet)
-        //{
+        private void InteractWithPet(Pet somePet)
+        {
 
-        //    //TODO:  Create new sub-menu and appropriate calls for rob pets
-        //    bool keepPlaying = true;
-        //    while (keepPlaying)
-        //    {
-        //        //TODO:  Will need to call Orgainic Pet Show Status and Robotic Pet Show Status???
-        //        ShowPetStatus(somePet);
-        //        ShowPetMenu(somePet.GetName());
-        //        string playerChoice = GetPlayerChoice();
-        //        string gameFeedbackToPlayer = ProcessPlayerChoice(playerChoice, somePet);
+            //TODO:  Create new sub-menu and appropriate calls for rob pets
+            bool keepPlaying = true;
+            while (keepPlaying)
+            {
+                //TODO:  Will need to call Orgainic Pet Show Status and Robotic Pet Show Status???
+                ShowPetStatus(somePet);
+                ShowPetMenu(somePet.GetName());
+                string playerChoice = GetPlayerChoice();
+                string gameFeedbackToPlayer = ProcessPlayerChoice(playerChoice, somePet);
 
-        //        if (gameFeedbackToPlayer == "stop")
-        //        { keepPlaying = false; }
-        //        else
-        //        { 
-        //            Console.Clear();
-        //            Console.WriteLine("\n");
-        //            Console.WriteLine(gameFeedbackToPlayer);
+                if (gameFeedbackToPlayer == "stop")
+                { keepPlaying = false; }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("\n");
+                    Console.WriteLine(gameFeedbackToPlayer);
 
-        //            string petFeedbacktoPlayer = ProcessTime(somePet);
-        //            Console.WriteLine(petFeedbacktoPlayer);
-        //        }
-        //    }
-        //}
+                    string petFeedbacktoPlayer = ProcessTime(somePet);
+                    Console.WriteLine(petFeedbacktoPlayer);
+                }
+            }
+        }
 
         private void ShowPetMenu(string petName)
         {
-            //Will need a new version of this method for rob pets
+            //TODO:  Will need a new version of this method for rob pets
 
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine($"\nWhat would you like to do with {petName}?");
@@ -437,7 +445,7 @@ namespace VirtualPet
 
         private string ProcessPlayerChoice(string playerChoice, Pet somePet)
         {
-            //Will need a new version of this method for rob pets
+            //TODO: Will need a new version of this method for rob pets
 
             string message = "";
             switch (playerChoice)
@@ -473,19 +481,19 @@ namespace VirtualPet
 
         }
 
-        //private void ShowPetStatus(Pet somePet)
-        //{
-        //    //Will need a new version of this method for rob pets
-        //    Console.ForegroundColor = ConsoleColor.Yellow;
-        //    Console.WriteLine($"\nHere is how {somePet.GetName()} is doing:");
-        //    Console.ResetColor();
-        //    Console.WriteLine($"\nHEALTH factor is {somePet.GetHealth()}.");
-        //    Console.WriteLine($"HUNGER factor is {somePet.GetHunger()}.");
-        //    Console.WriteLine($"THIRST factor is {somePet.GetHyrdation()}.");
-        //    Console.WriteLine($"ENERGY factor is {somePet.GetEnergy()}.");
-        //    Console.WriteLine($"BOREDOM factor is {somePet.GetBoredom()}.");
-        //    Console.WriteLine($"IRRITATED factor is {somePet.GetIrritable()}.");
-        //}
+        private void ShowPetStatus(Pet somePet)
+        {
+            //Will need a new version of this method for rob pets
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"\nHere is how {somePet.GetName()} is doing:");
+            Console.ResetColor();
+            //Console.WriteLine($"\nHEALTH factor is {somePet.GetHealth()}.");
+            //Console.WriteLine($"HUNGER factor is {somePet.GetHunger()}.");
+            //Console.WriteLine($"THIRST factor is {somePet.GetHyrdation()}.");
+            //Console.WriteLine($"ENERGY factor is {somePet.GetEnergy()}.");
+            Console.WriteLine($"BOREDOM factor is {somePet.GetBoredom()}.");
+            //Console.WriteLine($"IRRITATED factor is {somePet.GetIrritable()}.");
+        }
 
         private string PlayWithPet(Pet somePet)
         {
