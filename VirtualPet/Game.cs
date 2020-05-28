@@ -24,12 +24,12 @@ namespace VirtualPet
 
         private void AddInitalPetsToShelter(Shelter someShelter)
         {
-            Pet somePet = new Pet("Ron","Lion");
-            someShelter.AddPetToShelter(somePet);
-            somePet = new Pet("Rachel","Cat");
-            someShelter.AddPetToShelter(somePet);
-            somePet = new Pet("Alex", "Dog");
-            someShelter.AddPetToShelter(somePet);
+            OrganicPet someOrganicPet = new OrganicPet("Ron","Lion");
+            someShelter.AddPetToShelter(someOrganicPet);
+            someOrganicPet = new OrganicPet("Rachel","Cat");
+            someShelter.AddPetToShelter(someOrganicPet);
+            RoboticPet someRoboticPet = new RoboticPet("Alex", "Dog");
+            someShelter.AddPetToShelter(someRoboticPet);
         }
 
         private void ShowShelterEmptyMessage(Shelter someShelter)
@@ -74,7 +74,7 @@ namespace VirtualPet
             if (selectedPet != null)
             {
                 Console.Clear();
-                InteractWithPet(selectedPet);
+                //InteractWithPet(selectedPet);
                 Console.Clear();
                 CheckForAdoption(someShelter, selectedPet);
             }
@@ -97,14 +97,14 @@ namespace VirtualPet
                     case "2":
                         if (someShelter.IsShelterEmpty())
                             { ShowShelterEmptyMessage(someShelter); }
-                        else
-                            { playerFeedbackMessage = FeedAllPets(someShelter); }
+                        //else
+                        //    { playerFeedbackMessage = FeedAllPets(someShelter); }
                         break;
                     case "3":
                         if (someShelter.IsShelterEmpty())
                             { ShowShelterEmptyMessage(someShelter); }
-                        else
-                            { playerFeedbackMessage = WaterAllPets(someShelter); }
+                        //else
+                        //    { playerFeedbackMessage = WaterAllPets(someShelter); }
                         break;
                     case "4":
                         if (someShelter.IsShelterEmpty())
@@ -191,46 +191,78 @@ namespace VirtualPet
             Console.ResetColor();
             Console.WriteLine();
 
-            int index = 1;
+            //int index = 1;
             foreach(Pet somePet in someShelter.GetListOfPets())
             {
-                Console.ForegroundColor = ConsoleColor.DarkCyan;
-                Console.Write($"{somePet.GetName().PadRight(11,' ')}");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"{somePet.GetSpecies().PadRight(12,' ')}");
-                Console.ResetColor();
-                Console.Write($"{somePet.GetEnergy().ToString().PadRight(9,' ')}");
-                Console.Write($"{somePet.GetHealth().ToString().PadRight(8,' ')} ");
-                Console.Write($"{somePet.GetHunger().ToString().PadRight(8,' ')} ");
-                Console.Write($"{somePet.GetBoredom().ToString().PadRight(10,' ')} ");
-                Console.Write($"{somePet.GetHyrdation().ToString().PadRight(11, ' ')} ");
-                Console.WriteLine($"{somePet.GetIrritable().ToString()} ");
-                index++;
+                if (somePet.GetType() == typeof(OrganicPet))
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.Write($"{somePet.GetName().PadRight(11, ' ')}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"{somePet.GetSpecies().PadRight(12, ' ')}");
+                    Console.ResetColor();
+                    //Console.Write($"{somePet.GetEnergy().ToString().PadRight(9, ' ')}");
+                    //Console.Write($"{somePet.GetHealth().ToString().PadRight(8, ' ')} ");
+                    //Console.Write($"{somePet.GetHunger().ToString().PadRight(8, ' ')} ");
+                    Console.Write($"{somePet.GetBoredom().ToString().PadRight(10, ' ')} ");
+                    //Console.Write($"{somePet.GetHyrdation().ToString().PadRight(11, ' ')} ");
+                    //Console.WriteLine($"{somePet.GetIrritable().ToString()} ");
+                    Console.WriteLine();
+
+                }
+                else if (somePet.GetType() == typeof(RoboticPet))
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.Write($"{somePet.GetName().PadRight(11, ' ')}");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write($"{somePet.GetSpecies().PadRight(12, ' ')}");
+                    Console.ResetColor();
+                    Console.Write($"{somePet.GetBoredom().ToString().PadRight(10, ' ')} ");
+                    //Console.WriteLine($"{somePet.GetOil().ToString().PadRight(10, ' ')} ");
+                    Console.WriteLine();
+
+                }
             }
 
+            //int index = 1;
+            //foreach (Pet somePet in someShelter.GetListOfPets())
+            //{
+            //    Console.ForegroundColor = ConsoleColor.DarkCyan;
+            //    Console.Write($"{somePet.GetName().PadRight(11, ' ')}");
+            //    Console.ForegroundColor = ConsoleColor.Green;
+            //    Console.Write($"{somePet.GetSpecies().PadRight(12, ' ')}");
+            //    Console.ResetColor();
+            //    Console.Write($"{somePet.GetEnergy().ToString().PadRight(9, ' ')}");
+            //    Console.Write($"{somePet.GetHealth().ToString().PadRight(8, ' ')} ");
+            //    Console.Write($"{somePet.GetHunger().ToString().PadRight(8, ' ')} ");
+            //    Console.Write($"{somePet.GetBoredom().ToString().PadRight(10, ' ')} ");
+            //    Console.Write($"{somePet.GetHyrdation().ToString().PadRight(11, ' ')} ");
+            //    Console.WriteLine($"{somePet.GetIrritable().ToString()} ");
+            //    index++;
+            //}
+
         }
+
+        //private string FeedAllPets(Shelter someShelter)
+        //{
+        //    Console.Clear();
+        //    foreach (Pet somePet in someShelter.GetListOfPets())
+        //    {
+        //        somePet.Feed();
+        //    }
+        //    return "Thanks for feeding the Pets";
+        //}
 
         //TODO:  org only
-        private string FeedAllPets(Shelter someShelter)
-        {
-            Console.Clear();
-            foreach (Pet somePet in someShelter.GetListOfPets())
-            {
-                somePet.Feed();
-            }
-            return "Thanks for feeding the Pets";
-        }
-
-        //TODO:  org only
-        private string WaterAllPets(Shelter someShelter)
-        {
-            Console.Clear();
-            foreach (Pet somePet in someShelter.GetListOfPets())
-            {
-                somePet.Drink();
-            }
-            return "Thanks for giving the Pets some water to drink.";
-        }
+        //private string WaterAllPets(Shelter someShelter)
+        //{
+        //    Console.Clear();
+        //    foreach (Pet somePet in someShelter.GetListOfPets())
+        //    {
+        //        somePet.Drink();
+        //    }
+        //    return "Thanks for giving the Pets some water to drink.";
+        //}
 
         private string PlayWithPets(Shelter someShelter)
         {
@@ -348,31 +380,32 @@ namespace VirtualPet
             }           
         }
 
-        private void InteractWithPet(Pet somePet)
-        {
+        //private void InteractWithPet(Pet somePet)
+        //{
 
-            //TODO:  Create new sub-menu and appropriate calls for rob pets
-            bool keepPlaying = true;
-            while (keepPlaying)
-            {
-                ShowPetStatus(somePet);
-                ShowPetMenu(somePet.GetName());
-                string playerChoice = GetPlayerChoice();
-                string gameFeedbackToPlayer = ProcessPlayerChoice(playerChoice, somePet);
+        //    //TODO:  Create new sub-menu and appropriate calls for rob pets
+        //    bool keepPlaying = true;
+        //    while (keepPlaying)
+        //    {
+        //        //TODO:  Will need to call Orgainic Pet Show Status and Robotic Pet Show Status???
+        //        ShowPetStatus(somePet);
+        //        ShowPetMenu(somePet.GetName());
+        //        string playerChoice = GetPlayerChoice();
+        //        string gameFeedbackToPlayer = ProcessPlayerChoice(playerChoice, somePet);
 
-                if (gameFeedbackToPlayer == "stop")
-                { keepPlaying = false; }
-                else
-                { 
-                    Console.Clear();
-                    Console.WriteLine("\n");
-                    Console.WriteLine(gameFeedbackToPlayer);
+        //        if (gameFeedbackToPlayer == "stop")
+        //        { keepPlaying = false; }
+        //        else
+        //        { 
+        //            Console.Clear();
+        //            Console.WriteLine("\n");
+        //            Console.WriteLine(gameFeedbackToPlayer);
 
-                    string petFeedbacktoPlayer = ProcessTime(somePet);
-                    Console.WriteLine(petFeedbacktoPlayer);
-                }
-            }
-        }
+        //            string petFeedbacktoPlayer = ProcessTime(somePet);
+        //            Console.WriteLine(petFeedbacktoPlayer);
+        //        }
+        //    }
+        //}
 
         private void ShowPetMenu(string petName)
         {
@@ -403,19 +436,19 @@ namespace VirtualPet
                     message = PlayWithPet(somePet);
                     return message;
                 case "2": 
-                    message = FeedPet(somePet);
+                    //message = FeedPet(somePet);
                     return message;
                 case "3": 
-                    message = GivePetWater(somePet);
+                    //message = GivePetWater(somePet);
                     return message;
                 case "4": 
-                    message = TakePetToVet(somePet);
+                    //message = TakePetToVet(somePet);
                     return message;
                 case "5": 
-                    message = LetPetOutside(somePet);
+                    //message = LetPetOutside(somePet);
                     return message;
                 case "6": 
-                    message = LetPetSleep(somePet);
+                    //message = LetPetSleep(somePet);
                     return message;
                 case "7": 
                     message = LeavePetAlone(somePet);
@@ -430,19 +463,19 @@ namespace VirtualPet
 
         }
 
-        private void ShowPetStatus(Pet somePet)
-        {
-            //Will need a new version of this method for rob pets
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"\nHere is how {somePet.GetName()} is doing:");
-            Console.ResetColor();
-            Console.WriteLine($"\nHEALTH factor is {somePet.GetHealth()}.");
-            Console.WriteLine($"HUNGER factor is {somePet.GetHunger()}.");
-            Console.WriteLine($"THIRST factor is {somePet.GetHyrdation()}.");
-            Console.WriteLine($"ENERGY factor is {somePet.GetEnergy()}.");
-            Console.WriteLine($"BOREDOM factor is {somePet.GetBoredom()}.");
-            Console.WriteLine($"IRRITATED factor is {somePet.GetIrritable()}.");
-        }
+        //private void ShowPetStatus(Pet somePet)
+        //{
+        //    //Will need a new version of this method for rob pets
+        //    Console.ForegroundColor = ConsoleColor.Yellow;
+        //    Console.WriteLine($"\nHere is how {somePet.GetName()} is doing:");
+        //    Console.ResetColor();
+        //    Console.WriteLine($"\nHEALTH factor is {somePet.GetHealth()}.");
+        //    Console.WriteLine($"HUNGER factor is {somePet.GetHunger()}.");
+        //    Console.WriteLine($"THIRST factor is {somePet.GetHyrdation()}.");
+        //    Console.WriteLine($"ENERGY factor is {somePet.GetEnergy()}.");
+        //    Console.WriteLine($"BOREDOM factor is {somePet.GetBoredom()}.");
+        //    Console.WriteLine($"IRRITATED factor is {somePet.GetIrritable()}.");
+        //}
 
         private string PlayWithPet(Pet somePet)
         {
@@ -462,89 +495,89 @@ namespace VirtualPet
         }
 
         //Org only
-        private string FeedPet(Pet somePet)
-        {
-            string message = "";
-            if (somePet.GetHunger() > somePet.hungerThresholdMIN)
-            {
-                somePet.Feed();
-                message = $"You fed {somePet.GetName()}.";
-            }
-            else
-            {
-                message = $"{somePet.GetName()} isn't hungry right now, maybe try something else.";
-            }
-            return message;
-        }
+        //private string FeedPet(Pet somePet)
+        //{
+        //    string message = "";
+        //    if (somePet.GetHunger() > somePet.hungerThresholdMIN)
+        //    {
+        //        somePet.Feed();
+        //        message = $"You fed {somePet.GetName()}.";
+        //    }
+        //    else
+        //    {
+        //        message = $"{somePet.GetName()} isn't hungry right now, maybe try something else.";
+        //    }
+        //    return message;
+        //}
 
         //Org only
-        private string GivePetWater(Pet somePet)
-        {
-            string message = "";
-            if (somePet.GetHyrdation() < somePet.hydrationThresholdMAX)
-            {
-                somePet.Drink();
-                message = $"You gave {somePet.GetName()} some water to drink.";
-            }
-            else
-            {
-                message = $"{somePet.GetName()} is fully hydrated.  Act quick before {somePet.GetName()} has an accident!";
-            }
-            return message;
-        }
+        //private string GivePetWater(Pet somePet)
+        //{
+        //    string message = "";
+        //    if (somePet.GetHyrdation() < somePet.hydrationThresholdMAX)
+        //    {
+        //        somePet.Drink();
+        //        message = $"You gave {somePet.GetName()} some water to drink.";
+        //    }
+        //    else
+        //    {
+        //        message = $"{somePet.GetName()} is fully hydrated.  Act quick before {somePet.GetName()} has an accident!";
+        //    }
+        //    return message;
+        //}
 
         //Org only
-        private string TakePetToVet(Pet somePet)
-        {
-            string message = "";
-            if (somePet.GetHealth() < somePet.healthThresholdMAX)
-            {
-                somePet.SeeDoctor();
-                message = $"You took {somePet.GetName()} to the vet and all is well.";
-            }
-            else
-            {
-                message = $"{somePet.GetName()} is as healthy as can be.  Save your money.";
-            }
-            return message;
-        }
+        //private string TakePetToVet(Pet somePet)
+        //{
+        //    string message = "";
+        //    if (somePet.GetHealth() < somePet.healthThresholdMAX)
+        //    {
+        //        somePet.SeeDoctor();
+        //        message = $"You took {somePet.GetName()} to the vet and all is well.";
+        //    }
+        //    else
+        //    {
+        //        message = $"{somePet.GetName()} is as healthy as can be.  Save your money.";
+        //    }
+        //    return message;
+        //}
 
         //Org only
-        private string LetPetOutside(Pet somePet)
-        {
-            string message = "";
-            if (somePet.GetIrritable() > somePet.irritabaleThresholdMIN)
-            {
-                somePet.Relieve();
-                message = $"You let {somePet.GetName()} relieve themself.";
-            }
-            else
-            {
-                message = $"{somePet.GetName()} is being stubborn and won't go outside right now.";
-            }
-            return message;
-        }
+        //private string LetPetOutside(Pet somePet)
+        //{
+        //    string message = "";
+        //    if (somePet.GetIrritable() > somePet.irritabaleThresholdMIN)
+        //    {
+        //        somePet.Relieve();
+        //        message = $"You let {somePet.GetName()} relieve themself.";
+        //    }
+        //    else
+        //    {
+        //        message = $"{somePet.GetName()} is being stubborn and won't go outside right now.";
+        //    }
+        //    return message;
+        //}
 
         //Org only???
-        private string LetPetSleep(Pet somePet)
-        {
-            string message = "";
-            if (somePet.IsPetTired())
-            {
-                somePet.Sleep();
-                message = $"{somePet.GetName()} is sleeping soundly.";
-            }
-            else if (somePet.IsPetEnergized())
-            {
-                message = $"{somePet.GetName()} is full of energy right now and refuses to sleep.";
-            }
-            else
-            {
-                message = $"{somePet.GetName()} is sleeping.";
-                somePet.Sleep();
-            }
-            return message;
-        }
+        //private string LetPetSleep(Pet somePet)
+        //{
+        //    string message = "";
+        //    if (somePet.IsPetTired())
+        //    {
+        //        somePet.Sleep();
+        //        message = $"{somePet.GetName()} is sleeping soundly.";
+        //    }
+        //    else if (somePet.IsPetEnergized())
+        //    {
+        //        message = $"{somePet.GetName()} is full of energy right now and refuses to sleep.";
+        //    }
+        //    else
+        //    {
+        //        message = $"{somePet.GetName()} is sleeping.";
+        //        somePet.Sleep();
+        //    }
+        //    return message;
+        //}
 
         private string LeavePetAlone(Pet somePet)
         {
@@ -561,28 +594,28 @@ namespace VirtualPet
                     somePet.Sleep();
                     break;
                 case 2:
-                    somePet.Feed();
+                    //somePet.Feed();
                     break;
                 case 3:
-                    somePet.Drink();
+                    //somePet.Drink();
                     break;
             }
-            LivingPetProcess(somePet);
+            //LivingPetProcess(somePet);
             return message;
         }
 
         //Create a new version of this method for rob pets
-        private void LivingPetProcess(Pet somePet)
-        {
-            if (somePet.IsPetHungry())
-            { somePet.Feed(); }
+        //private void LivingPetProcess(Pet somePet)
+        //{
+        //    if (somePet.IsPetHungry())
+        //    { somePet.Feed(); }
 
-            if (somePet.IsPetThirsty())
-            { somePet.Drink(); }
+        //    if (somePet.IsPetThirsty())
+        //    { somePet.Drink(); }
 
-            if (somePet.IsPetTired())
-            { somePet.Sleep(); }
-        }
+        //    if (somePet.IsPetTired())
+        //    { somePet.Sleep(); }
+        //}
 
         private string CheckBoredomeLevel(Pet somePet)
         {
@@ -605,141 +638,141 @@ namespace VirtualPet
         }
 
         //Org only
-        private string CheckHungerLevel(Pet somePet)
-        {
-            string message;
-            if (somePet.IsPetHungry())
-            {
-                message = somePet.GetName() + " is HUNGRY.  You might want to feed " + somePet.GetName() + " .";
-                if (somePet.GetHunger() >= somePet.hungerThresholdMAX)
-                { somePet.MaximizeHunger(); }
-            }
-            else if (somePet.IsPetFullOfFood())
-            {
-                somePet.MinimzeHunger();
-                message = null;
-            }
-            else
-            {
-                message = null;
-            }
-            return message;
-        }
+        //private string CheckHungerLevel(Pet somePet)
+        //{
+        //    string message;
+        //    if (somePet.IsPetHungry())
+        //    {
+        //        message = somePet.GetName() + " is HUNGRY.  You might want to feed " + somePet.GetName() + " .";
+        //        if (somePet.GetHunger() >= somePet.hungerThresholdMAX)
+        //        { somePet.MaximizeHunger(); }
+        //    }
+        //    else if (somePet.IsPetFullOfFood())
+        //    {
+        //        somePet.MinimzeHunger();
+        //        message = null;
+        //    }
+        //    else
+        //    {
+        //        message = null;
+        //    }
+        //    return message;
+        //}
 
         //Org only
-        private string CheckThirstLevel(Pet somePet)
-        {
-            string message;
-            if (somePet.IsPetThirsty())
-            {
-                message = somePet.GetName() + " is THIRSTY.  You might want to give " + somePet.GetName() + " some water.";
-                if (somePet.GetHyrdation() <= somePet.hydrationThresholdMIN)
-                { somePet.MinimizeHydration(); }
-            }
-            else if (somePet.IsPetFullOfWater())
-            {
-                somePet.MaximizeHydration();
-                message = null;
-            }
-            else
-            {
-                message = null;
-            }
-            return message;
-        }
+        //private string CheckThirstLevel(Pet somePet)
+        //{
+        //    string message;
+        //    if (somePet.IsPetThirsty())
+        //    {
+        //        message = somePet.GetName() + " is THIRSTY.  You might want to give " + somePet.GetName() + " some water.";
+        //        if (somePet.GetHyrdation() <= somePet.hydrationThresholdMIN)
+        //        { somePet.MinimizeHydration(); }
+        //    }
+        //    else if (somePet.IsPetFullOfWater())
+        //    {
+        //        somePet.MaximizeHydration();
+        //        message = null;
+        //    }
+        //    else
+        //    {
+        //        message = null;
+        //    }
+        //    return message;
+        //}
 
         //Org only
-        private string CheckEnergyLevel(Pet somePet)
-        {
-            string message;
-            if (somePet.IsPetTired())
-            {
-                somePet.MinimizeEnergy();
-                message = somePet.GetName() + " is low on ENERGY.  You might want to let them rest.";
-            }
-            else if (somePet.IsPetEnergized())
-            {
-                somePet.MaximizeEnergy();
-                message = somePet.GetName() + " is full of ENERGY.  You might want to player with them.";
-            }
-            else
-            {
-                message = null;
-            }
-            return message;
-        }
+        //private string CheckEnergyLevel(Pet somePet)
+        //{
+        //    string message;
+        //    if (somePet.IsPetTired())
+        //    {
+        //        somePet.MinimizeEnergy();
+        //        message = somePet.GetName() + " is low on ENERGY.  You might want to let them rest.";
+        //    }
+        //    else if (somePet.IsPetEnergized())
+        //    {
+        //        somePet.MaximizeEnergy();
+        //        message = somePet.GetName() + " is full of ENERGY.  You might want to player with them.";
+        //    }
+        //    else
+        //    {
+        //        message = null;
+        //    }
+        //    return message;
+        //}
 
         //Org only
-        private string CheckHealthLevel(Pet somePet)
-        {
-            string message;
-            if (somePet.IsPetSick())
-            {
-                somePet.MinimizeHealth();
-                message = somePet.GetName() + " is not feeling well.  You might want to take them to the vet.";
-            }
-            else if (somePet.IsPetHealthy())
-            {
-                somePet.MaximizeHealth();
-                message = somePet.GetName() + " is completly healthy.";
-            }
-            else
-            {
-                message = null;
-            }
-            return message;
-        }
+        //private string CheckHealthLevel(Pet somePet)
+        //{
+        //    string message;
+        //    if (somePet.IsPetSick())
+        //    {
+        //        somePet.MinimizeHealth();
+        //        message = somePet.GetName() + " is not feeling well.  You might want to take them to the vet.";
+        //    }
+        //    else if (somePet.IsPetHealthy())
+        //    {
+        //        somePet.MaximizeHealth();
+        //        message = somePet.GetName() + " is completly healthy.";
+        //    }
+        //    else
+        //    {
+        //        message = null;
+        //    }
+        //    return message;
+        //}
 
         //Org only
-        private string CheckIrritationLevel(Pet somePet)
-        {
-            string message;
-            if (somePet.IsPetIrritated())
-            {
-                somePet.MaximizeIrritation();
-                message = somePet.GetName() + " is IRRITATED.  You might want to take " + somePet.GetName() + " outside before they have an accident.";
-                return message;
-            }
-            else if (somePet.IsPetContent())
-            {
-                somePet.MinimizeIrritation();
-                message = null;
-            }
-            {
-                message = null;
-                return message;
-            }
-        }
+        //private string CheckIrritationLevel(Pet somePet)
+        //{
+        //    string message;
+        //    if (somePet.IsPetIrritated())
+        //    {
+        //        somePet.MaximizeIrritation();
+        //        message = somePet.GetName() + " is IRRITATED.  You might want to take " + somePet.GetName() + " outside before they have an accident.";
+        //        return message;
+        //    }
+        //    else if (somePet.IsPetContent())
+        //    {
+        //        somePet.MinimizeIrritation();
+        //        message = null;
+        //    }
+        //    {
+        //        message = null;
+        //        return message;
+        //    }
+        //}
 
         private string CheckPetLevels(Pet somePet)
         {
             //TODO:  This method will need to be re-worked
             string petBoredomeLevelMessage = CheckBoredomeLevel(somePet);
-            string petIrritatedLevelMessage = CheckIrritationLevel(somePet);
-            string petHungerLevelMessage = CheckHungerLevel(somePet);
-            string petThirstLevelMessage = CheckThirstLevel(somePet);
-            string petEnergyLevelMessage = CheckEnergyLevel(somePet);
-            string petHealthLevelMessage = CheckHealthLevel(somePet);
+            //string petIrritatedLevelMessage = CheckIrritationLevel(somePet);
+            //string petHungerLevelMessage = CheckHungerLevel(somePet);
+            //string petThirstLevelMessage = CheckThirstLevel(somePet);
+            //string petEnergyLevelMessage = CheckEnergyLevel(somePet);
+            ///string petHealthLevelMessage = CheckHealthLevel(somePet);
 
             string returnMessage = "";
 
             if (petBoredomeLevelMessage != null)
             { returnMessage = petBoredomeLevelMessage; }
 
-            if (petIrritatedLevelMessage != null)
-            { returnMessage = returnMessage + "\n" + petIrritatedLevelMessage; }
+            //if (petIrritatedLevelMessage != null)
+            //{ returnMessage = returnMessage + "\n" + petIrritatedLevelMessage; }
 
-            if (petHungerLevelMessage != null)
-            { returnMessage = returnMessage + "\n" + petHungerLevelMessage; }
+            //if (petHungerLevelMessage != null)
+            //{ returnMessage = returnMessage + "\n" + petHungerLevelMessage; }
 
-            if (petThirstLevelMessage != null)
-            { returnMessage = returnMessage + "\n" + petThirstLevelMessage; }
+            //if (petThirstLevelMessage != null)
+            //{ returnMessage = returnMessage + "\n" + petThirstLevelMessage; }
 
-            if (petEnergyLevelMessage != null)
-            { returnMessage = returnMessage + "\n" + petEnergyLevelMessage; }
+            //if (petEnergyLevelMessage != null)
+            //{ returnMessage = returnMessage + "\n" + petEnergyLevelMessage; }
 
-            if (petHealthLevelMessage != null)
-            { returnMessage = returnMessage + "\n" + petHealthLevelMessage; }
+            //if (petHealthLevelMessage != null)
+            //{ returnMessage = returnMessage + "\n" + petHealthLevelMessage; }
 
             return returnMessage;
         }

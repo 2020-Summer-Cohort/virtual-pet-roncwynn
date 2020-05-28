@@ -32,12 +32,7 @@ namespace VirtualPet
         private string Name { get; set; }
         private string Species { get; set; }
 
-        public int Hunger { get; set; }
-        public int Health { get; set; }
         public int Boredom { get; set; }
-        public int Hydration { get; set; }
-        public int Energy { get; set; }
-        public int Irritated { get; set; }
 
         public Pet()
         {
@@ -87,90 +82,24 @@ namespace VirtualPet
             return Species;
         }
 
-        //TODO: Organic only
-        public int GetHunger()
-        {
-            return Hunger;
-        }
-
         public int GetBoredom()
         {
             return Boredom;
         }
-
-        //TODO: Organic only
-        public int GetHealth()
-        {
-            return Health;
-        }
-
-        //TODO: Organic only
-        public int GetHyrdation()
-        {
-            return Hydration;
-        }
-
-        //TODO: Organic only
-        public int GetEnergy()
-        {
-            return Energy;
-        }
-
-        //TODO: Organic only
-        public int GetIrritable()
-        {
-            return Irritated;
-        }
-
-        //TODO: Organic only
-        public void Feed()
-        {
-            Hunger = Hunger - 40;
-        }
-
-        //TODO: Organic only
-        public void Drink()
-        {
-            Hydration = Hydration + 40;
-        }
-
-        //TODO: Organic only
-        public void Relieve()
-        {
-            Irritated = irritabaleThresholdMIN;
-        }
-
-        //TODO: Organic only
-        public void SeeDoctor()
-        {
-            Health = Health + 30;
-        }
         
-        public void Play()
+        public virtual void Play()
         {
-            Hunger = Hunger + 10;
-            Health = Health + 10;
             Boredom = Boredom - 40;
-            Hydration = Hydration - 20;
-            Irritated = Irritated - 10;
-            Energy = Energy - 50;
         }
 
-        public void Sleep()
+        public virtual void Sleep()
         {
-            Energy = Energy + 40;
             Boredom = Boredom + 10;
-            Hunger = Hunger + 20;
-            Hydration = Hydration - 10;
-            Health = Health + 5;
-            Irritated = Irritated + 30;
         }
          
-        public void Ignore()
+        public virtual void Ignore()
         {
             Boredom = Boredom + 20;
-            Irritated = Irritated + 10;
-            Energy = Energy - 10;
         }
         
         public void MinimizeBoredom()
@@ -183,129 +112,6 @@ namespace VirtualPet
             Boredom = boredomThresholdMAX;
         }
 
-        //TODO: Organic only
-        public void MinimizeIrritation()
-        {
-            Irritated = irritabaleThresholdMIN;
-        }
-
-        //TODO: Organic only
-        public void MaximizeIrritation()
-        {
-            Irritated = irritabaleThresholdMAX;
-        }
-
-        //TODO: Organic only
-        public void MinimzeHunger()
-        {
-            Hunger = hungerThresholdMIN;
-        }
-
-        //TODO: Organic only
-        public void MaximizeHunger()
-        {
-            Hunger = hungerThresholdMAX;
-        }
-
-        //TODO: Organic only
-        public void MinimizeHydration()
-        {
-            Hydration = hydrationThresholdMIN;
-        }
-
-        //TODO: Organic only
-        public void MaximizeHydration()
-        {
-            Hydration = hydrationThresholdMAX;
-        }
-
-        //TODO: Organic only
-        public void MinimizeEnergy()
-        {
-            Energy = energyThresholdMIN;
-        }
-
-        //TODO: Organic only
-        public void MaximizeEnergy()
-        {
-            Energy = energyThresholdMAX;
-        }
-
-        //TODO: Organic only
-        public void MinimizeHealth()
-        {
-            Health = healthThresholdMIN;
-        }
-
-        //TODO: Organic only
-        public void MaximizeHealth()
-        {
-            Health = healthThresholdMAX;
-        }
-
-        //TODO: Organic only
-        public bool IsPetHungry()
-        {
-            if (Hunger >= hungerThresholdMAX) 
-                return true; 
-            else  return false; 
-        }
-
-        //TODO: Organic only
-        public bool IsPetFullOfFood()
-        {
-            if (Hunger <= hungerThresholdMIN)
-                return true;
-            else return false;
-        }
-
-        //TODO: Organic only
-        public bool IsPetThirsty()
-        {
-            if (Hydration <= hydrationThresholdMIN)
-             return true; 
-            else return false;
-        }
-
-        //TODO: Organic only
-        public bool IsPetFullOfWater()
-        {
-            if (Hydration >= hydrationThresholdMAX)
-                return true;
-            else return false;
-        }
-
-        //TODO: Organic only
-        public bool IsPetIrritated()
-        {
-            if (Irritated >= irritabaleThresholdMAX)
-                return true;
-            else return false;
-        }
-
-        //TODO: Organic only
-        public bool IsPetContent()
-        {
-            if (Irritated <= irritabaleThresholdMIN)
-                return true;
-            else return false;
-        }
-
-        //TODO: Organic only
-        public bool IsPetSick()
-        {
-            if (GetHealth() <= healthThresholdMIN)
-                return true; 
-            else return false; 
-        }
-
-        //TODO: Organic only
-        public bool IsPetHealthy()
-        {
-            if (Health >= healthThresholdMAX)
-                return true;
-            else return false;
-        }
 
         public bool IsPetBored()
         {
@@ -321,30 +127,25 @@ namespace VirtualPet
             else return false;
         }
 
-        //TODO: Organic only
-        public bool IsPetEnergized()
+        public virtual void Tick()
         {
-            if (GetEnergy() >= energyThresholdMAX)
-                return true;
-            else return false;
-        }
-
-        //TODO: Organic only
-        public bool IsPetTired()
-        {
-            if (GetEnergy() <= energyThresholdMIN)
-                return true;
-            else return false; 
-        }
-
-        public void Tick()
-        {
-            Hunger = Hunger + 5;
-            Health = Health - 5;
             Boredom = Boredom + 5;
-            Hydration = Hydration - 5;
-            Irritated = Irritated + 5;
-            Energy = Energy - 5;
+        }
+
+        public virtual void ShowPetStatus()
+        {
+            //Will need a new version of this method for rob pets
+            //TODO:  Change this so it directly get property values instead of through "Gets"
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"\nHere is how {GetName()} is doing:");
+            Console.ResetColor();
+            Console.WriteLine($"BOREDOM factor is {GetBoredom()}.");
+
+            //Console.WriteLine($"\nHEALTH factor is {somePet.GetHealth()}.");
+            //Console.WriteLine($"HUNGER factor is {somePet.GetHunger()}.");
+            //Console.WriteLine($"THIRST factor is {somePet.GetHyrdation()}.");
+            //Console.WriteLine($"ENERGY factor is {somePet.GetEnergy()}.");
+            //Console.WriteLine($"IRRITATED factor is {somePet.GetIrritable()}.");
         }
 
     }
