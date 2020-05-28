@@ -225,7 +225,7 @@ namespace VirtualPet
 
             Console.BackgroundColor = ConsoleColor.Cyan;
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("\nPet Name   Type      | Boredom | Oil");
+            Console.WriteLine("\nPet Name   Type      | Boredom | Oil | Performance");
             Console.ResetColor();
             Console.WriteLine();
 
@@ -237,7 +237,8 @@ namespace VirtualPet
                 Console.Write($"{someRoboticPet.GetSpecies().PadRight(12, ' ')}");
                 Console.ResetColor();
                 Console.Write($"{someRoboticPet.GetBoredom().ToString().PadRight(10, ' ')} ");
-                Console.WriteLine($"{someRoboticPet.GetOil().ToString().PadRight(10, ' ')} ");
+                Console.Write($"{someRoboticPet.GetOil().ToString().PadRight(10, ' ')} ");
+                Console.WriteLine($"{someRoboticPet.GetPerformance().ToString().PadRight(10, ' ')}");
                 Console.WriteLine();
             }
 
@@ -409,7 +410,6 @@ namespace VirtualPet
                 ShowPetStatus(somePet);
                 ShowPetMenu(somePet.GetName());
                 string playerChoice = GetPlayerChoice();
-                //TODO:  Org only call
                 string gameFeedbackToPlayer = ProcessPlayerChoice(playerChoice, somePet);
 
                 if (gameFeedbackToPlayer == "stop")

@@ -7,12 +7,19 @@ namespace VirtualPet
     public class RoboticPet : Pet
     {
         const int InitialOilValue = 50;
+        const int InitialPerformanceValue = 25;
 
         public int Oil { get; set; }
+        public int Performance { get; set; }
 
         public int GetOil()
         {
             return Oil;
+        }
+
+        public int GetPerformance()
+        {
+            return Performance;
         }
 
         public RoboticPet()
@@ -20,6 +27,7 @@ namespace VirtualPet
             base.SetInitialPetValues();
             SetInitialPetValues();
         }
+
         public RoboticPet(string name)
         {
             base.SetName(name);
@@ -35,9 +43,17 @@ namespace VirtualPet
             SetInitialPetValues();
         }
 
+        public override void Play()
+        {
+            base.Play();
+            Oil = Oil - 20;
+            Performance = Performance - 15;
+        }
+
         public override void SetInitialPetValues()
         {
             Oil = InitialOilValue;
+            Performance = InitialPerformanceValue;
         }
 
 

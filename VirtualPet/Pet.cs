@@ -107,7 +107,6 @@ namespace VirtualPet
             Boredom = boredomThresholdMAX;
         }
 
-
         public bool IsPetBored()
         {
             if (GetBoredom() >= boredomThresholdMAX)
