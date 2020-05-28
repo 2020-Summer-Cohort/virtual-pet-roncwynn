@@ -147,6 +147,8 @@ namespace VirtualPet
 
         private void ShowGameMainMenu(Shelter someShelter)
         {
+            //TODO:  add color or org vs rob menu choices???
+            //TODO:  add option to Oil all rob pets
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"{someShelter.GetShelterName()} Wildly Popular Pet Shelter");
@@ -155,7 +157,9 @@ namespace VirtualPet
             Console.WriteLine();
             Console.ResetColor();
             Console.WriteLine("1. Show all Pets in the Shelter");
+            //TODO:  Feed org only
             Console.WriteLine("2. Feed the Pets");
+            //TODO:  Water org only
             Console.WriteLine("3. Water the Pets");
             Console.WriteLine("4. Play with the Pets");
             Console.WriteLine("5. Pick a Pet for One on One");
@@ -179,6 +183,8 @@ namespace VirtualPet
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Here are all the pets currently in the shelter:");
 
+            //TODO:  Create split screen effect with diff title bars for org vs rob
+            //TODO:  use diff colors as well
             Console.BackgroundColor = ConsoleColor.Cyan;
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("\nPet Name   Type      Health | Energy | Hunger | Boredom | Hydration | Irritable");
@@ -204,6 +210,7 @@ namespace VirtualPet
 
         }
 
+        //TODO:  org only
         private string FeedAllPets(Shelter someShelter)
         {
             Console.Clear();
@@ -214,6 +221,7 @@ namespace VirtualPet
             return "Thanks for feeding the Pets";
         }
 
+        //TODO:  org only
         private string WaterAllPets(Shelter someShelter)
         {
             Console.Clear();
@@ -237,6 +245,7 @@ namespace VirtualPet
 
         private Pet SelectPet(Shelter someShelter)
         {
+            //TODO:  indicate pet type and add color
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("\nPlease Select a Pet from the Shelter:");
@@ -290,6 +299,7 @@ namespace VirtualPet
 
         private void AdoptPet(Shelter someShelter, Pet somePet)
         {
+            //TODO:  Stretch, offer player advice for org vs rob
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Thanks for adopting {somePet.GetName()}.  We hope you give them a good home.");
             Console.ResetColor();
@@ -308,6 +318,9 @@ namespace VirtualPet
 
         private Pet CreatePet(Shelter someShelter)
         {
+            //TODO:  Add submenu for org vs rob
+            //TODO:  Add loop if rob
+
             if (someShelter.IsShelterFull() == false)
             {
                 string playerPetSpeciesEntry = "";
@@ -331,18 +344,13 @@ namespace VirtualPet
             else
             {
                 return null;
-            }
-            
-            //Console.WriteLine("\n CONGRATULATIONS");
-            //Console.WriteLine($"\nYou have created a new pet {playerPetSpeciesEntry} named {playerPetNameEntry}.");
-            //Console.WriteLine($"\nIn this game pets have attributes that will change dependant on your actions.");
-            //Console.WriteLine("\nPress ENTER when ready to being playing the game.");
-            //Console.ReadLine();
-            //Console.Clear();
+            }           
         }
 
         private void InteractWithPet(Pet somePet)
         {
+
+            //TODO:  Create new sub-menu and appropriate calls for rob pets
             bool keepPlaying = true;
             while (keepPlaying)
             {
@@ -367,6 +375,8 @@ namespace VirtualPet
 
         private void ShowPetMenu(string petName)
         {
+            //Will need a new version of this method for rob pets
+
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine($"\nWhat would you like to do with {petName}?");
             Console.WriteLine();
@@ -383,6 +393,8 @@ namespace VirtualPet
 
         private string ProcessPlayerChoice(string playerChoice, Pet somePet)
         {
+            //Will need a new version of this method for rob pets
+
             string message = "";
             switch (playerChoice)
             {
@@ -419,6 +431,7 @@ namespace VirtualPet
 
         private void ShowPetStatus(Pet somePet)
         {
+            //Will need a new version of this method for rob pets
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"\nHere is how {somePet.GetName()} is doing:");
             Console.ResetColor();
@@ -447,6 +460,7 @@ namespace VirtualPet
             return message;
         }
 
+        //Org only
         private string FeedPet(Pet somePet)
         {
             string message = "";
@@ -462,6 +476,7 @@ namespace VirtualPet
             return message;
         }
 
+        //Org only
         private string GivePetWater(Pet somePet)
         {
             string message = "";
@@ -477,6 +492,7 @@ namespace VirtualPet
             return message;
         }
 
+        //Org only
         private string TakePetToVet(Pet somePet)
         {
             string message = "";
@@ -492,6 +508,7 @@ namespace VirtualPet
             return message;
         }
 
+        //Org only
         private string LetPetOutside(Pet somePet)
         {
             string message = "";
@@ -507,6 +524,7 @@ namespace VirtualPet
             return message;
         }
 
+        //Org only???
         private string LetPetSleep(Pet somePet)
         {
             string message = "";
@@ -552,6 +570,7 @@ namespace VirtualPet
             return message;
         }
 
+        //Create a new version of this method for rob pets
         private void LivingPetProcess(Pet somePet)
         {
             if (somePet.IsPetHungry())
@@ -584,6 +603,7 @@ namespace VirtualPet
             return message;
         }
 
+        //Org only
         private string CheckHungerLevel(Pet somePet)
         {
             string message;
@@ -605,6 +625,7 @@ namespace VirtualPet
             return message;
         }
 
+        //Org only
         private string CheckThirstLevel(Pet somePet)
         {
             string message;
@@ -626,6 +647,7 @@ namespace VirtualPet
             return message;
         }
 
+        //Org only
         private string CheckEnergyLevel(Pet somePet)
         {
             string message;
@@ -646,6 +668,7 @@ namespace VirtualPet
             return message;
         }
 
+        //Org only
         private string CheckHealthLevel(Pet somePet)
         {
             string message;
@@ -666,6 +689,7 @@ namespace VirtualPet
             return message;
         }
 
+        //Org only
         private string CheckIrritationLevel(Pet somePet)
         {
             string message;
@@ -688,6 +712,7 @@ namespace VirtualPet
 
         private string CheckPetLevels(Pet somePet)
         {
+            //TODO:  This method will need to be re-worked
             string petBoredomeLevelMessage = CheckBoredomeLevel(somePet);
             string petIrritatedLevelMessage = CheckIrritationLevel(somePet);
             string petHungerLevelMessage = CheckHungerLevel(somePet);

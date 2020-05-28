@@ -6,6 +6,8 @@ namespace VirtualPet
 {
     public class Pet
     {
+        //TODO:  Organic specific values = Hunger, Health, Hydration, Iritable, Energy
+        //TODO:  Shared values = Boredom
         const int InitialHungerValue = 50;
         const int InitialBoredomValue = 60;
         const int InitialHealthValue = 30;
@@ -85,6 +87,7 @@ namespace VirtualPet
             return Species;
         }
 
+        //TODO: Organic only
         public int GetHunger()
         {
             return Hunger;
@@ -95,41 +98,49 @@ namespace VirtualPet
             return Boredom;
         }
 
+        //TODO: Organic only
         public int GetHealth()
         {
             return Health;
         }
 
+        //TODO: Organic only
         public int GetHyrdation()
         {
             return Hydration;
         }
 
+        //TODO: Organic only
         public int GetEnergy()
         {
             return Energy;
         }
 
+        //TODO: Organic only
         public int GetIrritable()
         {
             return Irritated;
         }
-        
+
+        //TODO: Organic only
         public void Feed()
         {
             Hunger = Hunger - 40;
         }
 
+        //TODO: Organic only
         public void Drink()
         {
             Hydration = Hydration + 40;
         }
 
+        //TODO: Organic only
         public void Relieve()
         {
             Irritated = irritabaleThresholdMIN;
         }
 
+        //TODO: Organic only
         public void SeeDoctor()
         {
             Health = Health + 30;
@@ -172,56 +183,67 @@ namespace VirtualPet
             Boredom = boredomThresholdMAX;
         }
 
+        //TODO: Organic only
         public void MinimizeIrritation()
         {
             Irritated = irritabaleThresholdMIN;
         }
 
+        //TODO: Organic only
         public void MaximizeIrritation()
         {
             Irritated = irritabaleThresholdMAX;
         }
 
+        //TODO: Organic only
         public void MinimzeHunger()
         {
             Hunger = hungerThresholdMIN;
         }
 
+        //TODO: Organic only
         public void MaximizeHunger()
         {
             Hunger = hungerThresholdMAX;
         }
 
+        //TODO: Organic only
         public void MinimizeHydration()
         {
             Hydration = hydrationThresholdMIN;
         }
 
+        //TODO: Organic only
         public void MaximizeHydration()
         {
             Hydration = hydrationThresholdMAX;
         }
 
+        //TODO: Organic only
         public void MinimizeEnergy()
         {
             Energy = energyThresholdMIN;
         }
 
+        //TODO: Organic only
         public void MaximizeEnergy()
         {
             Energy = energyThresholdMAX;
         }
 
+        //TODO: Organic only
         public void MinimizeHealth()
         {
             Health = healthThresholdMIN;
         }
 
+        //TODO: Organic only
         public void MaximizeHealth()
         {
             Health = healthThresholdMAX;
         }
 
+        //TODO: Organic only
         public bool IsPetHungry()
         {
             if (Hunger >= hungerThresholdMAX) 
@@ -229,6 +251,7 @@ namespace VirtualPet
             else  return false; 
         }
 
+        //TODO: Organic only
         public bool IsPetFullOfFood()
         {
             if (Hunger <= hungerThresholdMIN)
@@ -236,6 +259,7 @@ namespace VirtualPet
             else return false;
         }
 
+        //TODO: Organic only
         public bool IsPetThirsty()
         {
             if (Hydration <= hydrationThresholdMIN)
@@ -243,6 +267,7 @@ namespace VirtualPet
             else return false;
         }
 
+        //TODO: Organic only
         public bool IsPetFullOfWater()
         {
             if (Hydration >= hydrationThresholdMAX)
@@ -250,6 +275,7 @@ namespace VirtualPet
             else return false;
         }
 
+        //TODO: Organic only
         public bool IsPetIrritated()
         {
             if (Irritated >= irritabaleThresholdMAX)
@@ -257,6 +283,7 @@ namespace VirtualPet
             else return false;
         }
 
+        //TODO: Organic only
         public bool IsPetContent()
         {
             if (Irritated <= irritabaleThresholdMIN)
@@ -264,6 +291,7 @@ namespace VirtualPet
             else return false;
         }
 
+        //TODO: Organic only
         public bool IsPetSick()
         {
             if (GetHealth() <= healthThresholdMIN)
@@ -271,6 +299,7 @@ namespace VirtualPet
             else return false; 
         }
 
+        //TODO: Organic only
         public bool IsPetHealthy()
         {
             if (Health >= healthThresholdMAX)
@@ -292,6 +321,7 @@ namespace VirtualPet
             else return false;
         }
 
+        //TODO: Organic only
         public bool IsPetEnergized()
         {
             if (GetEnergy() >= energyThresholdMAX)
@@ -299,6 +329,7 @@ namespace VirtualPet
             else return false;
         }
 
+        //TODO: Organic only
         public bool IsPetTired()
         {
             if (GetEnergy() <= energyThresholdMIN)
