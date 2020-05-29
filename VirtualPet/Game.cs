@@ -105,30 +105,36 @@ namespace VirtualPet
                         if (someShelter.IsShelterEmpty())
                         { ShowShelterEmptyMessage(someShelter); }
                         else
-                            { playerFeedbackMessage = FeedAllPets(someShelter); }
+                            { playerFeedbackMessage = FeedOrganicPets(someShelter); }
                         break;
                     case "3":
                         if (someShelter.IsShelterEmpty())
                         { ShowShelterEmptyMessage(someShelter); }
                         else
-                            { playerFeedbackMessage = WaterAllPets(someShelter); }
+                            { playerFeedbackMessage = WaterOrganicPets(someShelter); }
                         break;
                     case "4":
                         if (someShelter.IsShelterEmpty())
                         { ShowShelterEmptyMessage(someShelter); }
                         else
-                        { playerFeedbackMessage = PlayWithPets(someShelter); }
+                        { playerFeedbackMessage = OilRoboticPets(someShelter); }
                         break;
                     case "5":
                         if (someShelter.IsShelterEmpty())
                         { ShowShelterEmptyMessage(someShelter); }
                         else
-                        { PetOneOnOne(someShelter); }
+                        { playerFeedbackMessage = PlayWithPets(someShelter); }
                         break;
                     case "6":
-                        AdmitPet(someShelter);
+                        if (someShelter.IsShelterEmpty())
+                        { ShowShelterEmptyMessage(someShelter); }
+                        else
+                        { PetOneOnOne(someShelter); }
                         break;
                     case "7":
+                        AdmitPet(someShelter);
+                        break;
+                    case "8":
                         if (someShelter.IsShelterEmpty())
                         { ShowShelterEmptyMessage(someShelter); }
                         else
@@ -164,14 +170,13 @@ namespace VirtualPet
             Console.WriteLine();
             Console.ResetColor();
             Console.WriteLine("1. Show all Pets in the Shelter");
-            //TODO:  Feed org only
-            Console.WriteLine("2. Feed the Pets");
-            //TODO:  Water org only
-            Console.WriteLine("3. Water the Pets");
-            Console.WriteLine("4. Play with the Pets");
-            Console.WriteLine("5. Pick a Pet for One on One");
-            Console.WriteLine("6. Admit a new Pet to the Shelter");
-            Console.WriteLine("7. Adopt a Pet");
+            Console.WriteLine("2. Feed the Organic Pets");
+            Console.WriteLine("3. Water the Organic Pets");
+            Console.WriteLine("4.  Oil the Robotic Pets");
+            Console.WriteLine("5. Play with the Pets");
+            Console.WriteLine("6. Pick a Pet for One on One");
+            Console.WriteLine("7. Admit a new Pet to the Shelter");
+            Console.WriteLine("8. Adopt a Pet");
             Console.WriteLine("9. Leave the Shelter");
         }
 
@@ -255,14 +260,14 @@ namespace VirtualPet
             Console.Clear();
         }
 
-        private string FeedAllPets(Shelter someShelter)
+        private string FeedOrganicPets(Shelter someShelter)
         {
             Console.Clear();
             foreach (Pet somePet in someShelter.GetListOfPets())
             {
-                if (somePet.GetType() == typeof(OrganicPet))
+                if (somePet is OrganicPet)
                 {
-                    OrganicPet pet = new OrganicPet();
+                    OrganicPet pet;
                     pet = (OrganicPet)somePet;
                     pet.FeedPet();
                     ProcessTime(somePet);
@@ -272,28 +277,37 @@ namespace VirtualPet
             return "Thanks for feeding the Organic Pets";
         }
 
-        private string WaterAllPets(Shelter someShelter)
+        private string WaterOrganicPets(Shelter someShelter)
         {
             Console.Clear();
             foreach (Pet somePet in someShelter.GetListOfPets())
             {
-                if (somePet.GetType() == typeof(OrganicPet))
+                if (somePet is OrganicPet)
                 {
-                    OrganicPet pet = new OrganicPet();
+                    OrganicPet pet;
                     pet = (OrganicPet)somePet;
                     pet.Drink();
                     ProcessTime(somePet);
 
                 }
-                else if (somePet.GetType() == typeof(RoboticPet))
+            }
+            return "Thanks for giving the Organic Pets some water to drink.";
+        }
+
+        private string OilRoboticPets(Shelter someShelter)
+        {
+            Console.Clear();
+            foreach (Pet somePet in someShelter.GetListOfPets())
+            {
+                if (somePet is RoboticPet)
                 {
-                    RoboticPet pet = new RoboticPet();
+                    RoboticPet pet;
                     pet = (RoboticPet)somePet;
                     pet.AddOil();
                     ProcessTime(somePet);
                 }
             }
-            return "Thanks for giving the Organic Pets some water to drink.  And for Oiling the Robotic Pets.";
+            return "Thanks for Oiling the Robotic Pets.";
         }
 
         private string PlayWithPets(Shelter someShelter)
