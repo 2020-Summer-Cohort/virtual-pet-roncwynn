@@ -566,20 +566,19 @@ namespace VirtualPet
                     message = PlayWithPet(somePet);
                     return message;
                 case "2": 
-                    //message = FeedPet(somePet);
                     message = orgPet.FeedPet();
                     return message;
-                case "3": 
-                    //message = GivePetWater(somePet);
+                case "3":
+                    message = orgPet.GivePetWater();
                     return message;
-                case "4": 
-                    //message = TakePetToVet(somePet);
+                case "4":
+                    message = orgPet.TakePetToVet();
                     return message;
-                case "5": 
-                    //message = LetPetOutside(somePet);
+                case "5":
+                    message = orgPet.LetPetOutside();
                     return message;
-                case "6": 
-                    //message = LetPetSleep(somePet);
+                case "6":
+                    message = orgPet.LetPetSleep();
                     return message;
                 case "7": 
                     message = LeavePetAlone(somePet);
@@ -692,74 +691,7 @@ namespace VirtualPet
             return message;
         }
 
-        //TODO: Org only
-        //private string GivePetWater(Pet somePet)
-        //{
-        //    string message = "";
-        //    if (somePet.GetHyrdation() < somePet.hydrationThresholdMAX)
-        //    {
-        //        somePet.Drink();
-        //        message = $"You gave {somePet.GetName()} some water to drink.";
-        //    }
-        //    else
-        //    {
-        //        message = $"{somePet.GetName()} is fully hydrated.  Act quick before {somePet.GetName()} has an accident!";
-        //    }
-        //    return message;
-        //}
 
-        //TODO: Org only
-        //private string TakePetToVet(Pet somePet)
-        //{
-        //    string message = "";
-        //    if (somePet.GetHealth() < somePet.healthThresholdMAX)
-        //    {
-        //        somePet.SeeDoctor();
-        //        message = $"You took {somePet.GetName()} to the vet and all is well.";
-        //    }
-        //    else
-        //    {
-        //        message = $"{somePet.GetName()} is as healthy as can be.  Save your money.";
-        //    }
-        //    return message;
-        //}
-
-        //TODO: Org only
-        //private string LetPetOutside(Pet somePet)
-        //{
-        //    string message = "";
-        //    if (somePet.GetIrritable() > somePet.irritabaleThresholdMIN)
-        //    {
-        //        somePet.Relieve();
-        //        message = $"You let {somePet.GetName()} relieve themself.";
-        //    }
-        //    else
-        //    {
-        //        message = $"{somePet.GetName()} is being stubborn and won't go outside right now.";
-        //    }
-        //    return message;
-        //}
-
-        //TODO: Org only???
-        //private string LetPetSleep(Pet somePet)
-        //{
-        //    string message = "";
-        //    if (somePet.IsPetTired())
-        //    {
-        //        somePet.Sleep();
-        //        message = $"{somePet.GetName()} is sleeping soundly.";
-        //    }
-        //    else if (somePet.IsPetEnergized())
-        //    {
-        //        message = $"{somePet.GetName()} is full of energy right now and refuses to sleep.";
-        //    }
-        //    else
-        //    {
-        //        message = $"{somePet.GetName()} is sleeping.";
-        //        somePet.Sleep();
-        //    }
-        //    return message;
-        //}
 
         private string LeavePetAlone(Pet somePet)
         {

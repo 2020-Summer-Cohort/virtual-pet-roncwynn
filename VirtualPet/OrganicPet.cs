@@ -276,5 +276,70 @@ namespace VirtualPet
             return message;
         }
 
+        public string GivePetWater()
+        {
+            string message = "";
+            if (Hydration < hydrationThresholdMAX)
+            {
+                Drink();
+                message = $"You gave {Name} some water to drink.";
+            }
+            else
+            {
+                message = $"{Name} is fully hydrated.  Act quick before {Name} has an accident!";
+            }
+            return message;
+        }
+
+        public string TakePetToVet()
+        {
+            string message = "";
+            if (Health < healthThresholdMAX)
+            {
+                SeeDoctor();
+                message = $"You took {Name} to the vet and all is well.";
+            }
+            else
+            {
+                message = $"{Name} is as healthy as can be.  Save your money.";
+            }
+            return message;
+        }
+
+        public string LetPetOutside()
+        {
+            string message = "";
+            if (Irritated > irritabaleThresholdMIN)
+            {
+                Relieve();
+                message = $"You let {Name} relieve themself.";
+            }
+            else
+            {
+                message = $"{Name} is being stubborn and won't go outside right now.";
+            }
+            return message;
+        }
+
+        public string LetPetSleep()
+        {
+            string message = "";
+            if (IsPetTired())
+            {
+                Sleep();
+                message = $"{Name} is sleeping soundly.";
+            }
+            else if (IsPetEnergized())
+            {
+                message = $"{Name} is full of energy right now and refuses to sleep.";
+            }
+            else
+            {
+                message = $"{Name} is sleeping.";
+                Sleep();
+            }
+            return message;
+        }
+
     }
 }
