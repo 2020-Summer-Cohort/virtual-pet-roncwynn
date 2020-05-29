@@ -142,5 +142,25 @@ namespace VirtualPet
             //Console.WriteLine($"IRRITATED factor is {somePet.GetIrritable()}.");
         }
 
+        public string CheckBoredomeLevel()
+        {
+            string message;
+            if (IsPetBored())
+            {
+                MaximizeBoredom();
+                message = Name + " is EXTREMELY bored.  Best to play with " + Name + " before they start chewing on your furniture.";
+            }
+            else if (IsPetHappy())
+            {
+                MinimizeBoredom();
+                message = Name + " feels very loved and appreciated.  Great Job!";
+            }
+            else
+            {
+                message = null;
+            }
+            return message;
+        }
+
     }
 }

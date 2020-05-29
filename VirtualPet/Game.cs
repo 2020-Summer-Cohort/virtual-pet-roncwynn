@@ -239,7 +239,6 @@ namespace VirtualPet
                 Console.Write($"{someRoboticPet.GetBoredom().ToString().PadRight(10, ' ')} ");
                 Console.Write($"{someRoboticPet.GetOil().ToString().PadRight(10, ' ')} ");
                 Console.WriteLine($"{someRoboticPet.GetPerformance().ToString().PadRight(10, ' ')}");
-                Console.WriteLine();
             }
 
             Console.WriteLine();
@@ -290,6 +289,7 @@ namespace VirtualPet
             foreach (Pet somePet in someShelter.GetListOfPets())
             {
                 somePet.Play();
+                ProcessTime(somePet);
             }
             return "Thanks for playing with the Pets.";
         }
@@ -337,7 +337,7 @@ namespace VirtualPet
 
         private void AdmitPet(Shelter someShelter)
         {
-            //TODO:  Add options for Org vs Rob
+            //TODO:  Rewrite this in conjunction with CreatePet
             Console.Clear();
             Pet newPet = CreatePet(someShelter);
             if (newPet != null)
@@ -373,6 +373,31 @@ namespace VirtualPet
             Console.ResetColor();
         }
 
+        private string AskPlayerForPetName()
+        {
+            string name = "";
+            while (name == "")
+            {
+                Console.WriteLine("\nWhat is the name of the pet?");
+                name = Console.ReadLine();
+            }
+
+            return name;
+
+        }
+
+        private string AskPlayerForPetSpecies()
+        {
+            string species = "";
+            while (species == "")
+            {
+                Console.WriteLine("\nWhat species of Pet would you like to add to the Shelter?");
+                species = Console.ReadLine();
+            }
+            return species;
+
+        }
+
         private Pet CreatePet(Shelter someShelter)
         {
             //TODO:  Rewrite this method, maybe ask rob vs org first instead of last
@@ -381,20 +406,6 @@ namespace VirtualPet
 
             if (someShelter.IsShelterFull() == false)
             {
-                string playerPetSpeciesEntry = "";
-                while (playerPetSpeciesEntry == "")
-                {
-                    Console.WriteLine("\nWhat specied of Pet would you like to add to the Shelter?");
-                    playerPetSpeciesEntry = Console.ReadLine();
-                }
-
-                string playerPetNameEntry = "";
-                while (playerPetNameEntry == "")
-                {
-                    Console.WriteLine("\nWhat is the name of the pet?");
-                    playerPetNameEntry = Console.ReadLine();
-                }
-
                 string playerPetTypeEntry = "";
                 while (playerPetTypeEntry == "")
                 {
@@ -404,25 +415,29 @@ namespace VirtualPet
                     switch (playerPetTypeEntry)
                     {
                         case "1": //Organic
-                            Pet somePet = new OrganicPet(playerPetNameEntry, playerPetSpeciesEntry);
-                            someShelter.AddPetToShelter(somePet);
-                            return somePet;
-                            //break;
+                            {
+                                string playerPetSpeciesEntry = AskPlayerForPetSpecies();
+                                string playerPetNameEntry = AskPlayerForPetName();
+
+                                OrganicPet somePet = new OrganicPet(playerPetNameEntry, playerPetSpeciesEntry);
+                                someShelter.AddPetToShelter(somePet);
+                                return somePet;
+                            }
                         case "2"://Robotic
-                            somePet = new RoboticPet(playerPetNameEntry, playerPetSpeciesEntry);
-                            someShelter.AddPetToShelter(somePet);
-                            return somePet;
-                            //break;
+                            {
+                                string playerPetSpeciesEntry = AskPlayerForPetSpecies();
+                                string playerPetNameEntry = AskPlayerForPetName();
+
+                                RoboticPet somePet = new RoboticPet(playerPetNameEntry, playerPetSpeciesEntry);
+                                someShelter.AddPetToShelter(somePet);
+                                return somePet;
+                            }
                         default:
-                            Console.WriteLine("Invalid Option.  Please try again.");
+                            Console.WriteLine("\nInvalid Option.  Please try again.");
                             playerPetTypeEntry = "";
                             break;
                     }
                 }
-                //Pet somePet = new Pet(playerPetNameEntry, playerPetSpeciesEntry);
-                //Pet somePet = new OrganicPet(playerPetNameEntry, playerPetSpeciesEntry);
-                //someShelter.AddPetToShelter(somePet);
-                //return somePet;
                 return null;
             }
             else
@@ -453,6 +468,7 @@ namespace VirtualPet
                     Console.WriteLine(gameFeedbackToPlayer);
 
                     string petFeedbacktoPlayer = ProcessTime(somePet);
+                    //ProcessTime2(someShelter);
                     Console.WriteLine(petFeedbacktoPlayer);
                 }
             }
@@ -672,25 +688,25 @@ namespace VirtualPet
         //    { somePet.Sleep(); }
         //}
 
-        private string CheckBoredomeLevel(Pet somePet)
-        {
-            string message;
-            if (somePet.IsPetBored())
-            {
-                somePet.MaximizeBoredom();
-                message = somePet.GetName() + " is EXTREMELY bored.  Best to play with " + somePet.GetName() + " before they start chewing on your furniture.";
-            }
-            else if (somePet.IsPetHappy())
-            {
-                somePet.MinimizeBoredom();
-                message = somePet.GetName() + " feels very loved and appreciated.  Great Job!";
-            }
-            else
-            {
-                message = null;
-            }
-            return message;
-        }
+        //private string CheckBoredomeLevel(Pet somePet)
+        //{
+        //    string message;
+        //    if (somePet.IsPetBored())
+        //    {
+        //        somePet.MaximizeBoredom();
+        //        message = somePet.GetName() + " is EXTREMELY bored.  Best to play with " + somePet.GetName() + " before they start chewing on your furniture.";
+        //    }
+        //    else if (somePet.IsPetHappy())
+        //    {
+        //        somePet.MinimizeBoredom();
+        //        message = somePet.GetName() + " feels very loved and appreciated.  Great Job!";
+        //    }
+        //    else
+        //    {
+        //        message = null;
+        //    }
+        //    return message;
+        //}
 
         //Org only
         //private string CheckHungerLevel(Pet somePet)
@@ -802,7 +818,9 @@ namespace VirtualPet
         private string CheckPetLevels(Pet somePet)
         {
             //TODO:  This method will need to be re-worked
-            string petBoredomeLevelMessage = CheckBoredomeLevel(somePet);
+
+            //string petBoredomeLevelMessage = CheckBoredomeLevel(somePet);
+            string petBoredomeLevelMessage = somePet.CheckBoredomeLevel();
             //string petIrritatedLevelMessage = CheckIrritationLevel(somePet);
             //string petHungerLevelMessage = CheckHungerLevel(somePet);
             //string petThirstLevelMessage = CheckThirstLevel(somePet);
@@ -835,8 +853,26 @@ namespace VirtualPet
 
         private string ProcessTime(Pet somePet)
         {
+            //TODO:  Need to ensure both types of pets get tick method called
             somePet.Tick();                                  
             return CheckPetLevels(somePet).ToString();
+        }
+
+        private void ProcessTime2(Shelter someShelter)
+        {
+            foreach (Pet pet in someShelter.GetListOfPets())
+            {
+                if (pet.GetType() == typeof(OrganicPet))
+                {
+                    OrganicPet someOrganicPet = new OrganicPet();
+                    someOrganicPet = (OrganicPet)pet;
+                    someOrganicPet.Tick();
+                    
+
+                }
+                else if (pet.GetType() == typeof(RoboticPet))
+                { }
+            }
         }
 
     }
