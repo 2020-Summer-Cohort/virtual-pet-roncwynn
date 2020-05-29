@@ -87,7 +87,9 @@ namespace VirtualPet
                     InteractWithOrganicPet(pet); 
                 }
                 else if (selectedPet is RoboticPet)
-                { //InteractWithRoboticPet(selectedPet); 
+                {
+                    RoboticPet pet = (RoboticPet)selectedPet;
+                    InteractWithRoboticPet(pet); 
                 }
                 Console.Clear();
                 CheckForAdoption(someShelter, selectedPet);
@@ -557,7 +559,6 @@ namespace VirtualPet
         private string ProcessPlayerChoiceOrganic(string playerChoice, OrganicPet somePet)
         {
             //TODO:  See if this and the Robotic version can be done with OVERRIDE
-            OrganicPet orgPet = (OrganicPet)somePet;
 
             string message = "";
             switch (playerChoice)
@@ -566,19 +567,19 @@ namespace VirtualPet
                     message = PlayWithPet(somePet);
                     return message;
                 case "2": 
-                    message = orgPet.FeedPet();
+                    message = somePet.FeedPet();
                     return message;
                 case "3":
-                    message = orgPet.GivePetWater();
+                    message = somePet.GivePetWater();
                     return message;
                 case "4":
-                    message = orgPet.TakePetToVet();
+                    message = somePet.TakePetToVet();
                     return message;
                 case "5":
-                    message = orgPet.LetPetOutside();
+                    message = somePet.LetPetOutside();
                     return message;
                 case "6":
-                    message = orgPet.LetPetSleep();
+                    message = somePet.LetPetSleep();
                     return message;
                 case "7": 
                     message = LeavePetAlone(somePet);
@@ -596,7 +597,6 @@ namespace VirtualPet
         private string ProcessPlayerChoiceRobotic(string playerChoice, RoboticPet somePet)
         {
             //TODO:  See if this and the Robotic version can be done with OVERRIDE
-            RoboticPet robPet = (RoboticPet)somePet;
 
             string message = "";
             switch (playerChoice)
@@ -605,6 +605,7 @@ namespace VirtualPet
                     message = PlayWithPet(somePet);
                     return message;
                 case "2"://Give Oil
+                    message = somePet.AddOil();
                     return message;
                 case "3"://Take to Mechanic
                     return message;

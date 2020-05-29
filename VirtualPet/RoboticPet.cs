@@ -56,9 +56,12 @@ namespace VirtualPet
             Performance = InitialPerformanceValue;
         }
 
-        public void AddOil()
+        public string AddOil()
         {
             Oil = Oil + 25;
+            //TODO:  Put checks and balances in for Robotic pet values
+            return $"You gave {Name} some oil.";
+
         }
 
 
