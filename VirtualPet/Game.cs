@@ -39,8 +39,9 @@ namespace VirtualPet
             Console.WriteLine("\n\nPlease try again later.");
         }
 
-        private void ShowShelterEmptyMessage(Shelter someShelter)
+        private void ShowShelterEmptyMessage()
         {
+            //TODO:  Create 1 ShowEmpty method for all 3 scenarios
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("We are very sorry but at this time the shetler is empty.");
@@ -49,6 +50,21 @@ namespace VirtualPet
             Console.WriteLine("\n\nPlease press ENTER to return to the main menu.");
             Console.ReadLine();
             Console.Clear();
+        }
+        
+        private void ShowNoOrganicPetsInShelterMessage()
+        {
+            //TODO:  Create 1 ShowEmpty method for all 3 scenarios
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("We are very sorry but at this time there are no Organic Pets in the shetler.");
+            Console.ResetColor();
+        }
+        private void ShowNoRoboticPetsInShelterMessage()
+        {
+            //TODO:  Create 1 ShowEmpty method for all 3 scenarios
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("We are very sorry but at this time there are no Robotic Pets in the shetler.");
+            Console.ResetColor();
         }
 
         private void CheckForAdoption(Shelter someShelter, Pet somePet)
@@ -112,31 +128,31 @@ namespace VirtualPet
                         break;
                     case "2":
                         if (someShelter.IsShelterEmpty())
-                        { ShowShelterEmptyMessage(someShelter); }
+                        { ShowShelterEmptyMessage(); }
                         else
                             { playerFeedbackMessage = FeedOrganicPets(someShelter); }
                         break;
                     case "3":
                         if (someShelter.IsShelterEmpty())
-                        { ShowShelterEmptyMessage(someShelter); }
+                        { ShowShelterEmptyMessage(); }
                         else
                             { playerFeedbackMessage = WaterOrganicPets(someShelter); }
                         break;
                     case "4":
                         if (someShelter.IsShelterEmpty())
-                        { ShowShelterEmptyMessage(someShelter); }
+                        { ShowShelterEmptyMessage(); }
                         else
                         { playerFeedbackMessage = OilRoboticPets(someShelter); }
                         break;
                     case "5":
                         if (someShelter.IsShelterEmpty())
-                        { ShowShelterEmptyMessage(someShelter); }
+                        { ShowShelterEmptyMessage(); }
                         else
                         { playerFeedbackMessage = PlayWithPets(someShelter); }
                         break;
                     case "6":
                         if (someShelter.IsShelterEmpty())
-                        { ShowShelterEmptyMessage(someShelter); }
+                        { ShowShelterEmptyMessage(); }
                         else
                         { PetOneOnOne(someShelter); }
                         break;
@@ -145,7 +161,7 @@ namespace VirtualPet
                         break;
                     case "8":
                         if (someShelter.IsShelterEmpty())
-                        { ShowShelterEmptyMessage(someShelter); }
+                        { ShowShelterEmptyMessage(); }
                         else
                         {
                             Pet selectedPet = SelectPet(someShelter);
@@ -200,6 +216,7 @@ namespace VirtualPet
         private void ShowAllPets(Shelter someShelter)
         {
             //TODO:  Break this up
+            //TODO:  Add Organic and Robotic to the title bars
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Here are all the pets currently in the shelter:");
@@ -229,19 +246,26 @@ namespace VirtualPet
             Console.ResetColor();
             Console.WriteLine();
 
-            foreach (OrganicPet someOrganicPet in organicPets)
+            if (organicPets.Count >= 1)
             {
-                Console.ForegroundColor = ConsoleColor.DarkCyan;
-                Console.Write($"{someOrganicPet.GetName().PadRight(11, ' ')}");
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write($"{someOrganicPet.GetSpecies().PadRight(12, ' ')}");
-                Console.ResetColor();
-                Console.Write($"{someOrganicPet.GetBoredom().ToString().PadRight(10, ' ')} ");
-                Console.Write($"{someOrganicPet.GetEnergy().ToString().PadRight(9, ' ')}");
-                Console.Write($"{someOrganicPet.GetHealth().ToString().PadRight(8, ' ')} ");
-                Console.Write($"{someOrganicPet.GetHunger().ToString().PadRight(8, ' ')} ");
-                Console.Write($"{someOrganicPet.GetHyrdation().ToString().PadRight(11, ' ')} ");
-                Console.WriteLine($"{someOrganicPet.GetIrritable().ToString()} ");
+                foreach (OrganicPet someOrganicPet in organicPets)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.Write($"{someOrganicPet.GetName().PadRight(11, ' ')}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"{someOrganicPet.GetSpecies().PadRight(12, ' ')}");
+                    Console.ResetColor();
+                    Console.Write($"{someOrganicPet.GetBoredom().ToString().PadRight(10, ' ')} ");
+                    Console.Write($"{someOrganicPet.GetEnergy().ToString().PadRight(9, ' ')}");
+                    Console.Write($"{someOrganicPet.GetHealth().ToString().PadRight(8, ' ')} ");
+                    Console.Write($"{someOrganicPet.GetHunger().ToString().PadRight(8, ' ')} ");
+                    Console.Write($"{someOrganicPet.GetHyrdation().ToString().PadRight(11, ' ')} ");
+                    Console.WriteLine($"{someOrganicPet.GetIrritable().ToString()} ");
+                }
+            }
+            else
+            {
+                ShowNoOrganicPetsInShelterMessage();
             }
 
             Console.BackgroundColor = ConsoleColor.Cyan;
@@ -250,16 +274,23 @@ namespace VirtualPet
             Console.ResetColor();
             Console.WriteLine();
 
-            foreach (RoboticPet someRoboticPet in roboticPets)
+            if (roboticPets.Count >= 1)
             {
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.Write($"{someRoboticPet.GetName().PadRight(11, ' ')}");
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write($"{someRoboticPet.GetSpecies().PadRight(12, ' ')}");
-                Console.ResetColor();
-                Console.Write($"{someRoboticPet.GetBoredom().ToString().PadRight(10, ' ')} ");
-                Console.Write($"{someRoboticPet.GetOil().ToString().PadRight(10, ' ')} ");
-                Console.WriteLine($"{someRoboticPet.GetPerformance().ToString().PadRight(10, ' ')}");
+                foreach (RoboticPet someRoboticPet in roboticPets)
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.Write($"{someRoboticPet.GetName().PadRight(11, ' ')}");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write($"{someRoboticPet.GetSpecies().PadRight(12, ' ')}");
+                    Console.ResetColor();
+                    Console.Write($"{someRoboticPet.GetBoredom().ToString().PadRight(10, ' ')} ");
+                    Console.Write($"{someRoboticPet.GetOil().ToString().PadRight(10, ' ')} ");
+                    Console.WriteLine($"{someRoboticPet.GetPerformance().ToString().PadRight(10, ' ')}");
+                }
+            }
+            else
+            {
+                ShowNoRoboticPetsInShelterMessage();
             }
 
             Console.WriteLine();

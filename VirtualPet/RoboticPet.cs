@@ -47,7 +47,7 @@ namespace VirtualPet
         {
             base.Play();
             Oil = Oil - 20;
-            Performance = Performance - 15;
+            Performance = Performance + 15;
         }
 
         public override void SetInitialPetValues()
