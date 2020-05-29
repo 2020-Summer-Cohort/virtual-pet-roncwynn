@@ -286,19 +286,17 @@ namespace VirtualPet
 
         private string PlayWithPets(Shelter someShelter)
         {
-            //TODO:  Figure out why values are not respecting MIN and MAX
             Console.Clear();
             foreach (Pet somePet in someShelter.GetListOfPets())
             {
                 somePet.Play();
             }
             return "Thanks for playing with the Pets.";
-
         }
 
         private Pet SelectPet(Shelter someShelter)
         {
-            //TODO:  indicate pet type and add color
+            //TODO:   add color for rob vs org
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("\nPlease Select a Pet from the Shelter:");
@@ -308,7 +306,12 @@ namespace VirtualPet
             int index = 1;
             foreach (Pet pet in someShelter.GetListOfPets())
             {
-                Console.WriteLine($"{index}.  {pet.GetName()} is a {pet.GetSpecies()}.");
+                Console.Write($"{index}.  {pet.GetName()} is a");
+                if (pet.GetType() == typeof(OrganicPet))
+                { Console.Write("n Organic "); }
+                else if (pet.GetType() == typeof(RoboticPet))
+                { Console.Write(" Robotic "); }
+                Console.WriteLine($"{pet.GetSpecies()}.");
                 index++;
             }
 
@@ -372,6 +375,7 @@ namespace VirtualPet
 
         private Pet CreatePet(Shelter someShelter)
         {
+            //TODO:  Rewrite this method, maybe ask rob vs org first instead of last
             //TODO:  Add submenu for org vs rob
             //TODO:  Add loop if rob
 
@@ -380,21 +384,46 @@ namespace VirtualPet
                 string playerPetSpeciesEntry = "";
                 while (playerPetSpeciesEntry == "")
                 {
-                    Console.WriteLine("\nWhat kind of Pet would you like?");
+                    Console.WriteLine("\nWhat specied of Pet would you like to add to the Shelter?");
                     playerPetSpeciesEntry = Console.ReadLine();
                 }
 
                 string playerPetNameEntry = "";
                 while (playerPetNameEntry == "")
                 {
-                    Console.WriteLine("\nWhat would you like to name your pet?");
+                    Console.WriteLine("\nWhat is the name of the pet?");
                     playerPetNameEntry = Console.ReadLine();
                 }
 
+                string playerPetTypeEntry = "";
+                while (playerPetTypeEntry == "")
+                {
+                    Console.WriteLine("\nEnter 1 for Organic Pet");
+                    Console.WriteLine("\nEnter 2 for Robotic Pet");
+                    playerPetTypeEntry = GetPlayerChoice();
+                    switch (playerPetTypeEntry)
+                    {
+                        case "1": //Organic
+                            Pet somePet = new OrganicPet(playerPetNameEntry, playerPetSpeciesEntry);
+                            someShelter.AddPetToShelter(somePet);
+                            return somePet;
+                            //break;
+                        case "2"://Robotic
+                            somePet = new RoboticPet(playerPetNameEntry, playerPetSpeciesEntry);
+                            someShelter.AddPetToShelter(somePet);
+                            return somePet;
+                            //break;
+                        default:
+                            Console.WriteLine("Invalid Option.  Please try again.");
+                            playerPetTypeEntry = "";
+                            break;
+                    }
+                }
                 //Pet somePet = new Pet(playerPetNameEntry, playerPetSpeciesEntry);
-                Pet somePet = new OrganicPet(playerPetNameEntry, playerPetSpeciesEntry);
-                someShelter.AddPetToShelter(somePet);
-                return somePet;
+                //Pet somePet = new OrganicPet(playerPetNameEntry, playerPetSpeciesEntry);
+                //someShelter.AddPetToShelter(somePet);
+                //return somePet;
+                return null;
             }
             else
             {
