@@ -82,7 +82,10 @@ namespace VirtualPet
             {
                 Console.Clear();
                 if (selectedPet is OrganicPet)
-                { InteractWithOrganicPet(selectedPet); }
+                {
+                    OrganicPet pet = (OrganicPet)selectedPet;
+                    InteractWithOrganicPet(pet); 
+                }
                 else if (selectedPet is RoboticPet)
                 { //InteractWithRoboticPet(selectedPet); 
                 }
@@ -495,7 +498,7 @@ namespace VirtualPet
             }
         }
 
-        private void InteractWithOrganicPet(Pet somePet)
+        private void InteractWithOrganicPet(OrganicPet somePet)
         {
             bool keepPlaying = true;
             while (keepPlaying)
@@ -523,8 +526,7 @@ namespace VirtualPet
 
         private void ShowOrganicPetMenu(string petName)
         {
-            //TODO:  Will need a new version of this method for rob pets
-
+            //TODO:  See if this and the Robotic version can be done with OVERRIDE
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine($"\nWhat would you like to do with {petName}?");
             Console.WriteLine();
@@ -539,14 +541,23 @@ namespace VirtualPet
             Console.WriteLine($"\n9. Stop Interacting with {petName}");
         }
 
-        private string ProcessPlayerChoiceOrganic(string playerChoice, Pet somePet)
+        private void ShowRoboticPetMenu(string petName)
         {
-            //TODO: Will need a new version of this method for rob pets
-            //TODO:  This version is ORganic only
-            //OrganicPet orgPet = new OrganicPet();
-            OrganicPet orgPet;
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine($"\nWhat would you like to do with {petName}?");
+            Console.WriteLine();
+            Console.ResetColor();
+            Console.WriteLine($"1. Play with {petName}.");
+            Console.WriteLine($"2. Give {petName} some oil.");
+            Console.WriteLine($"3. Take { petName} to the Mechanic.");
+            Console.WriteLine($"4. Do nothing with {petName}.");
+            Console.WriteLine($"\n9. Stop Interacting with {petName}");
+        }
 
-            orgPet = (OrganicPet)somePet;
+        private string ProcessPlayerChoiceOrganic(string playerChoice, OrganicPet somePet)
+        {
+            //TODO:  See if this and the Robotic version can be done with OVERRIDE
+            OrganicPet orgPet = (OrganicPet)somePet;
 
             string message = "";
             switch (playerChoice)
@@ -583,7 +594,48 @@ namespace VirtualPet
 
         }
 
-        private void ShowOrganicPetStatus(Pet somePet)
+        private string ProcessPlayerChoiceRobotic(string playerChoice, RoboticPet somePet)
+        {
+            //TODO:  See if this and the Robotic version can be done with OVERRIDE
+            RoboticPet robPet = (RoboticPet)somePet;
+
+            string message = "";
+            switch (playerChoice)
+            {
+                case "1": //Play
+                    message = PlayWithPet(somePet);
+                    return message;
+                case "2"://Give Oil
+                    return message;
+                case "3"://Take to Mechanic
+                    return message;
+                case "4"://Do nothing
+                    return message;
+                case "9":
+                    message = "stop";
+                    return message;
+                default:
+                    message = "Invalid Choice.  Please try again.";
+                    return message;
+            }
+
+        }
+
+        private void ShowOrganicPetStatus(OrganicPet somePet)
+        {
+            //TODO:  See if this and the Robotic version can be done with OVERRIDE
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"\nHere is how {somePet.GetName()} is doing:");
+            Console.ResetColor();
+            Console.WriteLine($"\nHEALTH factor is {somePet.GetHealth()}.");
+            Console.WriteLine($"HUNGER factor is {somePet.GetHunger()}.");
+            Console.WriteLine($"THIRST factor is {somePet.GetHyrdation()}.");
+            Console.WriteLine($"ENERGY factor is {somePet.GetEnergy()}.");
+            Console.WriteLine($"BOREDOM factor is {somePet.GetBoredom()}.");
+            Console.WriteLine($"IRRITATED factor is {somePet.GetIrritable()}.");
+        }
+       
+        private void ShowRoboticPetStatus(RoboticPet somePet)
         {
             //TODO:  Will need a new version of this method for rob pets  Inherit
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -595,6 +647,32 @@ namespace VirtualPet
             //Console.WriteLine($"ENERGY factor is {somePet.GetEnergy()}.");
             Console.WriteLine($"BOREDOM factor is {somePet.GetBoredom()}.");
             //Console.WriteLine($"IRRITATED factor is {somePet.GetIrritable()}.");
+        }
+
+        private void InteractWithRoboticPet(RoboticPet somePet)
+        {
+            bool keepPlaying = true;
+            while (keepPlaying)
+            {
+                //TODO:  Will need to call Orgainic Pet Show Status and Robotic Pet Show Status???
+                ShowRoboticPetStatus(somePet);
+                ShowRoboticPetMenu(somePet.GetName());
+                string playerChoice = GetPlayerChoice();
+                string gameFeedbackToPlayer = ProcessPlayerChoiceRobotic(playerChoice, somePet);
+
+                if (gameFeedbackToPlayer == "stop")
+                { keepPlaying = false; }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("\n");
+                    Console.WriteLine(gameFeedbackToPlayer);
+
+                    string petFeedbacktoPlayer = ProcessTime(somePet);
+                    //ProcessTime2(someShelter);
+                    Console.WriteLine(petFeedbacktoPlayer);
+                }
+            }
         }
 
         private string PlayWithPet(Pet somePet)
