@@ -32,6 +32,13 @@ namespace VirtualPet
             someShelter.AddPetToShelter(someOrganicPet);
         }
 
+        private void ShowShelterFullMessage()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\nSorry, the Shelter is currently at capacity.");
+            Console.WriteLine("\n\nPlease try again later.");
+        }
+
         private void ShowShelterEmptyMessage(Shelter someShelter)
         {
             Console.Clear();
@@ -188,13 +195,14 @@ namespace VirtualPet
             List<RoboticPet> roboticPets = new List<RoboticPet>();
             foreach (Pet somePet in someShelter.GetListOfPets())
             {
-                if (somePet.GetType() == typeof(OrganicPet))
+                //if (somePet instanceof OrganicPet) { }
+                if (somePet is OrganicPet) 
                 {
                     OrganicPet someOrganicPet = new OrganicPet();
                     someOrganicPet = (OrganicPet)somePet;
                     organicPets.Add(someOrganicPet);
                 }
-                else if (somePet.GetType() == typeof(RoboticPet))
+                else if (somePet is RoboticPet)
                 {
                     RoboticPet someRoboticPet = new RoboticPet();
                     someRoboticPet = (RoboticPet)somePet;
@@ -385,14 +393,6 @@ namespace VirtualPet
 
         }
 
-
-        private void ShowShelterFullMessage()
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("\nSorry, the Shelter is currently at capacity.");
-            Console.WriteLine("\n\nPlease try again later.");
-        }
-
         private void AddOrganicPetToShelter(Shelter someShelter)
         {
             string playerPetSpeciesEntry = AskPlayerForPetSpecies();
@@ -564,7 +564,7 @@ namespace VirtualPet
 
         private void ShowPetStatus(Pet somePet)
         {
-            //Will need a new version of this method for rob pets
+            //TODO:  Will need a new version of this method for rob pets  Inherit
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"\nHere is how {somePet.GetName()} is doing:");
             Console.ResetColor();
@@ -594,22 +594,6 @@ namespace VirtualPet
         }
 
         //TODO: Org only
-        //private string FeedPet(Pet somePet)
-        //{
-        //    string message = "";
-        //    if (somePet.GetHunger() > somePet.hungerThresholdMIN)
-        //    {
-        //        somePet.Feed();
-        //        message = $"You fed {somePet.GetName()}.";
-        //    }
-        //    else
-        //    {
-        //        message = $"{somePet.GetName()} isn't hungry right now, maybe try something else.";
-        //    }
-        //    return message;
-        //}
-
-        //Org only
         //private string GivePetWater(Pet somePet)
         //{
         //    string message = "";
@@ -625,7 +609,7 @@ namespace VirtualPet
         //    return message;
         //}
 
-        //Org only
+        //TODO: Org only
         //private string TakePetToVet(Pet somePet)
         //{
         //    string message = "";
@@ -641,7 +625,7 @@ namespace VirtualPet
         //    return message;
         //}
 
-        //Org only
+        //TODO: Org only
         //private string LetPetOutside(Pet somePet)
         //{
         //    string message = "";
@@ -657,7 +641,7 @@ namespace VirtualPet
         //    return message;
         //}
 
-        //Org only???
+        //TODO: Org only???
         //private string LetPetSleep(Pet somePet)
         //{
         //    string message = "";
@@ -703,7 +687,7 @@ namespace VirtualPet
             return message;
         }
 
-        //Create a new version of this method for rob pets
+        //TODO:  Create a new version of this method for rob pets
         //private void LivingPetProcess(Pet somePet)
         //{
         //    if (somePet.IsPetHungry())
@@ -736,7 +720,7 @@ namespace VirtualPet
         //    return message;
         //}
 
-        //Org only
+        //TODO: Org only
         //private string CheckHungerLevel(Pet somePet)
         //{
         //    string message;
@@ -758,7 +742,7 @@ namespace VirtualPet
         //    return message;
         //}
 
-        //Org only
+        //TODO: Org only
         //private string CheckThirstLevel(Pet somePet)
         //{
         //    string message;
@@ -780,7 +764,7 @@ namespace VirtualPet
         //    return message;
         //}
 
-        //Org only
+        //TODO: Org only
         //private string CheckEnergyLevel(Pet somePet)
         //{
         //    string message;
@@ -801,7 +785,7 @@ namespace VirtualPet
         //    return message;
         //}
 
-        //Org only
+        //TODO: Org only
         //private string CheckHealthLevel(Pet somePet)
         //{
         //    string message;
@@ -822,7 +806,7 @@ namespace VirtualPet
         //    return message;
         //}
 
-        //Org only
+        //TODO: Org only
         //private string CheckIrritationLevel(Pet somePet)
         //{
         //    string message;
@@ -877,7 +861,6 @@ namespace VirtualPet
 
             return returnMessage;
         }
-
 
         private string ProcessTime(Pet somePet)
         {
