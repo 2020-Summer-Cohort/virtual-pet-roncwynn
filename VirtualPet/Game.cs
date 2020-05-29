@@ -81,7 +81,11 @@ namespace VirtualPet
             if (selectedPet != null)
             {
                 Console.Clear();
-                InteractWithPet(selectedPet);
+                if (selectedPet is OrganicPet)
+                { InteractWithOrganicPet(selectedPet); }
+                else if (selectedPet is RoboticPet)
+                { //InteractWithRoboticPet(selectedPet); 
+                }
                 Console.Clear();
                 CheckForAdoption(someShelter, selectedPet);
             }
@@ -160,8 +164,7 @@ namespace VirtualPet
 
         private void ShowGameMainMenu(Shelter someShelter)
         {
-            //TODO:  add color or org vs rob menu choices???
-            //TODO:  add option to Oil all rob pets
+            //TODO:  add color???
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"{someShelter.GetShelterName()} Wildly Popular Pet Shelter");
@@ -172,7 +175,7 @@ namespace VirtualPet
             Console.WriteLine("1. Show all Pets in the Shelter");
             Console.WriteLine("2. Feed the Organic Pets");
             Console.WriteLine("3. Water the Organic Pets");
-            Console.WriteLine("4.  Oil the Robotic Pets");
+            Console.WriteLine("4. Oil the Robotic Pets");
             Console.WriteLine("5. Play with the Pets");
             Console.WriteLine("6. Pick a Pet for One on One");
             Console.WriteLine("7. Admit a new Pet to the Shelter");
@@ -323,7 +326,6 @@ namespace VirtualPet
 
         private Pet SelectPet(Shelter someShelter)
         {
-            //TODO:   add color for rob vs org
             //TODO:  maybe break this up
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -334,11 +336,18 @@ namespace VirtualPet
             int index = 1;
             foreach (Pet pet in someShelter.GetListOfPets())
             {
-                Console.Write($"{index}.  {pet.GetName()} is a");
-                if (pet.GetType() == typeof(OrganicPet))
-                { Console.Write("n Organic "); }
-                else if (pet.GetType() == typeof(RoboticPet))
-                { Console.Write(" Robotic "); }
+                Console.Write($"{index}.  {pet.GetName()} is ");
+                if (pet is OrganicPet)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Organic "); 
+                }
+                else if (pet is RoboticPet)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write("Robotic "); 
+                }
+                Console.ResetColor();
                 Console.WriteLine($"{pet.GetSpecies()}.");
                 index++;
             }
@@ -430,7 +439,7 @@ namespace VirtualPet
         private void AdmitPet(Shelter someShelter)
         {
             //TODO:  Add spacing, newlines, clear, and color to this method
-            //TODO:  Possibly break it up more
+            //TODO:  Possibly break it up more methods
             if (someShelter.IsShelterFull())
             {
                 ShowShelterFullMessage();
@@ -486,18 +495,16 @@ namespace VirtualPet
             }
         }
 
-        private void InteractWithPet(Pet somePet)
+        private void InteractWithOrganicPet(Pet somePet)
         {
-
-            //TODO:  Create new sub-menu and appropriate calls for rob pets
             bool keepPlaying = true;
             while (keepPlaying)
             {
                 //TODO:  Will need to call Orgainic Pet Show Status and Robotic Pet Show Status???
-                ShowPetStatus(somePet);
-                ShowPetMenu(somePet.GetName());
+                ShowOrganicPetStatus(somePet);
+                ShowOrganicPetMenu(somePet.GetName());
                 string playerChoice = GetPlayerChoice();
-                string gameFeedbackToPlayer = ProcessPlayerChoice(playerChoice, somePet);
+                string gameFeedbackToPlayer = ProcessPlayerChoiceOrganic(playerChoice, somePet);
 
                 if (gameFeedbackToPlayer == "stop")
                 { keepPlaying = false; }
@@ -514,7 +521,7 @@ namespace VirtualPet
             }
         }
 
-        private void ShowPetMenu(string petName)
+        private void ShowOrganicPetMenu(string petName)
         {
             //TODO:  Will need a new version of this method for rob pets
 
@@ -532,7 +539,7 @@ namespace VirtualPet
             Console.WriteLine($"\n9. Stop Interacting with {petName}");
         }
 
-        private string ProcessPlayerChoice(string playerChoice, Pet somePet)
+        private string ProcessPlayerChoiceOrganic(string playerChoice, Pet somePet)
         {
             //TODO: Will need a new version of this method for rob pets
             //TODO:  This version is ORganic only
@@ -576,7 +583,7 @@ namespace VirtualPet
 
         }
 
-        private void ShowPetStatus(Pet somePet)
+        private void ShowOrganicPetStatus(Pet somePet)
         {
             //TODO:  Will need a new version of this method for rob pets  Inherit
             Console.ForegroundColor = ConsoleColor.Yellow;
