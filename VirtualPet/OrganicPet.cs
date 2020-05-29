@@ -255,7 +255,7 @@ namespace VirtualPet
             Energy = Energy - 5;
         }
 
-        public void Feed()
+        private  void Feed()
         {
             Hunger = Hunger - 40;
         }

@@ -256,7 +256,9 @@ namespace VirtualPet
                 {
                     OrganicPet pet = new OrganicPet();
                     pet = (OrganicPet)somePet;
-                    pet.Feed();
+                    pet.FeedPet();
+                    ProcessTime(somePet);
+
                 }
             }
             return "Thanks for feeding the Organic Pets";
@@ -272,12 +274,15 @@ namespace VirtualPet
                     OrganicPet pet = new OrganicPet();
                     pet = (OrganicPet)somePet;
                     pet.Drink();
+                    ProcessTime(somePet);
+
                 }
                 else if (somePet.GetType() == typeof(RoboticPet))
                 {
                     RoboticPet pet = new RoboticPet();
                     pet = (RoboticPet)somePet;
                     pet.AddOil();
+                    ProcessTime(somePet);
                 }
             }
             return "Thanks for giving the Organic Pets some water to drink.  And for Oiling the Robotic Pets.";
@@ -297,6 +302,7 @@ namespace VirtualPet
         private Pet SelectPet(Shelter someShelter)
         {
             //TODO:   add color for rob vs org
+            //TODO:  maybe break this up
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("\nPlease Select a Pet from the Shelter:");
@@ -333,25 +339,6 @@ namespace VirtualPet
                 }
             }
             return selectedPet;
-        }
-
-        private void AdmitPet(Shelter someShelter)
-        {
-            //TODO:  Rewrite this in conjunction with CreatePet
-            Console.Clear();
-            Pet newPet = CreatePet(someShelter);
-            if (newPet != null)
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"\n{newPet.GetName()} has been added to Shelter.");
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\nSorry, the Shelter is currently at capacity.");
-                Console.WriteLine("\n\nPlease try again later.");
-            }
-            Console.ResetColor();
         }
 
         private void AdoptPet(Shelter someShelter, Pet somePet)
@@ -398,14 +385,46 @@ namespace VirtualPet
 
         }
 
-        private Pet CreatePet(Shelter someShelter)
-        {
-            //TODO:  Rewrite this method, maybe ask rob vs org first instead of last
-            //TODO:  Add submenu for org vs rob
-            //TODO:  Add loop if rob
 
-            if (someShelter.IsShelterFull() == false)
+        private void ShowShelterFullMessage()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\nSorry, the Shelter is currently at capacity.");
+            Console.WriteLine("\n\nPlease try again later.");
+        }
+
+        private void AddOrganicPetToShelter(Shelter someShelter)
+        {
+            string playerPetSpeciesEntry = AskPlayerForPetSpecies();
+            string playerPetNameEntry = AskPlayerForPetName();
+
+            OrganicPet somePet = new OrganicPet(playerPetNameEntry, playerPetSpeciesEntry);
+            someShelter.AddPetToShelter(somePet);
+            Console.WriteLine($"\n{playerPetNameEntry} has been added to Shelter.");
+        }
+
+        private void AddRoboticPetToShelter(Shelter someShelter)
+        {
+            string playerPetSpeciesEntry = AskPlayerForPetSpecies();
+            string playerPetNameEntry = AskPlayerForPetName();
+
+            RoboticPet somePet = new RoboticPet(playerPetNameEntry, playerPetSpeciesEntry);
+            someShelter.AddPetToShelter(somePet);
+            Console.WriteLine($"\n{playerPetNameEntry} has been added to Shelter.");
+        }
+
+        private void AdmitPet(Shelter someShelter)
+        {
+            //TODO:  Add spacing, newlines, clear, and color to this method
+            //TODO:  Possibly break it up more
+            if (someShelter.IsShelterFull())
             {
+                ShowShelterFullMessage();
+            }
+            else
+            {
+                //TODO:  Change this to a Do-while loop
+                //TODO:  Also change the rest that I did like this
                 string playerPetTypeEntry = "";
                 while (playerPetTypeEntry == "")
                 {
@@ -414,36 +433,43 @@ namespace VirtualPet
                     playerPetTypeEntry = GetPlayerChoice();
                     switch (playerPetTypeEntry)
                     {
-                        case "1": //Organic
+                        case "1":
+                            AddOrganicPetToShelter(someShelter);
+                            break;
+                        case "2":
+                            bool keepAdding = true;
+                            do
                             {
-                                string playerPetSpeciesEntry = AskPlayerForPetSpecies();
-                                string playerPetNameEntry = AskPlayerForPetName();
+                                AddRoboticPetToShelter(someShelter);
+                                //TODO:  Write method to process Y N response
+                                    Console.WriteLine("\nWould you like to add another Robotic Pet?");
+                                    Console.WriteLine("Please enter (Y)es or (N)o.");
+                                    string playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
 
-                                OrganicPet somePet = new OrganicPet(playerPetNameEntry, playerPetSpeciesEntry);
-                                someShelter.AddPetToShelter(somePet);
-                                return somePet;
-                            }
-                        case "2"://Robotic
-                            {
-                                string playerPetSpeciesEntry = AskPlayerForPetSpecies();
-                                string playerPetNameEntry = AskPlayerForPetName();
+                                    while (playerChoice != "y" && playerChoice != "n")
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.WriteLine($"\nThat input was not a 'Y' or 'N'.  Please try again.");
+                                        Console.ResetColor();
+                                        playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
+                                    }
+                                
+                                if (playerChoice == "n") 
+                                { keepAdding = false; }
+                                else if (someShelter.IsShelterFull())
+                                {
+                                    ShowShelterFullMessage();
+                                    keepAdding = false;
+                                }
 
-                                RoboticPet somePet = new RoboticPet(playerPetNameEntry, playerPetSpeciesEntry);
-                                someShelter.AddPetToShelter(somePet);
-                                return somePet;
-                            }
+                            } while (keepAdding);
+
+                            break;
                         default:
-                            Console.WriteLine("\nInvalid Option.  Please try again.");
-                            playerPetTypeEntry = "";
                             break;
                     }
-                }
-                return null;
+                }                    
             }
-            else
-            {
-                return null;
-            }           
         }
 
         private void InteractWithPet(Pet somePet)
@@ -496,7 +522,9 @@ namespace VirtualPet
         {
             //TODO: Will need a new version of this method for rob pets
             //TODO:  This version is ORganic only
-            OrganicPet orgPet = new OrganicPet();
+            //OrganicPet orgPet = new OrganicPet();
+            OrganicPet orgPet;
+
             orgPet = (OrganicPet)somePet;
 
             string message = "";
