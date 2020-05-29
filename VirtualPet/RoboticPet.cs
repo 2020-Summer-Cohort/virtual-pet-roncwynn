@@ -61,7 +61,13 @@ namespace VirtualPet
             Oil = Oil + 25;
             //TODO:  Put checks and balances in for Robotic pet values
             return $"You gave {Name} some oil.";
+        }
 
+        public string TakePetToMechanic()
+        {
+            Oil = Oil + 25;
+            Performance = Performance + 50;
+            return $"Your took {Name} to the Mechanic.";
         }
 
 

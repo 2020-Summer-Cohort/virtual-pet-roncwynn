@@ -608,6 +608,7 @@ namespace VirtualPet
                     message = somePet.AddOil();
                     return message;
                 case "3"://Take to Mechanic
+                    message = somePet.TakePetToMechanic();
                     return message;
                 case "4"://Do nothing
                     return message;
@@ -641,12 +642,9 @@ namespace VirtualPet
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"\nHere is how {somePet.GetName()} is doing:");
             Console.ResetColor();
-            //Console.WriteLine($"\nHEALTH factor is {somePet.GetHealth()}.");
-            //Console.WriteLine($"HUNGER factor is {somePet.GetHunger()}.");
-            //Console.WriteLine($"THIRST factor is {somePet.GetHyrdation()}.");
-            //Console.WriteLine($"ENERGY factor is {somePet.GetEnergy()}.");
+            Console.WriteLine($"\nOIL factor is {somePet.GetOil()}.");
+            Console.WriteLine($"PERFORMANCE factor is {somePet.GetPerformance()}.");
             Console.WriteLine($"BOREDOM factor is {somePet.GetBoredom()}.");
-            //Console.WriteLine($"IRRITATED factor is {somePet.GetIrritable()}.");
         }
 
         private void InteractWithRoboticPet(RoboticPet somePet)
@@ -692,10 +690,9 @@ namespace VirtualPet
             return message;
         }
 
-
-
         private string LeavePetAlone(Pet somePet)
         {
+            //TODO:  Figure out what to do with this method Org vs Rob
             string message = "";
             somePet.Ignore();
             message = $"{somePet.GetName()} is doing their own thing.";
