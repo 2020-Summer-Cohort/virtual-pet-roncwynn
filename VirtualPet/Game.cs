@@ -216,7 +216,6 @@ namespace VirtualPet
         private void ShowAllPets(Shelter someShelter)
         {
             //TODO:  Break this up
-            //TODO:  Add Organic and Robotic to the title bars
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Here are all the pets currently in the shelter:");
@@ -240,9 +239,11 @@ namespace VirtualPet
                 }
             }
 
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\nORGANIC PETS");
             Console.BackgroundColor = ConsoleColor.Cyan;
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("\nPet Name   Type      Boredom | Energy | Health | Hunger |  Hydration | Irritable");
+            Console.WriteLine("Pet Name   Type      Boredom | Energy | Health | Hunger |  Hydration | Irritable");
             Console.ResetColor();
             Console.WriteLine();
 
@@ -268,9 +269,11 @@ namespace VirtualPet
                 ShowNoOrganicPetsInShelterMessage();
             }
 
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("\nROBOTIC PETS");
             Console.BackgroundColor = ConsoleColor.Cyan;
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("\nPet Name   Type      | Boredom | Oil | Performance");
+            Console.WriteLine("Pet Name   Type      | Boredom | Oil | Performance");
             Console.ResetColor();
             Console.WriteLine();
 
@@ -459,7 +462,10 @@ namespace VirtualPet
 
             OrganicPet somePet = new OrganicPet(playerPetNameEntry, playerPetSpeciesEntry);
             someShelter.AddPetToShelter(somePet);
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"\n{playerPetNameEntry} has been added to Shelter.");
+            Console.ResetColor();
+            Console.WriteLine();
         }
 
         private void AddRoboticPetToShelter(Shelter someShelter)
@@ -469,12 +475,14 @@ namespace VirtualPet
 
             RoboticPet somePet = new RoboticPet(playerPetNameEntry, playerPetSpeciesEntry);
             someShelter.AddPetToShelter(somePet);
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"\n{playerPetNameEntry} has been added to Shelter.");
+            Console.ResetColor();
+            Console.WriteLine();
         }
 
         private void AdmitPet(Shelter someShelter)
         {
-            //TODO:  Add spacing, newlines, clear, and color to this method
             //TODO:  Possibly break it up more methods
             if (someShelter.IsShelterFull())
             {
@@ -487,9 +495,11 @@ namespace VirtualPet
                 string playerPetTypeEntry = "";
                 while (playerPetTypeEntry == "")
                 {
+                    Console.Clear();
                     Console.WriteLine("\nEnter 1 for Organic Pet");
-                    Console.WriteLine("\nEnter 2 for Robotic Pet");
+                    Console.WriteLine("Enter 2 for Robotic Pet");
                     playerPetTypeEntry = GetPlayerChoice();
+                    Console.WriteLine();
                     switch (playerPetTypeEntry)
                     {
                         case "1":
@@ -501,17 +511,19 @@ namespace VirtualPet
                             {
                                 AddRoboticPetToShelter(someShelter);
                                 //TODO:  Write method to process Y N response
-                                    Console.WriteLine("\nWould you like to add another Robotic Pet?");
-                                    Console.WriteLine("Please enter (Y)es or (N)o.");
-                                    string playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
-
-                                    while (playerChoice != "y" && playerChoice != "n")
-                                    {
-                                        Console.ForegroundColor = ConsoleColor.Red;
-                                        Console.WriteLine($"\nThat input was not a 'Y' or 'N'.  Please try again.");
-                                        Console.ResetColor();
-                                        playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
-                                    }
+                                Console.WriteLine("\nWould you like to add another Robotic Pet?");
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.WriteLine("Please enter (Y)es or (N)o.");
+                                Console.ResetColor();
+                                string playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
+                                Console.WriteLine();
+                                while (playerChoice != "y" && playerChoice != "n")
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine($"\nThat input was not a 'Y' or 'N'.  Please try again.");
+                                    Console.ResetColor();
+                                    playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
+                                }
                                 
                                 if (playerChoice == "n") 
                                 { keepAdding = false; }
