@@ -42,7 +42,6 @@ namespace VirtualPet
 
         private void ShowShelterEmptyMessage()
         {
-            //TODO:  Create 1 ShowEmpty method for all 3 scenarios
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("We are very sorry but at this time the shetler is empty.");
@@ -55,14 +54,13 @@ namespace VirtualPet
         
         private void ShowNoOrganicPetsInShelterMessage()
         {
-            //TODO:  Create 1 ShowEmpty method for all 3 scenarios
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("We are very sorry but at this time there are no Organic Pets in the shetler.");
             Console.ResetColor();
         }
+        
         private void ShowNoRoboticPetsInShelterMessage()
         {
-            //TODO:  Create 1 ShowEmpty method for all 3 scenarios
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("We are very sorry but at this time there are no Robotic Pets in the shetler.");
             Console.ResetColor();
@@ -85,16 +83,7 @@ namespace VirtualPet
             if (selectedPet != null)
             {
                 Console.Clear();
-                if (selectedPet is OrganicPet)
-                {
-                    OrganicPet pet = (OrganicPet)selectedPet;
-                    InteractWithOrganicPet(pet); 
-                }
-                else if (selectedPet is RoboticPet)
-                {
-                    RoboticPet pet = (RoboticPet)selectedPet;
-                    InteractWithRoboticPet(pet); 
-                }
+                InteractWithPet(selectedPet);
                 Console.Clear();
                 CheckForAdoption(someShelter, selectedPet);
             }
@@ -534,42 +523,27 @@ namespace VirtualPet
             }
         }
 
-        private void InteractWithOrganicPet(OrganicPet somePet)
+        private void InteractWithPet(Pet somePet)
         {
+            //TODO:  break this up
             bool keepPlaying = true;
             while (keepPlaying)
             {
                 somePet.ShowPetStatus();
-                ShowOrganicPetMenu(somePet.GetName());
-                string playerChoice = GetPlayerChoice();
-                string gameFeedbackToPlayer = ProcessPlayerChoiceOrganic(playerChoice, somePet);
-
-                if (gameFeedbackToPlayer == "stop")
-                { keepPlaying = false; }
-                else
+                string gameFeedbackToPlayer="";
+                string playerChoice;
+                if (somePet is OrganicPet)
                 {
-                    Console.Clear();
-                    Console.WriteLine("\n");
-                    Console.WriteLine(gameFeedbackToPlayer);
-
-                    string petFeedbacktoPlayer = ProcessTime(somePet);
-                    //ProcessTime2(someShelter);
-                    Console.WriteLine(petFeedbacktoPlayer);
+                    ShowOrganicPetMenu(somePet.GetName());
+                    playerChoice = GetPlayerChoice();
+                    gameFeedbackToPlayer = ProcessPlayerChoiceOrganic(playerChoice, (OrganicPet)somePet);
                 }
-            }
-        }
-
-        private void InteractWithRoboticPet(RoboticPet somePet)
-        {
-            bool keepPlaying = true;
-            while (keepPlaying)
-            {
-                //TODO:  Will need to call Orgainic Pet Show Status and Robotic Pet Show Status???
-                //ShowRoboticPetStatus(somePet);
-                somePet.ShowPetStatus();
-                ShowRoboticPetMenu(somePet.GetName());
-                string playerChoice = GetPlayerChoice();
-                string gameFeedbackToPlayer = ProcessPlayerChoiceRobotic(playerChoice, somePet);
+                else if (somePet is RoboticPet)
+                {
+                    ShowRoboticPetMenu(somePet.GetName());
+                    playerChoice = GetPlayerChoice();
+                    gameFeedbackToPlayer = ProcessPlayerChoiceRobotic(playerChoice, (RoboticPet)somePet);
+                }
 
                 if (gameFeedbackToPlayer == "stop")
                 { keepPlaying = false; }
