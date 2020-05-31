@@ -118,10 +118,8 @@ namespace VirtualPet
         }
 
         public abstract string CheckBoredomeLevel();
-        //{
-        //    return "";
-        //}
-       
+
+        public abstract string CheckPetLevels();       
 
     }
 }

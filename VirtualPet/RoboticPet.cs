@@ -9,6 +9,12 @@ namespace VirtualPet
         const int InitialOilValue = 50;
         const int InitialPerformanceValue = 25;
 
+        public int oilThresholdMIN = 10;
+        public int oilThresholdMAX = 90;
+        public int performanceThresholdMIN = 10;
+        public int performanceThresholdMAX = 90;
+
+
         public int Oil { get; set; }
         public int Performance { get; set; }
 
@@ -64,6 +70,34 @@ namespace VirtualPet
             return $"You gave {Name} some oil.";
         }
 
+        public bool IsOilFull()
+        {
+            if (Oil >= oilThresholdMAX)
+            { return true; }
+            else { return false; }
+        }
+
+        public bool IsOilLow()
+        {
+            if (Oil <= oilThresholdMIN)
+            { return true; }
+            else { return false; }
+        }
+
+        public bool IsPerformanceHigh()
+        {
+            if (Performance >= performanceThresholdMAX)
+            { return true; }
+            else { return false; }
+        }
+
+        public bool IsPerformanceLow()
+        {
+            if (Performance <= performanceThresholdMIN)
+            { return true; }
+            else { return false; }
+        }
+
         public string TakePetToMechanic()
         {
             Oil = Oil + 25;
@@ -80,12 +114,32 @@ namespace VirtualPet
 
         public override void Ignore()
         {
-            //base.Ignore();
             Boredom = Boredom + 5;
             Oil = Oil - 10;
-            Performance = Performance - 10;
+            Performance = Performance - 20;
         }
 
+        public void MinimizeOil()
+        {
+            Oil = oilThresholdMIN;
+        }
+
+        public void MaximizeOil()
+        {
+            Oil = oilThresholdMAX;
+        }
+
+        public void MinimizePerformance()
+        {
+            Performance = performanceThresholdMIN;
+        }
+
+        public void MaximizePerformance()
+        {
+            Performance = performanceThresholdMAX;
+        }
+
+        //TODO:  Fix BoredomE miss spelling
         public override string CheckBoredomeLevel()
         {
             string message;
@@ -106,8 +160,72 @@ namespace VirtualPet
             return message;
         }
 
+        public string CheckOilLevel()
+        {
+            string message;
+            if (IsOilLow())
+            {
+                MinimizeOil();
+                message = $"Robotic pet {Name}s oil is low,  you might want to add some before they freeze up like the TIN MAN!!!";
+            }
+            else if (IsOilFull())
+            {
+                MaximizeOil();
+                message = Name + " has plenty of oil.";
+            }
+            else
+            {
+                message = null;
+            }
+            return message;
+        }
 
+        public string CheckPerformanceLevel()
+        {
+            string message;
+            if (IsPerformanceLow())
+            {
+                MinimizePerformance();
+                message = $"Robotic pet {Name}s performance is low,  you might want to take {Name} to the mechanic.";
+            }
+            else if (IsPerformanceHigh())
+            {
+                MaximizePerformance();
+                message = Name + " is in peak performance.";
+            }
+            else
+            {
+                message = null;
+            }
+            return message;
+        }
 
+        public override string CheckPetLevels()
+        {
+            string petBoredomeLevelMessage = CheckBoredomeLevel();
+            string petOilLevelMessage = CheckOilLevel();
+            string petPerformanceLevelMessage = CheckPerformanceLevel();
+
+            string returnMessage = "";
+
+            if (petBoredomeLevelMessage != null)
+            { returnMessage = petBoredomeLevelMessage; }
+
+            if (petOilLevelMessage != null)
+            { returnMessage = returnMessage + "\n" + petOilLevelMessage; }
+
+            if (petPerformanceLevelMessage != null)
+            { returnMessage = returnMessage + "\n" + petPerformanceLevelMessage; }
+
+            return returnMessage;
+        }
+
+        public override void Tick()
+        {
+            base.Tick();
+            Oil = Oil - 5;
+            Performance = Performance - 10;
+        }
 
     }
 }

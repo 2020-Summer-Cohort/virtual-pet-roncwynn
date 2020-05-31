@@ -641,52 +641,11 @@ namespace VirtualPet
             return message;
         }
 
-        private string CheckPetLevels(Pet somePet)
-        {
-            string petBoredomeLevelMessage = somePet.CheckBoredomeLevel();
-            string petHungerLevelMessage = "";
-            string petIrritatedLevelMessage = "";
-            string petThirstLevelMessage = "";
-            string petEnergyLevelMessage = "";
-            string petHealthLevelMessage = "";
-
-            if (somePet is OrganicPet)
-            {
-                OrganicPet pet = (OrganicPet)somePet;
-                petIrritatedLevelMessage = pet.CheckIrritationLevel();
-                petHungerLevelMessage = pet.CheckHungerLevel();
-                petThirstLevelMessage = pet.CheckThirstLevel();
-                petEnergyLevelMessage = pet.CheckEnergyLevel();
-                petHealthLevelMessage = pet.CheckHealthLevel();
-            }
-            string returnMessage = "";
-
-            if (petBoredomeLevelMessage != null)
-            { returnMessage = petBoredomeLevelMessage; }
-
-            if (petIrritatedLevelMessage != null)
-            { returnMessage = returnMessage + "\n" + petIrritatedLevelMessage; }
-
-            if (petHungerLevelMessage != null)
-            { returnMessage = returnMessage + "\n" + petHungerLevelMessage; }
-
-            if (petThirstLevelMessage != null)
-            { returnMessage = returnMessage + "\n" + petThirstLevelMessage; }
-
-            if (petEnergyLevelMessage != null)
-            { returnMessage = returnMessage + "\n" + petEnergyLevelMessage; }
-
-            if (petHealthLevelMessage != null)
-            { returnMessage = returnMessage + "\n" + petHealthLevelMessage; }
-
-            return returnMessage;
-        }
-
         private string ProcessTime(Pet somePet)
         {
             //TODO:  Need to ensure both types of pets get tick method called
-            somePet.Tick();                                  
-            return CheckPetLevels(somePet).ToString();
+            somePet.Tick();
+            return somePet.CheckPetLevels();
         }
 
         private void ProcessTime2(Shelter someShelter)

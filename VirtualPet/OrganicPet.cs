@@ -487,5 +487,37 @@ namespace VirtualPet
             }
         }
 
+        public override string CheckPetLevels()
+        {
+            string petBoredomeLevelMessage = CheckBoredomeLevel();
+            string petHungerLevelMessage = CheckHungerLevel();
+            string petIrritatedLevelMessage = CheckIrritationLevel();
+            string petThirstLevelMessage = CheckThirstLevel();
+            string petEnergyLevelMessage = CheckEnergyLevel();
+            string petHealthLevelMessage = CheckHealthLevel();
+
+            string returnMessage = "";
+
+            if (petBoredomeLevelMessage != null)
+            { returnMessage = petBoredomeLevelMessage; }
+
+            if (petIrritatedLevelMessage != null)
+            { returnMessage = returnMessage + "\n" + petIrritatedLevelMessage; }
+
+            if (petHungerLevelMessage != null)
+            { returnMessage = returnMessage + "\n" + petHungerLevelMessage; }
+
+            if (petThirstLevelMessage != null)
+            { returnMessage = returnMessage + "\n" + petThirstLevelMessage; }
+
+            if (petEnergyLevelMessage != null)
+            { returnMessage = returnMessage + "\n" + petEnergyLevelMessage; }
+
+            if (petHealthLevelMessage != null)
+            { returnMessage = returnMessage + "\n" + petHealthLevelMessage; }
+
+            return returnMessage;
+        }
+
     }
 }
