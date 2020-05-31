@@ -14,7 +14,6 @@ namespace VirtualPet
         public int performanceThresholdMIN = 10;
         public int performanceThresholdMAX = 90;
 
-
         public int Oil { get; set; }
         public int Performance { get; set; }
 
@@ -51,7 +50,6 @@ namespace VirtualPet
 
         public override void Play()
         {
-            //base.Play();
             Boredom = Boredom - 25;
             Oil = Oil - 20;
             Performance = Performance + 15;
@@ -66,7 +64,6 @@ namespace VirtualPet
         public string AddOil()
         {
             Oil = Oil + 25;
-            //TODO:  Put checks and balances in for Robotic pet values
             return $"You gave {Name} some oil.";
         }
 
@@ -139,8 +136,7 @@ namespace VirtualPet
             Performance = performanceThresholdMAX;
         }
 
-        //TODO:  Fix BoredomE miss spelling
-        public override string CheckBoredomeLevel()
+        public override string CheckBoredomLevel()
         {
             string message;
             if (IsPetBored())
@@ -202,7 +198,7 @@ namespace VirtualPet
 
         public override string CheckPetLevels()
         {
-            string petBoredomeLevelMessage = CheckBoredomeLevel();
+            string petBoredomeLevelMessage = CheckBoredomLevel();
             string petOilLevelMessage = CheckOilLevel();
             string petPerformanceLevelMessage = CheckPerformanceLevel();
 

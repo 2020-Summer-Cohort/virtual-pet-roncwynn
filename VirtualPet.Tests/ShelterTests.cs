@@ -80,10 +80,5 @@ namespace VirtualPet.Tests
             Assert.Equal(1, testShelter.GetShelterPetCount());
         }
 
-        //[Fact]
-        //public void AddPetToCage_Should_Increase_PetsInCage_by_1()
-        //{
-        //    //int currentPetsInCage = testShelter.GetPetsInCage(testCage);
-        //}
     }
 }

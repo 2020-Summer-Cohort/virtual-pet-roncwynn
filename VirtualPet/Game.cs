@@ -103,6 +103,8 @@ namespace VirtualPet
             someShelter.AddPetToShelter(someRoboticPet);
             someOrganicPet = new OrganicPet("Rachel", "Cat");
             someShelter.AddPetToShelter(someOrganicPet);
+            someRoboticPet = new RoboticPet("Vanessa", "Fembot");
+            someShelter.AddPetToShelter(someRoboticPet);
         }
 
         private void ShowShelterFullMessage()
@@ -231,8 +233,8 @@ namespace VirtualPet
                     Console.Write($"{someRoboticPet.GetSpecies().PadRight(12, ' ')}");
                     Console.ResetColor();
                     Console.Write($"{someRoboticPet.GetBoredom().ToString().PadRight(10, ' ')} ");
-                    Console.Write($"{someRoboticPet.GetOil().ToString().PadRight(10, ' ')} ");
-                    Console.WriteLine($"{someRoboticPet.GetPerformance().ToString().PadRight(10, ' ')}");
+                    Console.Write($"{someRoboticPet.GetOil().ToString().PadRight(8, ' ')} ");
+                    Console.WriteLine($"{someRoboticPet.GetPerformance().ToString()}");
                 }
             }
             else
@@ -372,7 +374,6 @@ namespace VirtualPet
 
         private void AdoptPet(Shelter someShelter, Pet somePet)
         {
-            //TODO:  Stretch, offer player advice for org vs rob
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Thanks for adopting {somePet.GetName()}.  We hope you give them a good home.");
             Console.ResetColor();
@@ -397,9 +398,7 @@ namespace VirtualPet
                 Console.WriteLine("\nWhat is the name of the pet?");
                 name = Console.ReadLine();
             }
-
             return name;
-
         }
 
         private string AskPlayerForPetSpecies()
@@ -411,7 +410,6 @@ namespace VirtualPet
                 species = Console.ReadLine();
             }
             return species;
-
         }
 
         private void  AddPetToShelter(Shelter someShelter, int petType)
@@ -432,10 +430,8 @@ namespace VirtualPet
             }
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"\n{playerPetNameEntry} has been added to Shelter.");
+            Console.WriteLine($"\n{playerPetNameEntry} has been added to Shelter.\n");
             Console.ResetColor();
-            Console.WriteLine();
-
         }
 
         private void RoboticPetsAddLoop(Shelter someShelter)
@@ -455,7 +451,6 @@ namespace VirtualPet
                 else if (playerChoice == "n")
                 { keepAdding = false; }
             } while (keepAdding);
-
         }
 
         private void AdmitPet(Shelter someShelter)
@@ -525,7 +520,6 @@ namespace VirtualPet
                     Console.WriteLine(gameFeedbackToPlayer);
 
                     string petFeedbacktoPlayer = ProcessTime(somePet);
-                    //ProcessTime2(someShelter);
                     Console.WriteLine(petFeedbacktoPlayer);
                 }
             }
@@ -564,7 +558,6 @@ namespace VirtualPet
                     message = "Invalid Choice.  Please try again.";
                     return message;
             }
-
         }
 
         private string ProcessPlayerChoiceRobotic(string playerChoice, RoboticPet somePet)
@@ -572,18 +565,17 @@ namespace VirtualPet
             string message;
             switch (playerChoice)
             {
-                case "1": //Play
+                case "1": 
                     message = PlayWithPet(somePet);
                     return message;
-                case "2"://Give Oil
+                case "2":
                     message = somePet.AddOil();
                     return message;
-                case "3"://Take to Mechanic
+                case "3":
                     message = somePet.TakePetToMechanic();
                     return message;
-                case "4"://Do nothing
+                case "4":
                     message = LeavePetAlone(somePet);
-                    message = "You left pet alone message";
                     return message;
                 case "9":
                     message = "stop";
@@ -597,7 +589,7 @@ namespace VirtualPet
 
         private string PlayWithPet(Pet somePet)
         {
-            string message = "";
+            string message;
             Random rand = new Random();
             int petPlayFactor = rand.Next(1, 6);
             if (petPlayFactor == 4)
@@ -643,26 +635,8 @@ namespace VirtualPet
 
         private string ProcessTime(Pet somePet)
         {
-            //TODO:  Need to ensure both types of pets get tick method called
             somePet.Tick();
             return somePet.CheckPetLevels();
-        }
-
-        private void ProcessTime2(Shelter someShelter)
-        {
-            foreach (Pet pet in someShelter.GetListOfPets())
-            {
-                if (pet.GetType() == typeof(OrganicPet))
-                {
-                    OrganicPet someOrganicPet = new OrganicPet();
-                    someOrganicPet = (OrganicPet)pet;
-                    someOrganicPet.Tick();
-                    
-
-                }
-                else if (pet.GetType() == typeof(RoboticPet))
-                { }
-            }
         }
 
     }

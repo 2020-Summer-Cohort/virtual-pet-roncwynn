@@ -231,7 +231,6 @@ namespace VirtualPet
 
         public override void Play()
         {
-            //base.Play();
             Boredom = Boredom - 40;
             Hunger = Hunger + 10;
             Health = Health + 10;
@@ -252,7 +251,6 @@ namespace VirtualPet
 
         public override void Ignore()
         {
-            //base.Ignore();
             Boredom = Boredom + 20;
             Irritated = Irritated + 10;
             Energy = Energy - 10;
@@ -365,7 +363,7 @@ namespace VirtualPet
             { Sleep(); }
         }
 
-        public override string CheckBoredomeLevel()
+        public override string CheckBoredomLevel()
         {
             string message;
             if (IsPetBored())
@@ -489,7 +487,7 @@ namespace VirtualPet
 
         public override string CheckPetLevels()
         {
-            string petBoredomeLevelMessage = CheckBoredomeLevel();
+            string petBoredomeLevelMessage = CheckBoredomLevel();
             string petHungerLevelMessage = CheckHungerLevel();
             string petIrritatedLevelMessage = CheckIrritationLevel();
             string petThirstLevelMessage = CheckThirstLevel();

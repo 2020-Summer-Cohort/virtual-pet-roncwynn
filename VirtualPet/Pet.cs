@@ -65,10 +65,7 @@ namespace VirtualPet
             return Boredom;
         }
 
-        public virtual void Play()
-        {
-            //Boredom = Boredom - 40;
-        }
+        public abstract void Play();
 
         public virtual void Sleep()
         {
@@ -111,13 +108,14 @@ namespace VirtualPet
 
         public virtual void ShowPetStatus()
         {
+            //TODO:  Figure a way to remove writelines in pet classes
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"\nHere is how {Name} is doing:");
             Console.ResetColor();
             Console.WriteLine($"BOREDOM factor is {Boredom}.");
         }
 
-        public abstract string CheckBoredomeLevel();
+        public abstract string CheckBoredomLevel();
 
         public abstract string CheckPetLevels();       
 

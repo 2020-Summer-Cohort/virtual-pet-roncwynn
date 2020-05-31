@@ -12,6 +12,7 @@ namespace VirtualPet
         private int totalShelterPetCount { get; set; }
 
         private List<Pet> pets = new List<Pet>();
+        
         private string shelterName { get; set; }
 
         public Shelter()
