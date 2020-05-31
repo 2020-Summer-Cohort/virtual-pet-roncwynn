@@ -23,81 +23,16 @@ namespace VirtualPet
             PlayGame(someShelter);
         }
 
-        private void AddInitalPetsToShelter(Shelter someShelter)
-        {
-            OrganicPet someOrganicPet = new OrganicPet("Ron", "Lion");
-            someShelter.AddPetToShelter(someOrganicPet);
-            RoboticPet someRoboticPet = new RoboticPet("Alex", "Dog");
-            someShelter.AddPetToShelter(someRoboticPet);
-            someOrganicPet = new OrganicPet("Rachel", "Cat");
-            someShelter.AddPetToShelter(someOrganicPet);
-        }
-
-        private void ShowShelterFullMessage()
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("\nSorry, the Shelter is currently at capacity.");
-            Console.WriteLine("\n\nPlease try again later.");
-        }
-
-        private void ShowShelterEmptyMessage()
-        {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("We are very sorry but at this time the shetler is empty.");
-            Console.WriteLine("\nIf you have pet that needs a new home, please feel free to donate them to the shelter.");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\n\nPlease press ENTER to return to the main menu.");
-            Console.ReadLine();
-            Console.Clear();
-        }
-        
-        private void ShowNoOrganicPetsInShelterMessage()
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("We are very sorry but at this time there are no Organic Pets in the shetler.");
-            Console.ResetColor();
-        }
-        
-        private void ShowNoRoboticPetsInShelterMessage()
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("We are very sorry but at this time there are no Robotic Pets in the shetler.");
-            Console.ResetColor();
-        }
-
-        private void CheckForAdoption(Shelter someShelter, Pet somePet)
-        {
-            Console.WriteLine($"Thanks for your interaction with {somePet.GetName()}.");
-            Console.WriteLine($"\nWould you like to Adopt {somePet.GetName()}?");
-            string playerChoice = GetYesNoResponse();
-            if (playerChoice == "y")
-            { AdoptPet(someShelter, somePet); }
-            else
-            { Console.Clear(); }
-        }
-
-        private void PetOneOnOne(Shelter someShelter)
-        {
-            Pet selectedPet = SelectPet(someShelter);
-            if (selectedPet != null)
-            {
-                Console.Clear();
-                InteractWithPet(selectedPet);
-                Console.Clear();
-                CheckForAdoption(someShelter, selectedPet);
-            }
-        }
-
         private void PlayGame(Shelter someShelter)
         {
+            Menu menu = new Menu();
             string playerFeedbackMessage = "";
-            string selectedMenuOption = "";
+            string selectedMenuOption;
             bool keepPlaying = true;
             while (keepPlaying)
             {
-                ShowGameMainMenu(someShelter);
-                selectedMenuOption = GetPlayerChoice();
+                menu.ShowGameMainMenu(someShelter);
+                selectedMenuOption = menu.GetPlayerChoice();
                 switch (selectedMenuOption)
                 {
                     case "1":
@@ -160,33 +95,71 @@ namespace VirtualPet
             }
         }
 
-        private void ShowGameMainMenu(Shelter someShelter)
+        private void AddInitalPetsToShelter(Shelter someShelter)
         {
-            Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine($"{someShelter.GetShelterName()} Wildly Popular Pet Shelter");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("\n            MAIN MENU");
-            Console.WriteLine();
-            Console.ResetColor();
-            Console.WriteLine("1. Show all Pets in the Shelter");
-            Console.WriteLine("2. Feed the Organic Pets");
-            Console.WriteLine("3. Water the Organic Pets");
-            Console.WriteLine("4. Oil the Robotic Pets");
-            Console.WriteLine("5. Play with the Pets");
-            Console.WriteLine("6. Pick a Pet for One on One");
-            Console.WriteLine("7. Admit a new Pet to the Shelter");
-            Console.WriteLine("8. Adopt a Pet");
-            Console.WriteLine("9. Leave the Shelter");
+            OrganicPet someOrganicPet = new OrganicPet("Ron", "Lion");
+            someShelter.AddPetToShelter(someOrganicPet);
+            RoboticPet someRoboticPet = new RoboticPet("Alex", "Dog");
+            someShelter.AddPetToShelter(someRoboticPet);
+            someOrganicPet = new OrganicPet("Rachel", "Cat");
+            someShelter.AddPetToShelter(someOrganicPet);
         }
 
-        private string GetPlayerChoice()
+        private void ShowShelterFullMessage()
         {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\nSorry, the Shelter is currently at capacity.");
+            Console.WriteLine("\n\nPlease try again later.");
+        }
+
+        private void ShowShelterEmptyMessage()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("We are very sorry but at this time the shetler is empty.");
+            Console.WriteLine("\nIf you have pet that needs a new home, please feel free to donate them to the shelter.");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\nPlease enter your selection");
-            string playerGameResponse = Console.ReadKey().KeyChar.ToString().ToLower();
+            Console.WriteLine("\n\nPlease press ENTER to return to the main menu.");
+            Console.ReadLine();
+            Console.Clear();
+        }
+        
+        private void ShowNoOrganicPetsInShelterMessage()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("We are very sorry but at this time there are no Organic Pets in the shetler.");
             Console.ResetColor();
-            return playerGameResponse;
+        }
+        
+        private void ShowNoRoboticPetsInShelterMessage()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("We are very sorry but at this time there are no Robotic Pets in the shetler.");
+            Console.ResetColor();
+        }
+
+        private void CheckForAdoption(Shelter someShelter, Pet somePet)
+        {
+            Console.WriteLine($"Thanks for your interaction with {somePet.GetName()}.");
+            Console.WriteLine($"\nWould you like to Adopt {somePet.GetName()}?");
+            Menu menu = new Menu();
+            string playerChoice = menu.GetYesNoResponse();
+            if (playerChoice == "y")
+            { AdoptPet(someShelter, somePet); }
+            else
+            { Console.Clear(); }
+        }
+
+        private void PetOneOnOne(Shelter someShelter)
+        {
+            Pet selectedPet = SelectPet(someShelter);
+            if (selectedPet != null)
+            {
+                Console.Clear();
+                InteractWithPet(selectedPet);
+                Console.Clear();
+                CheckForAdoption(someShelter, selectedPet);
+            }
         }
 
         private void ShowAllPets(Shelter someShelter)
@@ -221,7 +194,7 @@ namespace VirtualPet
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("Pet Name   Type      Boredom | Energy | Health | Hunger |  Hydration | Irritable");
             Console.ResetColor();
-            Console.WriteLine();
+            //Console.WriteLine();
 
             if (organicPets.Count >= 1)
             {
@@ -278,6 +251,7 @@ namespace VirtualPet
 
         private string FeedOrganicPets(Shelter someShelter)
         {
+            //TODO:  Move to OrgPet Class
             Console.Clear();
             foreach (Pet somePet in someShelter.GetListOfPets())
             {
@@ -295,6 +269,7 @@ namespace VirtualPet
 
         private string WaterOrganicPets(Shelter someShelter)
         {
+            //TODO:  Move to OrgPet Class
             Console.Clear();
             foreach (Pet somePet in someShelter.GetListOfPets())
             {
@@ -312,6 +287,7 @@ namespace VirtualPet
 
         private string OilRoboticPets(Shelter someShelter)
         {
+            //TODO:  Move to RobPet Class
             Console.Clear();
             foreach (Pet somePet in someShelter.GetListOfPets())
             {
@@ -369,7 +345,8 @@ namespace VirtualPet
             int petIndex = -1;
             while (selectedPet == null)
             {
-                string selectedMenuOption = GetPlayerChoice();
+                Menu menu = new Menu();
+                string selectedMenuOption = menu.GetPlayerChoice();
                 try
                 {
                     petIndex = Convert.ToInt32(selectedMenuOption) - 1;
@@ -431,6 +408,7 @@ namespace VirtualPet
 
         private void AddOrganicPetToShelter(Shelter someShelter)
         {
+            //TODO:  combine with with the robotic version
             string playerPetSpeciesEntry = AskPlayerForPetSpecies();
             string playerPetNameEntry = AskPlayerForPetName();
 
@@ -455,25 +433,6 @@ namespace VirtualPet
             Console.WriteLine();
         }
 
-        private string GetYesNoResponse()
-        {
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Please enter (Y)es or (N)o.");
-            Console.ResetColor();
-            string playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
-            Console.WriteLine();
-            while (playerChoice != "y" && playerChoice != "n")
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\nThat input was not a 'Y' or 'N'.  Please try again.");
-                Console.ResetColor();
-                playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
-            }
-            Console.ResetColor();
-            Console.WriteLine();
-            return playerChoice;
-        }
-
         private void AdmitPet(Shelter someShelter)
         {
             //TODO:  Possibly break it up more methods
@@ -484,12 +443,12 @@ namespace VirtualPet
             else
             {
                 string playerPetTypeEntry;
+                Menu menu = new Menu();
                 do
                 {
                     Console.Clear();
-                    Console.WriteLine("\nEnter 1 for Organic Pet");
-                    Console.WriteLine("Enter 2 for Robotic Pet");
-                    playerPetTypeEntry = GetPlayerChoice();
+                    menu.ShowPetTypeMenu();
+                    playerPetTypeEntry = menu.GetPlayerChoice();
                     Console.WriteLine();
                     switch (playerPetTypeEntry)
                     {
@@ -502,7 +461,7 @@ namespace VirtualPet
                             {
                                 AddRoboticPetToShelter(someShelter);
                                 Console.WriteLine("\nWould you like to add another Robotic Pet?");
-                                string playerChoice = GetYesNoResponse();
+                                string playerChoice = menu.GetYesNoResponse();
                                 //TODO:  Rewrite this for better clarity
                                 if (playerChoice == "n")
                                 { keepAdding = false; }
@@ -532,16 +491,17 @@ namespace VirtualPet
                 somePet.ShowPetStatus();
                 string gameFeedbackToPlayer="";
                 string playerChoice;
+                Menu menu = new Menu();
                 if (somePet is OrganicPet)
                 {
-                    ShowOrganicPetMenu(somePet.GetName());
-                    playerChoice = GetPlayerChoice();
+                    menu.ShowOrganicPetMenu(somePet.GetName());
+                    playerChoice = menu.GetPlayerChoice();
                     gameFeedbackToPlayer = ProcessPlayerChoiceOrganic(playerChoice, (OrganicPet)somePet);
                 }
                 else if (somePet is RoboticPet)
                 {
-                    ShowRoboticPetMenu(somePet.GetName());
-                    playerChoice = GetPlayerChoice();
+                    menu.ShowRoboticPetMenu(somePet.GetName());
+                    playerChoice = menu.GetPlayerChoice();
                     gameFeedbackToPlayer = ProcessPlayerChoiceRobotic(playerChoice, (RoboticPet)somePet);
                 }
 
@@ -559,42 +519,10 @@ namespace VirtualPet
                 }
             }
         }
-        
-        private void ShowOrganicPetMenu(string petName)
-        {
-            //TODO:  See if this and the Robotic version can be done with OVERRIDE
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine($"\nWhat would you like to do with {petName}?");
-            Console.WriteLine();
-            Console.ResetColor();
-            Console.WriteLine($"1. Play with {petName}.");
-            Console.WriteLine($"2. Feed { petName}.");
-            Console.WriteLine($"3. Give {petName} some water.");
-            Console.WriteLine($"4. Take { petName} to the Vet.");
-            Console.WriteLine($"5. Let {petName} outside.");
-            Console.WriteLine($"6. Put {petName} to bed.");
-            Console.WriteLine($"7. Do nothing with {petName}.");
-            Console.WriteLine($"\n9. Stop Interacting with {petName}");
-        }
-
-        private void ShowRoboticPetMenu(string petName)
-        {
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine($"\nWhat would you like to do with {petName}?");
-            Console.WriteLine();
-            Console.ResetColor();
-            Console.WriteLine($"1. Play with {petName}.");
-            Console.WriteLine($"2. Give {petName} some oil.");
-            Console.WriteLine($"3. Take { petName} to the Mechanic.");
-            Console.WriteLine($"4. Do nothing with {petName}.");
-            Console.WriteLine($"\n9. Stop Interacting with {petName}");
-        }
 
         private string ProcessPlayerChoiceOrganic(string playerChoice, OrganicPet somePet)
         {
-            //TODO:  See if this and the Robotic version can be done with OVERRIDE
-
-            string message = "";
+            string message;
             switch (playerChoice)
             {
                 case "1": 
@@ -630,9 +558,7 @@ namespace VirtualPet
 
         private string ProcessPlayerChoiceRobotic(string playerChoice, RoboticPet somePet)
         {
-            //TODO:  See if this and the Robotic version can be done with OVERRIDE
-
-            string message = "";
+            string message;
             switch (playerChoice)
             {
                 case "1": //Play
@@ -645,6 +571,8 @@ namespace VirtualPet
                     message = somePet.TakePetToMechanic();
                     return message;
                 case "4"://Do nothing
+                    message = LeavePetAlone(somePet);
+                    message = "You left pet alone message";
                     return message;
                 case "9":
                     message = "stop";
