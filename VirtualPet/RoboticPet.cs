@@ -78,6 +78,35 @@ namespace VirtualPet
             Console.WriteLine($"Performance level is {Performance}.");
         }
 
+        public override void Ignore()
+        {
+            //base.Ignore();
+            Boredom = Boredom + 5;
+            Oil = Oil - 10;
+            Performance = Performance - 10;
+        }
+
+        public override string CheckBoredomeLevel()
+        {
+            string message;
+            if (IsPetBored())
+            {
+                MaximizeBoredom();
+                message = $"Robotic pet {Name} is bored,  best to interact with {Name} before they go into SHUTDOWN mode!!!";
+            }
+            else if (IsPetHappy())
+            {
+                MinimizeBoredom();
+                message = Name + " is operating efficiently.";
+            }
+            else
+            {
+                message = null;
+            }
+            return message;
+        }
+
+
 
 
     }

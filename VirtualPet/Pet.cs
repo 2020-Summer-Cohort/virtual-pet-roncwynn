@@ -4,7 +4,7 @@ using System.Text;
 
 namespace VirtualPet
 {
-    public class Pet
+    public abstract class Pet
     {
         const int InitialBoredomValue = 60;
 
@@ -64,7 +64,7 @@ namespace VirtualPet
         {
             return Boredom;
         }
-        
+
         public virtual void Play()
         {
             //Boredom = Boredom - 40;
@@ -74,12 +74,12 @@ namespace VirtualPet
         {
             Boredom = Boredom + 10;
         }
-         
+
         public virtual void Ignore()
         {
             Boredom = Boredom + 20;
         }
-        
+
         public void MinimizeBoredom()
         {
             Boredom = boredomThresholdMIN;
@@ -93,8 +93,8 @@ namespace VirtualPet
         public bool IsPetBored()
         {
             if (GetBoredom() >= boredomThresholdMAX)
-                return true; 
-            else return false; 
+                return true;
+            else return false;
         }
 
         public bool IsPetHappy()
@@ -117,25 +117,11 @@ namespace VirtualPet
             Console.WriteLine($"BOREDOM factor is {Boredom}.");
         }
 
-        public string CheckBoredomeLevel()
-        {
-            string message;
-            if (IsPetBored())
-            {
-                MaximizeBoredom();
-                message = Name + " is EXTREMELY bored.  Best to play with " + Name + " before they start chewing on your furniture.";
-            }
-            else if (IsPetHappy())
-            {
-                MinimizeBoredom();
-                message = Name + " feels very loved and appreciated.  Great Job!";
-            }
-            else
-            {
-                message = null;
-            }
-            return message;
-        }
+        public abstract string CheckBoredomeLevel();
+        //{
+        //    return "";
+        //}
+       
 
     }
 }

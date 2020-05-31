@@ -252,7 +252,8 @@ namespace VirtualPet
 
         public override void Ignore()
         {
-            base.Ignore();
+            //base.Ignore();
+            Boredom = Boredom + 20;
             Irritated = Irritated + 10;
             Energy = Energy - 10;
         }
@@ -267,7 +268,7 @@ namespace VirtualPet
             Energy = Energy - 5;
         }
 
-        private  void Feed()
+        public  void Feed()
         {
             Hunger = Hunger - 40;
         }
@@ -277,7 +278,6 @@ namespace VirtualPet
             string message = "";
             if (Hunger > hungerThresholdMIN)
             {
-                //somePet.Feed();
                 Feed();
                 message = $"You fed {Name}.";
             }
@@ -349,6 +349,38 @@ namespace VirtualPet
             {
                 message = $"{Name} is sleeping.";
                 Sleep();
+            }
+            return message;
+        }
+
+        public void LivingPetProcess()
+        {
+            if (IsPetHungry())
+            { Feed(); }
+
+            if (IsPetThirsty())
+            { Drink(); }
+
+            if (IsPetTired())
+            { Sleep(); }
+        }
+
+        public override string CheckBoredomeLevel()
+        {
+            string message;
+            if (IsPetBored())
+            {
+                MaximizeBoredom();
+                message = Name + " is EXTREMELY bored.  Best to play with " + Name + " before they start chewing on your furniture.";
+            }
+            else if (IsPetHappy())
+            {
+                MinimizeBoredom();
+                message = Name + " feels very loved and appreciated.  Great Job!";
+            }
+            else
+            {
+                message = null;
             }
             return message;
         }

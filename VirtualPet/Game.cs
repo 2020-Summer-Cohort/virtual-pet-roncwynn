@@ -156,7 +156,7 @@ namespace VirtualPet
             if (selectedPet != null)
             {
                 Console.Clear();
-                InteractWithPet(selectedPet);
+                InteractWithSelectedPet(selectedPet);
                 Console.Clear();
                 CheckForAdoption(someShelter, selectedPet);
             }
@@ -494,9 +494,8 @@ namespace VirtualPet
             }
         }
 
-        private void InteractWithPet(Pet somePet)
+        private void InteractWithSelectedPet(Pet somePet)
         {
-            //TODO:  break this up
             bool keepPlaying = true;
             while (keepPlaying)
             {
@@ -615,43 +614,34 @@ namespace VirtualPet
 
         private string LeavePetAlone(Pet somePet)
         {
-            //TODO:  Figure out what to do with this method Org vs Rob
-            string message = "";
+            string message;
             somePet.Ignore();
             message = $"{somePet.GetName()} is doing their own thing.";
 
-            Random rand = new Random();
-            int petFreedomFactor = rand.Next(1, 4);
-
-            switch (petFreedomFactor)
+            if (somePet is OrganicPet)
             {
-                case 1:
-                    somePet.Sleep();
-                    break;
-                case 2:
-                    //somePet.Feed();
-                    break;
-                case 3:
-                    //somePet.Drink();
-                    break;
+                OrganicPet pet = (OrganicPet)somePet;
+                Random rand = new Random();
+                int petFreedomFactor = rand.Next(1, 4);
+
+                switch (petFreedomFactor)
+                {
+                    case 1:
+                        pet.Sleep();
+                        break;
+                    case 2:
+                        pet.Feed();
+                        break;
+                    case 3:
+                        pet.Drink();
+                        break;
+                }
+                pet.LivingPetProcess();
             }
-            //LivingPetProcess(somePet);
             return message;
         }
 
         //TODO:  Create a new version of this method for rob pets
-        //private void LivingPetProcess(Pet somePet)
-        //{
-        //    if (somePet.IsPetHungry())
-        //    { somePet.Feed(); }
-
-        //    if (somePet.IsPetThirsty())
-        //    { somePet.Drink(); }
-
-        //    if (somePet.IsPetTired())
-        //    { somePet.Sleep(); }
-        //}
-
         //private string CheckBoredomeLevel(Pet somePet)
         //{
         //    string message;
