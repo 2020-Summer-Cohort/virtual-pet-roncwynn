@@ -385,5 +385,107 @@ namespace VirtualPet
             return message;
         }
 
+        public string CheckHungerLevel()
+        {
+            string message;
+            if (IsPetHungry())
+            {
+                message = $"{Name}  is HUNGRY.  You might want to feed {Name}.";
+                if (GetHunger() >= hungerThresholdMAX)
+                { MaximizeHunger(); }
+            }
+            else if (IsPetFullOfFood())
+            {
+                MinimzeHunger();
+                message = null;
+            }
+            else
+            {
+                message = null;
+            }
+            return message;
+        }
+
+        public string CheckThirstLevel()
+        {
+            string message;
+            if (IsPetThirsty())
+            {
+                message = $"{Name} is THIRSTY.  You might want to give {Name} some water.";
+                if (GetHyrdation() <= hydrationThresholdMIN)
+                { MinimizeHydration(); }
+            }
+            else if (IsPetFullOfWater())
+            {
+                MaximizeHydration();
+                message = null;
+            }
+            else
+            {
+                message = null;
+            }
+            return message;
+        }
+
+        public string CheckEnergyLevel()
+        {
+            string message;
+            if (IsPetTired())
+            {
+                MinimizeEnergy();
+                message = $"{Name} is low on ENERGY.  You might want to let them rest.";
+            }
+            else if (IsPetEnergized())
+            {
+                MaximizeEnergy();
+                message = $"{Name} is full of ENERGY.  You might want to player with them.";
+            }
+            else
+            {
+                message = null;
+            }
+            return message;
+        }
+
+        public string CheckHealthLevel()
+        {
+            string message;
+            if (IsPetSick())
+            {
+                MinimizeHealth();
+                message = $"{Name} is not feeling well.  You might want to take them to the vet.";
+            }
+            else if (IsPetHealthy())
+            {
+                MaximizeHealth();
+                message = $"{Name} is completly healthy.";
+            }
+            else
+            {
+                message = null;
+            }
+            return message;
+        }
+
+        public string CheckIrritationLevel()
+        {
+            string message;
+            if (IsPetIrritated())
+            {
+                MaximizeIrritation();
+                message = $"{Name} is IRRITATED.  You might want to take {Name} outside before they have an accident.";
+                return message;
+            }
+            else if (IsPetContent())
+            {
+                MinimizeIrritation();
+                message = null;
+            }
+            {
+                message = null;
+                return message;
+            }
+        }
+
     }
 }
