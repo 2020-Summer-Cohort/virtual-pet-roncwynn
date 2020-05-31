@@ -11,8 +11,6 @@ namespace VirtualPet.Tests
             testGame = new Game();
         }
 
-        Pet testPet = new Pet();
-
         [Fact]
         public void Game_Constructor_Should_Instantiate_Game_Object()
         {

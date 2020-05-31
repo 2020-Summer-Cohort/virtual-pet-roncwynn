@@ -102,11 +102,14 @@ namespace VirtualPet
             return $"Your took {Name} to the Mechanic.";
         }
 
-        public override void ShowPetStatus()
+        public override List<string> ShowPetStatus()
         {
             base.ShowPetStatus();
             Console.WriteLine($"Oil level is {Oil}.");
             Console.WriteLine($"Performance level is {Performance}.");
+            List<string> messages = new List<string>();
+            return messages;
+
         }
 
         public override void Ignore()

@@ -106,13 +106,18 @@ namespace VirtualPet
             Boredom = Boredom + 5;
         }
 
-        public virtual void ShowPetStatus()
+        public virtual List<string> ShowPetStatus()
         {
             //TODO:  Figure a way to remove writelines in pet classes
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"\nHere is how {Name} is doing:");
-            Console.ResetColor();
-            Console.WriteLine($"BOREDOM factor is {Boredom}.");
+            List<string> messages = new List<string>();
+            //Console.ForegroundColor = ConsoleColor.Yellow;
+            messages.Add($"Y-Here is how {Name} is doing:");
+            //Console.WriteLine($"\nHere is how {Name} is doing:");
+            //Console.ResetColor();
+            //Console.WriteLine($"BOREDOM factor is {Boredom}.");
+            messages.Add($"0-BOREDOM factor is {Boredom}");
+
+            return messages;
         }
 
         public abstract string CheckBoredomLevel();

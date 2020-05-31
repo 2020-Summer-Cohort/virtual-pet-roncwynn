@@ -7,7 +7,8 @@ namespace VirtualPet.Tests
     {
         private Shelter testShelter;
 
-        Pet testPet = new Pet();
+        Pet testOrganicPet = new OrganicPet();
+        Pet testRoboticPet = new RoboticPet();
 
         public ShelterTests()
         {
@@ -23,9 +24,9 @@ namespace VirtualPet.Tests
         [Fact]
         public void RemovePetFromShelter_Should_Decrease_Total_Pets_By_1()
         {
-            testShelter.AddPetToShelter(testPet);
+            testShelter.AddPetToShelter(testOrganicPet);
             int currentShelterPetCount = testShelter.GetShelterPetCount();
-            bool petAdded = testShelter.RemovePetFromShelter(testPet);
+            bool petAdded = testShelter.RemovePetFromShelter(testOrganicPet);
             Assert.Equal(currentShelterPetCount - 1, testShelter.GetShelterPetCount());
         }
         
@@ -33,7 +34,7 @@ namespace VirtualPet.Tests
         public void AddPetToShelter_Should_Increase_Total_Pets_By_1()
         {
             int currentShelterPetCount = testShelter.GetShelterPetCount();
-            bool petAdded = testShelter.AddPetToShelter(testPet);
+            bool petAdded = testShelter.AddPetToShelter(testOrganicPet);
             Assert.Equal(currentShelterPetCount + 1, testShelter.GetShelterPetCount());
 
         }
@@ -50,7 +51,7 @@ namespace VirtualPet.Tests
             int shelterMAX = testShelter.GetShelterCapacity();
             for (int i = 1;i <= shelterMAX;i++)
             {
-                testShelter.AddPetToShelter(testPet);
+                testShelter.AddPetToShelter(testOrganicPet);
             }
             Assert.True(testShelter.IsShelterFull());
         }
@@ -61,7 +62,7 @@ namespace VirtualPet.Tests
             int shelterPetCount = testShelter.GetShelterPetCount();
             for (int i=shelterPetCount; i >0;i--)
             {
-                testShelter.RemovePetFromShelter(testPet);
+                testShelter.RemovePetFromShelter(testOrganicPet);
             }
             Assert.True(testShelter.IsShelterEmpty());
         }
@@ -76,7 +77,7 @@ namespace VirtualPet.Tests
         [Fact]
         public void GetShelterPetCount_Should_Return_1()
         {
-            testShelter.AddPetToShelter(testPet);
+            testShelter.AddPetToShelter(testOrganicPet);
             Assert.Equal(1, testShelter.GetShelterPetCount());
         }
 
