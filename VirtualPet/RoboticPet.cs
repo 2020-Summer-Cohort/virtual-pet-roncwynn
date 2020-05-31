@@ -71,6 +71,13 @@ namespace VirtualPet
             return $"Your took {Name} to the Mechanic.";
         }
 
+        public override void ShowPetStatus()
+        {
+            base.ShowPetStatus();
+            Console.WriteLine($"Oil level is {Oil}.");
+            Console.WriteLine($"Performance level is {Performance}.");
+        }
+
 
 
     }

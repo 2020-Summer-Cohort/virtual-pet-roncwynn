@@ -12,6 +12,17 @@ namespace VirtualPet
         const int InitialIritableValue = 25;
         const int InitialEnergyValue = 90;
 
+        public int hungerThresholdMIN = 10;
+        public int hungerThresholdMAX = 90;
+        public int healthThresholdMIN = 10;
+        public int healthThresholdMAX = 90;
+        public int irritabaleThresholdMIN = 10;
+        public int irritabaleThresholdMAX = 90;
+        public int hydrationThresholdMIN = 10;
+        public int hydrationThresholdMAX = 90;
+        public int energyThresholdMIN = 10;
+        public int energyThresholdMAX = 90;
+
         public int Hunger { get; set; }
         public int Health { get; set; }
         public int Hydration { get; set; }
@@ -211,7 +222,7 @@ namespace VirtualPet
         public override void ShowPetStatus()
         {
             base.ShowPetStatus();
-            Console.WriteLine($"\nHEALTH factor is {Health}.");
+            Console.WriteLine($"HEALTH factor is {Health}.");
             Console.WriteLine($"HUNGER factor is {Hunger}.");
             Console.WriteLine($"THIRST factor is {Hydration}.");
             Console.WriteLine($"ENERGY factor is {Energy}");

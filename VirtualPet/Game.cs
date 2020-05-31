@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Net.Http;
 using System.Reflection.PortableExecutable;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace VirtualPet
@@ -71,20 +72,7 @@ namespace VirtualPet
         {
             Console.WriteLine($"Thanks for your interaction with {somePet.GetName()}.");
             Console.WriteLine($"\nWould you like to Adopt {somePet.GetName()}?");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Please enter (Y)es or (N)o.");
-            string playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
-
-            while (playerChoice != "y" && playerChoice != "n")
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\nThat input was not a 'Y' or 'N'.  Please try again.");
-                Console.ResetColor();
-                playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
-            }
-
-            Console.ResetColor();
-            Console.WriteLine();
+            string playerChoice = GetYesNoResponse();
             if (playerChoice == "y")
             { AdoptPet(someShelter, somePet); }
             else
@@ -185,7 +173,6 @@ namespace VirtualPet
 
         private void ShowGameMainMenu(Shelter someShelter)
         {
-            //TODO:  add color???
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine($"{someShelter.GetShelterName()} Wildly Popular Pet Shelter");
@@ -253,7 +240,6 @@ namespace VirtualPet
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write($"{someOrganicPet.GetName().PadRight(11, ' ')}");
-                    //Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write($"{someOrganicPet.GetSpecies().PadRight(12, ' ')}");
                     Console.ResetColor();
                     Console.Write($"{someOrganicPet.GetBoredom().ToString().PadRight(10, ' ')} ");
@@ -283,7 +269,6 @@ namespace VirtualPet
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write($"{someRoboticPet.GetName().PadRight(11, ' ')}");
-                    //Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write($"{someRoboticPet.GetSpecies().PadRight(12, ' ')}");
                     Console.ResetColor();
                     Console.Write($"{someRoboticPet.GetBoredom().ToString().PadRight(10, ' ')} ");
@@ -481,6 +466,25 @@ namespace VirtualPet
             Console.WriteLine();
         }
 
+        private string GetYesNoResponse()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Please enter (Y)es or (N)o.");
+            Console.ResetColor();
+            string playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
+            Console.WriteLine();
+            while (playerChoice != "y" && playerChoice != "n")
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\nThat input was not a 'Y' or 'N'.  Please try again.");
+                Console.ResetColor();
+                playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
+            }
+            Console.ResetColor();
+            Console.WriteLine();
+            return playerChoice;
+        }
+
         private void AdmitPet(Shelter someShelter)
         {
             //TODO:  Possibly break it up more methods
@@ -490,10 +494,8 @@ namespace VirtualPet
             }
             else
             {
-                //TODO:  Change this to a Do-while loop
-                //TODO:  Also change the rest that I did like this
-                string playerPetTypeEntry = "";
-                while (playerPetTypeEntry == "")
+                string playerPetTypeEntry;
+                do
                 {
                     Console.Clear();
                     Console.WriteLine("\nEnter 1 for Organic Pet");
@@ -510,22 +512,10 @@ namespace VirtualPet
                             do
                             {
                                 AddRoboticPetToShelter(someShelter);
-                                //TODO:  Write method to process Y N response
                                 Console.WriteLine("\nWould you like to add another Robotic Pet?");
-                                Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.WriteLine("Please enter (Y)es or (N)o.");
-                                Console.ResetColor();
-                                string playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
-                                Console.WriteLine();
-                                while (playerChoice != "y" && playerChoice != "n")
-                                {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine($"\nThat input was not a 'Y' or 'N'.  Please try again.");
-                                    Console.ResetColor();
-                                    playerChoice = Console.ReadKey().KeyChar.ToString().ToLower();
-                                }
-                                
-                                if (playerChoice == "n") 
+                                string playerChoice = GetYesNoResponse();
+                                //TODO:  Rewrite this for better clarity
+                                if (playerChoice == "n")
                                 { keepAdding = false; }
                                 else if (someShelter.IsShelterFull())
                                 {
@@ -539,7 +529,8 @@ namespace VirtualPet
                         default:
                             break;
                     }
-                }                    
+                }
+                while (playerPetTypeEntry == "");
             }
         }
 
@@ -548,8 +539,7 @@ namespace VirtualPet
             bool keepPlaying = true;
             while (keepPlaying)
             {
-                //TODO:  Will need to call Orgainic Pet Show Status and Robotic Pet Show Status???
-                ShowOrganicPetStatus(somePet);
+                somePet.ShowPetStatus();
                 ShowOrganicPetMenu(somePet.GetName());
                 string playerChoice = GetPlayerChoice();
                 string gameFeedbackToPlayer = ProcessPlayerChoiceOrganic(playerChoice, somePet);
@@ -569,6 +559,33 @@ namespace VirtualPet
             }
         }
 
+        private void InteractWithRoboticPet(RoboticPet somePet)
+        {
+            bool keepPlaying = true;
+            while (keepPlaying)
+            {
+                //TODO:  Will need to call Orgainic Pet Show Status and Robotic Pet Show Status???
+                //ShowRoboticPetStatus(somePet);
+                somePet.ShowPetStatus();
+                ShowRoboticPetMenu(somePet.GetName());
+                string playerChoice = GetPlayerChoice();
+                string gameFeedbackToPlayer = ProcessPlayerChoiceRobotic(playerChoice, somePet);
+
+                if (gameFeedbackToPlayer == "stop")
+                { keepPlaying = false; }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("\n");
+                    Console.WriteLine(gameFeedbackToPlayer);
+
+                    string petFeedbacktoPlayer = ProcessTime(somePet);
+                    //ProcessTime2(someShelter);
+                    Console.WriteLine(petFeedbacktoPlayer);
+                }
+            }
+        }
+        
         private void ShowOrganicPetMenu(string petName)
         {
             //TODO:  See if this and the Robotic version can be done with OVERRIDE
@@ -663,57 +680,6 @@ namespace VirtualPet
                     return message;
             }
 
-        }
-
-        private void ShowOrganicPetStatus(OrganicPet somePet)
-        {
-            //TODO:  See if this and the Robotic version can be done with OVERRIDE
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"\nHere is how {somePet.GetName()} is doing:");
-            Console.ResetColor();
-            Console.WriteLine($"\nHEALTH factor is {somePet.GetHealth()}.");
-            Console.WriteLine($"HUNGER factor is {somePet.GetHunger()}.");
-            Console.WriteLine($"THIRST factor is {somePet.GetHyrdation()}.");
-            Console.WriteLine($"ENERGY factor is {somePet.GetEnergy()}.");
-            Console.WriteLine($"BOREDOM factor is {somePet.GetBoredom()}.");
-            Console.WriteLine($"IRRITATED factor is {somePet.GetIrritable()}.");
-        }
-       
-        private void ShowRoboticPetStatus(RoboticPet somePet)
-        {
-            //TODO:  Will need a new version of this method for rob pets  Inherit
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"\nHere is how {somePet.GetName()} is doing:");
-            Console.ResetColor();
-            Console.WriteLine($"\nOIL factor is {somePet.GetOil()}.");
-            Console.WriteLine($"PERFORMANCE factor is {somePet.GetPerformance()}.");
-            Console.WriteLine($"BOREDOM factor is {somePet.GetBoredom()}.");
-        }
-
-        private void InteractWithRoboticPet(RoboticPet somePet)
-        {
-            bool keepPlaying = true;
-            while (keepPlaying)
-            {
-                //TODO:  Will need to call Orgainic Pet Show Status and Robotic Pet Show Status???
-                ShowRoboticPetStatus(somePet);
-                ShowRoboticPetMenu(somePet.GetName());
-                string playerChoice = GetPlayerChoice();
-                string gameFeedbackToPlayer = ProcessPlayerChoiceRobotic(playerChoice, somePet);
-
-                if (gameFeedbackToPlayer == "stop")
-                { keepPlaying = false; }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("\n");
-                    Console.WriteLine(gameFeedbackToPlayer);
-
-                    string petFeedbacktoPlayer = ProcessTime(somePet);
-                    //ProcessTime2(someShelter);
-                    Console.WriteLine(petFeedbacktoPlayer);
-                }
-            }
         }
 
         private string PlayWithPet(Pet somePet)
