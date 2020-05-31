@@ -45,7 +45,8 @@ namespace VirtualPet
 
         public override void Play()
         {
-            base.Play();
+            //base.Play();
+            Boredom = Boredom - 25;
             Oil = Oil - 20;
             Performance = Performance + 15;
         }

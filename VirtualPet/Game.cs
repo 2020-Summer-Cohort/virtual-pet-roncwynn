@@ -251,9 +251,9 @@ namespace VirtualPet
             {
                 foreach (OrganicPet someOrganicPet in organicPets)
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkCyan;
-                    Console.Write($"{someOrganicPet.GetName().PadRight(11, ' ')}");
                     Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"{someOrganicPet.GetName().PadRight(11, ' ')}");
+                    //Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write($"{someOrganicPet.GetSpecies().PadRight(12, ' ')}");
                     Console.ResetColor();
                     Console.Write($"{someOrganicPet.GetBoredom().ToString().PadRight(10, ' ')} ");
@@ -281,9 +281,9 @@ namespace VirtualPet
             {
                 foreach (RoboticPet someRoboticPet in roboticPets)
                 {
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write($"{someRoboticPet.GetName().PadRight(11, ' ')}");
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    //Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write($"{someRoboticPet.GetSpecies().PadRight(12, ' ')}");
                     Console.ResetColor();
                     Console.Write($"{someRoboticPet.GetBoredom().ToString().PadRight(10, ' ')} ");

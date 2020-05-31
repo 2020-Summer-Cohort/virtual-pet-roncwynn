@@ -220,7 +220,8 @@ namespace VirtualPet
 
         public override void Play()
         {
-            base.Play();
+            //base.Play();
+            Boredom = Boredom - 40;
             Hunger = Hunger + 10;
             Health = Health + 10;
             Hydration = Hydration - 20;

@@ -84,7 +84,7 @@ namespace VirtualPet
         
         public virtual void Play()
         {
-            Boredom = Boredom - 40;
+            //Boredom = Boredom - 40;
         }
 
         public virtual void Sleep()
