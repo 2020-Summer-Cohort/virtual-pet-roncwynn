@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace VirtualPet.Tests
@@ -81,5 +82,21 @@ namespace VirtualPet.Tests
             Assert.Equal(1, testShelter.GetShelterPetCount());
         }
 
+        [Fact]
+        public void GetPet_Should_Return_A_Pet()
+        {
+            OrganicPet newPet = new OrganicPet("Name");
+            testShelter.AddPetToShelter(newPet);
+            newPet = (OrganicPet)testShelter.GetPet(0);
+            Assert.NotNull(newPet);
+        }
+
+        [Fact]
+        public void GetListOfPets_Should_Return_A_List()
+        {
+            List<Pet> testPets;
+            testPets = testShelter.GetListOfPets();
+            Assert.NotNull(testPets);
+        }
     }
 }

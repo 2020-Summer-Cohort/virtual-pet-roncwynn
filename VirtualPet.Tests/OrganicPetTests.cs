@@ -18,7 +18,6 @@ namespace VirtualPet.Tests
             Assert.NotNull(testPet);
         }
 
-
         // INSTRUCTIONS:
         // Uncomment code in the test body one test at a time
         // Add source code to eliminate the build errors (red squiggle) and pass the test
@@ -225,11 +224,11 @@ namespace VirtualPet.Tests
         }
 
         [Fact]
-        public void Ignore_Should_Increase_Boredome()
+        public void Ignore_Should_Increase_Boredom()
         {
-            int currentBoresomeLevel = testPet.GetBoredom();
+            int currentBoredomLevel = testPet.GetBoredom();
             testPet.Ignore();
-            Assert.True(currentBoresomeLevel < testPet.GetBoredom());
+            Assert.True(currentBoredomLevel < testPet.GetBoredom());
         }
 
         [Fact]
@@ -305,7 +304,7 @@ namespace VirtualPet.Tests
         }
 
         [Fact]
-        public void MaximizeBoredome_Should_Set_Boredom_To_Maximum()
+        public void MaximizeBoredom_Should_Set_Boredom_To_Maximum()
         {
             int maximumLevel = testPet.boredomThresholdMAX;
             testPet.MaximizeBoredom();

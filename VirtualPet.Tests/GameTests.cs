@@ -16,8 +16,5 @@ namespace VirtualPet.Tests
         {
             Assert.NotNull(testGame);
         }
-
-
-
     }
 }

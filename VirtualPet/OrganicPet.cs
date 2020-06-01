@@ -219,7 +219,7 @@ namespace VirtualPet
             Health = Health + 30;
         }
 
-        public override List<string> ShowPetStatus()
+        public override void ShowPetStatus()
         {
             base.ShowPetStatus();
             Console.WriteLine($"HEALTH factor is {Health}.");
@@ -227,9 +227,6 @@ namespace VirtualPet
             Console.WriteLine($"THIRST factor is {Hydration}.");
             Console.WriteLine($"ENERGY factor is {Energy}");
             Console.WriteLine($"IRRITATED factor is {Irritated}.");
-
-            List<string> messages = new List<string>();
-            return messages;
         }
 
         public override void Play()
