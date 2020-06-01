@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -67,9 +68,13 @@ namespace VirtualPet
 
         public void ShowPetTypeMenu()
         {
-            //TODO:  See if there is a way to loop through pet types for this menu
-            Console.WriteLine("\nEnter 1 for Organic Pet");
-            Console.WriteLine("Enter 2 for Robotic Pet");
+            var petTypes = System.Reflection.Assembly.GetExecutingAssembly().GetTypes().Where(x => x.BaseType == typeof(Pet));
+            int index = 1;
+            foreach(var petType in petTypes)
+            {
+                Console.WriteLine($"Enter {index} for {petType.Name.Substring(0, petType.Name.Length-3)} Pet");
+                index++;
+            }
         }
 
         public string GetYesNoResponse()
@@ -90,7 +95,6 @@ namespace VirtualPet
             Console.WriteLine();
             return playerChoice;
         }
-
 
     }
 }

@@ -412,18 +412,17 @@ namespace VirtualPet
             return species;
         }
 
-        private void  AddPetToShelter(Shelter someShelter, int petType)
+        private void  AddPetToShelter(Shelter someShelter, Type petType)
         {
-            //TODO:  Figure out a way to pass in desired pet type
             string playerPetSpeciesEntry = AskPlayerForPetSpecies();
             string playerPetNameEntry = AskPlayerForPetName();
 
-            if (petType == 1)
+            if (petType == typeof(OrganicPet))
             { 
                 OrganicPet somePet = new OrganicPet(playerPetNameEntry, playerPetSpeciesEntry);
                 someShelter.AddPetToShelter(somePet);
             }
-            else if (petType == 2)
+            else if (petType == typeof(RoboticPet))
             {
                 RoboticPet somePet = new RoboticPet(playerPetNameEntry, playerPetSpeciesEntry);
                 someShelter.AddPetToShelter(somePet);
@@ -439,7 +438,7 @@ namespace VirtualPet
             bool keepAdding = true;
             do
             {
-                AddPetToShelter(someShelter, 2);
+                AddPetToShelter(someShelter, typeof(RoboticPet));
                 Console.WriteLine("\nWould you like to add another Robotic Pet?");
                 Menu menu = new Menu();
                 string playerChoice = menu.GetYesNoResponse();
@@ -472,7 +471,7 @@ namespace VirtualPet
                     switch (playerPetTypeEntry)
                     {
                         case "1":
-                            AddPetToShelter(someShelter, 1);
+                            AddPetToShelter(someShelter,typeof(OrganicPet));
                             break;
                         case "2":
                             RoboticPetsAddLoop(someShelter);
